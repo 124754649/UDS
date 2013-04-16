@@ -1,0 +1,2615 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E8BB8FB5-2575-4F29-8185-F35168DA25ED}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UDS</RootNamespace>
+    <AssemblyName>UDS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CRVsPackageLib, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Interop.jmail">
+      <HintPath>..\lib\Interop.jmail.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="microsoft.web.ui.webcontrols">
+      <HintPath>..\lib\microsoft.web.ui.webcontrols.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Css\BasicLayout.css" />
+    <Content Include="Css\Calendar.css" />
+    <Content Include="Css\calendar.js" />
+    <Content Include="Css\meizzDate.js" />
+    <Content Include="Css\mycss.css" />
+    <Content Include="Css\mycss1.css" />
+    <Content Include="Css\Search.css" />
+    <Content Include="Css\tr.js" />
+    <Content Include="Css\TreeView.Css" />
+    <Content Include="DataImages\ada.gif" />
+    <Content Include="DataImages\admin_ico1.gif" />
+    <Content Include="DataImages\admin_ico2.gif" />
+    <Content Include="DataImages\admin_ico3.gif" />
+    <Content Include="DataImages\admin_ico4.gif" />
+    <Content Include="DataImages\asc.gif" />
+    <Content Include="DataImages\attach.gif" />
+    <Content Include="DataImages\book.gif" />
+    <Content Include="DataImages\category.gif" />
+    <Content Include="DataImages\ClientManage.gif" />
+    <Content Include="DataImages\contact.gif" />
+    <Content Include="DataImages\delete_test1.gif" />
+    <Content Include="DataImages\delete_test2.gif" />
+    <Content Include="DataImages\desc.gif" />
+    <Content Include="DataImages\DocFlow.gif" />
+    <Content Include="DataImages\f.gif" />
+    <Content Include="DataImages\flag.gif" />
+    <Content Include="DataImages\fminus.gif" />
+    <Content Include="DataImages\Folder.gif" />
+    <Content Include="DataImages\folder_old.gif" />
+    <Content Include="DataImages\folder_small.gif" />
+    <Content Include="DataImages\fplus.gif" />
+    <Content Include="DataImages\help.gif" />
+    <Content Include="DataImages\help_book.gif" />
+    <Content Include="DataImages\help_obook.gif" />
+    <Content Include="DataImages\help_page.gif" />
+    <Content Include="DataImages\hr.gif" />
+    <Content Include="DataImages\hr_l.gif" />
+    <Content Include="DataImages\i.gif" />
+    <Content Include="DataImages\ico_note.gif" />
+    <Content Include="DataImages\ie.gif" />
+    <Content Include="DataImages\ie_link.gif" />
+    <Content Include="DataImages\ie_link_old.gif" />
+    <Content Include="DataImages\ie_small.gif" />
+    <Content Include="DataImages\kaoqin.gif" />
+    <Content Include="DataImages\kaoqin2.gif" />
+    <Content Include="DataImages\L.gif" />
+    <Content Include="DataImages\lens.gif" />
+    <Content Include="DataImages\Lminus.gif" />
+    <Content Include="DataImages\Lplus.gif" />
+    <Content Include="DataImages\mail.gif" />
+    <Content Include="DataImages\memobook.gif" />
+    <Content Include="DataImages\memobook_blue.gif" />
+    <Content Include="DataImages\message.gif" />
+    <Content Include="DataImages\message2.gif" />
+    <Content Include="DataImages\minus.gif" />
+    <Content Include="DataImages\minus_l.gif" />
+    <Content Include="DataImages\mydoc.gif" />
+    <Content Include="DataImages\mydoc2.gif" />
+    <Content Include="DataImages\myLinkman.gif" />
+    <Content Include="DataImages\MyTask.gif" />
+    <Content Include="DataImages\n.gif" />
+    <Content Include="DataImages\obout_treeview.css" />
+    <Content Include="DataImages\page.gif" />
+    <Content Include="DataImages\page2.gif" />
+    <Content Include="DataImages\person.gif" />
+    <Content Include="DataImages\plus.gif" />
+    <Content Include="DataImages\plusik.gif" />
+    <Content Include="DataImages\plusik_l.gif" />
+    <Content Include="DataImages\Position.gif" />
+    <Content Include="DataImages\Position2.gif" />
+    <Content Include="DataImages\print.gif" />
+    <Content Include="DataImages\prodgp.gif" />
+    <Content Include="DataImages\question.gif" />
+    <Content Include="DataImages\r.gif" />
+    <Content Include="DataImages\recycle.gif" />
+    <Content Include="DataImages\red_ball.gif" />
+    <Content Include="DataImages\Rminus.gif" />
+    <Content Include="DataImages\role.gif" />
+    <Content Include="DataImages\roleManage.gif" />
+    <Content Include="DataImages\roleManage2.gif" />
+    <Content Include="DataImages\Rplus.gif" />
+    <Content Include="DataImages\rtl\F.gif" />
+    <Content Include="DataImages\rtl\Fminus.gif" />
+    <Content Include="DataImages\rtl\Fplus.gif" />
+    <Content Include="DataImages\rtl\I.gif" />
+    <Content Include="DataImages\rtl\L.gif" />
+    <Content Include="DataImages\rtl\Lminus.gif" />
+    <Content Include="DataImages\rtl\Lplus.gif" />
+    <Content Include="DataImages\rtl\minus.gif" />
+    <Content Include="DataImages\rtl\plus.gif" />
+    <Content Include="DataImages\rtl\r.gif" />
+    <Content Include="DataImages\rtl\Rminus.gif" />
+    <Content Include="DataImages\rtl\Rplus.gif" />
+    <Content Include="DataImages\rtl\T.gif" />
+    <Content Include="DataImages\rtl\Tminus.gif" />
+    <Content Include="DataImages\rtl\Tplus.gif" />
+    <Content Include="DataImages\rtl\white.gif" />
+    <Content Include="DataImages\scales.gif" />
+    <Content Include="DataImages\search.gif" />
+    <Content Include="DataImages\search_globe.gif" />
+    <Content Include="DataImages\Segment.gif" />
+    <Content Include="DataImages\shoprite.gif" />
+    <Content Include="DataImages\staff.gif" />
+    <Content Include="DataImages\staff2.gif" />
+    <Content Include="DataImages\T.gif" />
+    <Content Include="DataImages\Tminus.gif" />
+    <Content Include="DataImages\Tplus.gif" />
+    <Content Include="DataImages\usbkey.gif" />
+    <Content Include="DataImages\usbkey2.gif" />
+    <Content Include="DataImages\usb_key.gif" />
+    <Content Include="DataImages\user_s.gif" />
+    <Content Include="DataImages\vertical.gif" />
+    <Content Include="DataImages\vertical___.gif" />
+    <Content Include="DataImages\white.gif" />
+    <Content Include="DataImages\workadmin.gif" />
+    <Content Include="DataImages\workadmin2.gif" />
+    <Content Include="DataImages\xpAdmin.gif" />
+    <Content Include="DataImages\xpCdRom.gif" />
+    <Content Include="DataImages\xpDesktop.gif" />
+    <Content Include="DataImages\xpDriveA.gif" />
+    <Content Include="DataImages\xpFolder.gif" />
+    <Content Include="DataImages\xpLens.gif" />
+    <Content Include="DataImages\xpMyComp.gif" />
+    <Content Include="DataImages\xpMyDoc.gif" />
+    <Content Include="DataImages\xpNetPlace.gif" />
+    <Content Include="DataImages\xpNetwork.gif" />
+    <Content Include="DataImages\xpPanel.gif" />
+    <Content Include="DataImages\xpPrinter.gif" />
+    <Content Include="DataImages\xpRecentDoc.gif" />
+    <Content Include="DataImages\xpRecycle.gif" />
+    <Content Include="DataImages\xpShared.gif" />
+    <Content Include="Global.asax" />
+    <Content Include="Help\About.aspx" />
+    <Content Include="Help\filelist.xml" />
+    <Content Include="Help\help.files\filelist.xml" />
+    <Content Include="Help\help.files\header.htm" />
+    <Content Include="Help\help.files\help.htm" />
+    <Content Include="Help\help.files\image001.png" />
+    <Content Include="Help\help.files\image002.gif" />
+    <Content Include="Help\help.files\image002.jpg" />
+    <Content Include="Help\help.files\image003.png" />
+    <Content Include="Help\help.files\image004.gif" />
+    <Content Include="Help\help.files\image004.jpg" />
+    <Content Include="Help\help.files\image005.png" />
+    <Content Include="Help\help.files\image006.jpg" />
+    <Content Include="Help\help.files\image007.png" />
+    <Content Include="Help\help.files\image008.jpg" />
+    <Content Include="Help\help.files\image009.png" />
+    <Content Include="Help\help.files\image010.jpg" />
+    <Content Include="Help\help.files\image011.png" />
+    <Content Include="Help\help.files\image012.jpg" />
+    <Content Include="Help\help.files\image013.png" />
+    <Content Include="Help\help.files\image014.jpg" />
+    <Content Include="Help\help.files\image015.png" />
+    <Content Include="Help\help.files\image016.jpg" />
+    <Content Include="Help\help.files\image017.png" />
+    <Content Include="Help\help.files\image018.jpg" />
+    <Content Include="Help\help.files\image019.png" />
+    <Content Include="Help\help.files\image020.jpg" />
+    <Content Include="Help\help.files\image021.png" />
+    <Content Include="Help\help.files\image022.jpg" />
+    <Content Include="Help\help.files\image023.png" />
+    <Content Include="Help\help.files\image024.jpg" />
+    <Content Include="Help\help.files\image025.png" />
+    <Content Include="Help\help.files\image026.jpg" />
+    <Content Include="Help\help.files\image027.png" />
+    <Content Include="Help\help.files\image028.jpg" />
+    <Content Include="Help\help.files\image029.png" />
+    <Content Include="Help\help.files\image030.jpg" />
+    <Content Include="Help\help.files\image031.png" />
+    <Content Include="Help\help.files\image032.jpg" />
+    <Content Include="Help\help.files\image033.png" />
+    <Content Include="Help\help.files\image034.jpg" />
+    <Content Include="Help\help.files\image035.png" />
+    <Content Include="Help\help.files\image036.jpg" />
+    <Content Include="Help\help.files\image037.png" />
+    <Content Include="Help\help.files\image038.jpg" />
+    <Content Include="Help\help.files\image039.png" />
+    <Content Include="Help\help.files\image040.jpg" />
+    <Content Include="Help\help.files\image041.png" />
+    <Content Include="Help\help.files\image042.jpg" />
+    <Content Include="Help\help.files\image043.png" />
+    <Content Include="Help\help.files\image044.jpg" />
+    <Content Include="Help\help.files\image045.png" />
+    <Content Include="Help\help.files\image046.jpg" />
+    <Content Include="Help\help.files\image047.png" />
+    <Content Include="Help\help.files\image048.jpg" />
+    <Content Include="Help\help.files\image049.png" />
+    <Content Include="Help\help.files\image050.jpg" />
+    <Content Include="Help\help.files\image051.png" />
+    <Content Include="Help\help.files\image052.jpg" />
+    <Content Include="Help\help.files\image053.jpg" />
+    <Content Include="Help\help.files\image053.png" />
+    <Content Include="Help\help.files\image054.jpg" />
+    <Content Include="Help\help.files\image055.png" />
+    <Content Include="Help\help.files\image056.jpg" />
+    <Content Include="Help\help.files\image057.png" />
+    <Content Include="Help\help.files\image058.jpg" />
+    <Content Include="Help\help.files\image059.png" />
+    <Content Include="Help\help.files\image060.jpg" />
+    <Content Include="Help\help.files\image061.png" />
+    <Content Include="Help\help.files\image062.jpg" />
+    <Content Include="Help\help.files\image063.png" />
+    <Content Include="Help\help.files\image064.jpg" />
+    <Content Include="Help\help.files\image065.png" />
+    <Content Include="Help\help.files\image066.jpg" />
+    <Content Include="Help\help.files\image067.png" />
+    <Content Include="Help\help.files\image068.jpg" />
+    <Content Include="Help\help.files\image069.png" />
+    <Content Include="Help\help.files\image070.jpg" />
+    <Content Include="Help\help.files\image071.png" />
+    <Content Include="Help\help.files\image072.jpg" />
+    <Content Include="Help\help.files\image073.png" />
+    <Content Include="Help\help.files\image074.jpg" />
+    <Content Include="Help\help.files\image075.png" />
+    <Content Include="Help\help.files\image076.jpg" />
+    <Content Include="Help\help.files\image077.png" />
+    <Content Include="Help\help.files\image078.jpg" />
+    <Content Include="Help\help.files\image079.png" />
+    <Content Include="Help\help.files\image080.jpg" />
+    <Content Include="Help\help.files\image081.png" />
+    <Content Include="Help\help.files\image082.jpg" />
+    <Content Include="Help\help.files\image083.png" />
+    <Content Include="Help\help.files\image084.jpg" />
+    <Content Include="Help\help.files\image085.png" />
+    <Content Include="Help\help.files\image086.jpg" />
+    <Content Include="Help\help.files\image087.png" />
+    <Content Include="Help\help.files\image088.jpg" />
+    <Content Include="Help\help.files\image089.png" />
+    <Content Include="Help\help.files\image090.jpg" />
+    <Content Include="Help\help.files\image091.png" />
+    <Content Include="Help\help.files\image092.jpg" />
+    <Content Include="Help\help.files\image093.png" />
+    <Content Include="Help\help.files\image094.jpg" />
+    <Content Include="Help\help.files\image095.png" />
+    <Content Include="Help\help.files\image096.jpg" />
+    <Content Include="Help\help.files\image097.png" />
+    <Content Include="Help\help.files\image098.jpg" />
+    <Content Include="Help\help.files\image099.gif" />
+    <Content Include="Help\help.files\image099.png" />
+    <Content Include="Help\help.files\image100.jpg" />
+    <Content Include="Help\help.files\image100.png" />
+    <Content Include="Help\help.files\image101.gif" />
+    <Content Include="Help\help.files\image101.jpg" />
+    <Content Include="Help\help.files\image102.jpg" />
+    <Content Include="Help\help.files\image102.png" />
+    <Content Include="Help\help.files\image103.jpg" />
+    <Content Include="Help\help.files\image103.png" />
+    <Content Include="Help\help.files\image104.jpg" />
+    <Content Include="Help\help.files\image104.png" />
+    <Content Include="Help\help.files\image105.jpg" />
+    <Content Include="Help\help.files\image105.png" />
+    <Content Include="Help\help.files\image106.jpg" />
+    <Content Include="Help\help.files\image106.png" />
+    <Content Include="Help\help.files\image107.jpg" />
+    <Content Include="Help\help.files\image107.png" />
+    <Content Include="Help\help.files\image108.jpg" />
+    <Content Include="Help\help.files\image108.png" />
+    <Content Include="Help\help.files\image109.jpg" />
+    <Content Include="Help\help.files\image109.png" />
+    <Content Include="Help\help.files\image110.jpg" />
+    <Content Include="Help\help.files\image110.png" />
+    <Content Include="Help\help.files\image111.gif" />
+    <Content Include="Help\help.files\image111.jpg" />
+    <Content Include="Help\help.files\image112.png" />
+    <Content Include="Help\help.files\image113.jpg" />
+    <Content Include="Help\help.files\image114.png" />
+    <Content Include="Help\help.files\image115.jpg" />
+    <Content Include="Help\help.files\image116.png" />
+    <Content Include="Help\help.files\image117.jpg" />
+    <Content Include="Help\help.files\image118.png" />
+    <Content Include="Help\help.files\image119.gif" />
+    <Content Include="Help\help.files\image119.jpg" />
+    <Content Include="Help\help.files\image120.png" />
+    <Content Include="Help\help.files\image121.jpg" />
+    <Content Include="Help\help.files\image122.png" />
+    <Content Include="Help\help.files\image123.jpg" />
+    <Content Include="Help\help.files\image124.png" />
+    <Content Include="Help\help.files\image125.jpg" />
+    <Content Include="Help\help.files\image126.png" />
+    <Content Include="Help\help.files\image127.jpg" />
+    <Content Include="Help\help.files\image128.jpg" />
+    <Content Include="Help\help.files\image128.png" />
+    <Content Include="Help\help.files\image129.jpg" />
+    <Content Include="Help\help.files\image129.png" />
+    <Content Include="Help\help.files\image130.jpg" />
+    <Content Include="Help\help.files\image130.png" />
+    <Content Include="Help\help.files\image131.jpg" />
+    <Content Include="Help\help.files\image131.png" />
+    <Content Include="Help\help.files\image132.jpg" />
+    <Content Include="Help\help.files\image132.png" />
+    <Content Include="Help\help.files\image133.jpg" />
+    <Content Include="Help\help.files\image133.png" />
+    <Content Include="Help\help.files\image134.gif" />
+    <Content Include="Help\help.files\image134.jpg" />
+    <Content Include="Help\help.files\image134.png" />
+    <Content Include="Help\help.files\image135.gif" />
+    <Content Include="Help\help.files\image135.jpg" />
+    <Content Include="Help\help.files\image135.png" />
+    <Content Include="Help\help.files\image136.gif" />
+    <Content Include="Help\help.files\image136.jpg" />
+    <Content Include="Help\help.files\image136.png" />
+    <Content Include="Help\help.files\image137.gif" />
+    <Content Include="Help\help.files\image137.jpg" />
+    <Content Include="Help\help.files\image137.png" />
+    <Content Include="Help\help.files\image138.jpg" />
+    <Content Include="Help\help.files\image138.png" />
+    <Content Include="Help\help.files\image139.jpg" />
+    <Content Include="Help\help.files\image139.png" />
+    <Content Include="Help\help.files\image140.gif" />
+    <Content Include="Help\help.files\image140.png" />
+    <Content Include="Help\help.files\image141.jpg" />
+    <Content Include="Help\help.files\image141.png" />
+    <Content Include="Help\help.files\image142.gif" />
+    <Content Include="Help\help.files\image142.jpg" />
+    <Content Include="Help\help.files\image143.png" />
+    <Content Include="Help\help.files\image144.jpg" />
+    <Content Include="Help\help.files\image145.png" />
+    <Content Include="Help\help.files\image146.jpg" />
+    <Content Include="Help\help.files\image147.png" />
+    <Content Include="Help\help.files\image148.jpg" />
+    <Content Include="Help\help.files\image149.png" />
+    <Content Include="Help\help.files\image150.jpg" />
+    <Content Include="Help\help.files\image151.png" />
+    <Content Include="Help\help.files\image152.jpg" />
+    <Content Include="Help\help.files\image153.png" />
+    <Content Include="Help\help.files\image154.jpg" />
+    <Content Include="Help\help.files\image155.png" />
+    <Content Include="Help\help.files\image156.jpg" />
+    <Content Include="Help\help.files\image157.png" />
+    <Content Include="Help\help.files\image158.jpg" />
+    <Content Include="Help\help.files\image159.png" />
+    <Content Include="Help\help.files\image160.jpg" />
+    <Content Include="Help\help.files\image161.png" />
+    <Content Include="Help\help.files\image162.jpg" />
+    <Content Include="Help\help.files\image163.png" />
+    <Content Include="Help\help.files\image164.jpg" />
+    <Content Include="Help\help.files\image165.jpg" />
+    <Content Include="Help\help.files\image165.png" />
+    <Content Include="Help\help.files\image166.jpg" />
+    <Content Include="Help\help.files\image166.png" />
+    <Content Include="Help\help.files\image167.jpg" />
+    <Content Include="Help\help.files\image167.png" />
+    <Content Include="Help\help.files\image168.jpg" />
+    <Content Include="Help\help.files\image168.png" />
+    <Content Include="Help\help.files\image169.jpg" />
+    <Content Include="Help\help.files\image169.png" />
+    <Content Include="Help\help.files\image170.jpg" />
+    <Content Include="Help\help.files\image170.png" />
+    <Content Include="Help\help.files\image171.jpg" />
+    <Content Include="Help\help.files\image171.png" />
+    <Content Include="Help\help.files\image172.jpg" />
+    <Content Include="Help\help.files\image172.png" />
+    <Content Include="Help\help.files\image173.jpg" />
+    <Content Include="Help\help.files\image173.png" />
+    <Content Include="Help\help.files\image174.jpg" />
+    <Content Include="Help\help.files\image174.png" />
+    <Content Include="Help\help.files\image175.jpg" />
+    <Content Include="Help\help.files\image175.png" />
+    <Content Include="Help\help.files\image176.jpg" />
+    <Content Include="Help\help.files\image176.png" />
+    <Content Include="Help\help.files\image177.jpg" />
+    <Content Include="Help\help.files\image177.png" />
+    <Content Include="Help\help.files\image178.jpg" />
+    <Content Include="Help\help.files\image178.png" />
+    <Content Include="Help\help.files\image179.jpg" />
+    <Content Include="Help\help.files\image179.png" />
+    <Content Include="Help\help.files\image180.jpg" />
+    <Content Include="Help\help.files\image180.png" />
+    <Content Include="Help\help.files\image181.jpg" />
+    <Content Include="Help\help.files\image181.png" />
+    <Content Include="Help\help.files\image182.jpg" />
+    <Content Include="Help\help.files\image182.png" />
+    <Content Include="Help\help.files\image183.jpg" />
+    <Content Include="Help\help.files\image183.png" />
+    <Content Include="Help\help.files\image184.jpg" />
+    <Content Include="Help\help.files\image184.png" />
+    <Content Include="Help\help.files\image185.jpg" />
+    <Content Include="Help\help.files\image185.png" />
+    <Content Include="Help\help.files\image186.jpg" />
+    <Content Include="Help\help.files\image186.png" />
+    <Content Include="Help\help.files\image187.jpg" />
+    <Content Include="Help\help.files\image187.png" />
+    <Content Include="Help\help.files\image188.jpg" />
+    <Content Include="Help\help.files\image188.png" />
+    <Content Include="Help\help.files\image189.jpg" />
+    <Content Include="Help\help.files\image189.png" />
+    <Content Include="Help\help.files\image190.jpg" />
+    <Content Include="Help\help.files\image190.png" />
+    <Content Include="Help\help.files\image191.jpg" />
+    <Content Include="Help\help.files\image191.png" />
+    <Content Include="Help\help.files\image192.jpg" />
+    <Content Include="Help\help.files\image192.png" />
+    <Content Include="Help\help.files\image193.jpg" />
+    <Content Include="Help\help.files\image193.png" />
+    <Content Include="Help\help.files\image194.jpg" />
+    <Content Include="Help\help.files\image194.png" />
+    <Content Include="Help\help.files\image195.jpg" />
+    <Content Include="Help\help.files\image195.png" />
+    <Content Include="Help\help.files\image196.jpg" />
+    <Content Include="Help\help.files\image196.png" />
+    <Content Include="Help\help.files\image197.jpg" />
+    <Content Include="Help\help.files\image197.png" />
+    <Content Include="Help\help.files\image198.jpg" />
+    <Content Include="Help\help.files\image198.png" />
+    <Content Include="Help\help.files\image199.jpg" />
+    <Content Include="Help\help.files\image199.png" />
+    <Content Include="Help\help.files\image200.jpg" />
+    <Content Include="Help\help.files\image200.png" />
+    <Content Include="Help\help.files\image201.jpg" />
+    <Content Include="Help\help.files\image201.png" />
+    <Content Include="Help\help.files\image202.jpg" />
+    <Content Include="Help\help.files\image202.png" />
+    <Content Include="Help\help.files\image203.jpg" />
+    <Content Include="Help\help.files\image203.png" />
+    <Content Include="Help\help.files\image204.jpg" />
+    <Content Include="Help\help.files\image204.png" />
+    <Content Include="Help\help.files\image205.jpg" />
+    <Content Include="Help\help.files\image205.png" />
+    <Content Include="Help\help.files\image206.jpg" />
+    <Content Include="Help\help.files\image206.png" />
+    <Content Include="Help\help.files\image207.jpg" />
+    <Content Include="Help\help.files\image207.png" />
+    <Content Include="Help\help.files\image208.jpg" />
+    <Content Include="Help\help.files\image208.png" />
+    <Content Include="Help\help.files\image209.jpg" />
+    <Content Include="Help\help.files\image209.png" />
+    <Content Include="Help\help.files\image210.jpg" />
+    <Content Include="Help\help.files\image210.png" />
+    <Content Include="Help\help.files\image211.jpg" />
+    <Content Include="Help\help.files\image211.png" />
+    <Content Include="Help\help.files\image212.jpg" />
+    <Content Include="Help\help.files\image212.png" />
+    <Content Include="Help\help.files\image213.jpg" />
+    <Content Include="Help\help.files\image213.png" />
+    <Content Include="Help\help.files\image214.jpg" />
+    <Content Include="Help\help.files\image214.png" />
+    <Content Include="Help\help.files\image215.jpg" />
+    <Content Include="Help\help.files\image215.png" />
+    <Content Include="Help\help.files\image216.jpg" />
+    <Content Include="Help\help.files\image216.png" />
+    <Content Include="Help\help.files\image217.jpg" />
+    <Content Include="Help\help.files\image217.png" />
+    <Content Include="Help\help.files\image218.jpg" />
+    <Content Include="Help\help.files\image218.png" />
+    <Content Include="Help\help.files\image219.jpg" />
+    <Content Include="Help\help.files\image219.png" />
+    <Content Include="Help\help.files\image220.jpg" />
+    <Content Include="Help\help.files\image220.png" />
+    <Content Include="Help\help.files\image221.jpg" />
+    <Content Include="Help\help.files\image221.png" />
+    <Content Include="Help\help.files\image222.jpg" />
+    <Content Include="Help\help.files\image222.png" />
+    <Content Include="Help\help.files\image223.jpg" />
+    <Content Include="Help\help.files\image223.png" />
+    <Content Include="Help\help.files\image224.jpg" />
+    <Content Include="Help\help.files\image224.png" />
+    <Content Include="Help\help.files\image225.jpg" />
+    <Content Include="Help\help.files\image225.png" />
+    <Content Include="Help\help.files\image226.jpg" />
+    <Content Include="Help\help.files\image226.png" />
+    <Content Include="Help\help.files\image227.jpg" />
+    <Content Include="Help\help.files\image227.png" />
+    <Content Include="Help\help.files\image228.jpg" />
+    <Content Include="Help\help.files\image228.png" />
+    <Content Include="Help\help.files\image229.jpg" />
+    <Content Include="Help\help.files\image229.png" />
+    <Content Include="Help\help.files\image230.jpg" />
+    <Content Include="Help\help.files\image230.png" />
+    <Content Include="Help\help.files\image231.jpg" />
+    <Content Include="Help\help.files\image231.png" />
+    <Content Include="Help\help.files\image232.jpg" />
+    <Content Include="Help\help.files\image232.png" />
+    <Content Include="Help\help.files\image233.jpg" />
+    <Content Include="Help\help.files\image233.png" />
+    <Content Include="Help\help.files\image234.jpg" />
+    <Content Include="Help\help.files\image234.png" />
+    <Content Include="Help\help.files\image235.jpg" />
+    <Content Include="Help\help.files\image235.png" />
+    <Content Include="Help\help.files\image236.jpg" />
+    <Content Include="Help\help.files\image236.png" />
+    <Content Include="Help\help.files\image237.jpg" />
+    <Content Include="Help\help.files\image237.png" />
+    <Content Include="Help\help.files\image238.jpg" />
+    <Content Include="Help\help.files\image238.png" />
+    <Content Include="Help\help.files\image239.jpg" />
+    <Content Include="Help\help.files\image239.png" />
+    <Content Include="Help\help.files\image240.jpg" />
+    <Content Include="Help\help.files\image240.png" />
+    <Content Include="Help\help.files\image241.jpg" />
+    <Content Include="Help\help.files\image241.png" />
+    <Content Include="Help\help.files\image242.jpg" />
+    <Content Include="Help\help.files\image242.png" />
+    <Content Include="Help\help.files\image243.jpg" />
+    <Content Include="Help\help.files\image243.png" />
+    <Content Include="Help\help.files\image244.jpg" />
+    <Content Include="Help\help.files\image244.png" />
+    <Content Include="Help\help.files\image245.png" />
+    <Content Include="Help\help.files\image246.jpg" />
+    <Content Include="Help\help.files\image246.png" />
+    <Content Include="Help\help.files\image247.png" />
+    <Content Include="Help\help.files\image248.jpg" />
+    <Content Include="Help\help.files\image249.png" />
+    <Content Include="Help\help.files\image250.jpg" />
+    <Content Include="Help\help.files\image251.png" />
+    <Content Include="Help\help.files\image252.jpg" />
+    <Content Include="Help\help.files\image253.png" />
+    <Content Include="Help\help.files\image254.jpg" />
+    <Content Include="Help\help.files\image255.jpg" />
+    <Content Include="Help\help.files\image255.png" />
+    <Content Include="Help\help.files\image256.jpg" />
+    <Content Include="Help\help.files\image256.png" />
+    <Content Include="Help\help.files\image257.jpg" />
+    <Content Include="Help\help.files\image258.png" />
+    <Content Include="Help\help.files\image259.jpg" />
+    <Content Include="Help\help.files\image260.png" />
+    <Content Include="Help\help.files\image261.jpg" />
+    <Content Include="Help\help.files\image262.png" />
+    <Content Include="Help\help.files\image263.jpg" />
+    <Content Include="Help\help.files\image264.png" />
+    <Content Include="Help\help.files\image265.jpg" />
+    <Content Include="Help\help.files\image266.png" />
+    <Content Include="Help\help.files\image267.jpg" />
+    <Content Include="Help\help.files\image268.png" />
+    <Content Include="Help\help.files\image269.jpg" />
+    <Content Include="Help\help.files\image270.png" />
+    <Content Include="Help\help.files\image271.jpg" />
+    <Content Include="Help\help.files\image272.png" />
+    <Content Include="Help\help.files\image273.jpg" />
+    <Content Include="Help\help.files\image274.png" />
+    <Content Include="Help\help.files\image275.jpg" />
+    <Content Include="Help\help.files\image275.png" />
+    <Content Include="Help\help.files\image276.png" />
+    <Content Include="Help\help.files\image277.jpg" />
+    <Content Include="Help\help.files\image277.png" />
+    <Content Include="Help\help.files\image278.png" />
+    <Content Include="Help\help.files\image279.jpg" />
+    <Content Include="Help\help.files\image280.png" />
+    <Content Include="Help\help.files\image281.png" />
+    <Content Include="Help\help.files\image282.png" />
+    <Content Include="Help\help.htm" />
+    <Content Include="Images\283.gif" />
+    <Content Include="Images\41_gif.jpg" />
+    <Content Include="Images\50_gif.jpg" />
+    <Content Include="Images\a3.gif" />
+    <Content Include="Images\admin_1bg.gif" />
+    <Content Include="Images\admin_2bg.gif" />
+    <Content Include="Images\admin_3bg.gif" />
+    <Content Include="Images\admin_4bg.gif" />
+    <Content Include="Images\admin_ico1.gif" />
+    <Content Include="Images\admin_ico2.gif" />
+    <Content Include="Images\admin_ico3.gif" />
+    <Content Include="Images\admin_ico4.gif" />
+    <Content Include="Images\admin_logo.gif" />
+    <Content Include="Images\asc.gif" />
+    <Content Include="Images\attach.gif" />
+    <Content Include="Images\b38.jpg" />
+    <Content Include="Images\b51.jpg" />
+    <Content Include="Images\b82.jpg" />
+    <Content Include="Images\bbs.jpg" />
+    <Content Include="Images\bbsback.jpg" />
+    <Content Include="Images\bluebuttonbg.gif" />
+    <Content Include="Images\blue_button_bg.gif" />
+    <Content Include="Images\book.gif" />
+    <Content Include="Images\bookopen.gif" />
+    <Content Include="Images\bulletin.gif" />
+    <Content Include="Images\c6.gif" />
+    <Content Include="Images\closetree.gif" />
+    <Content Include="Images\copyright.gif" />
+    <Content Include="Images\date.gif" />
+    <Content Include="Images\denglu.jpg" />
+    <Content Include="Images\desc.gif" />
+    <Content Include="Images\desktop1.jpg" />
+    <Content Include="Images\desktop1old.gif" />
+    <Content Include="Images\desktop2.jpg" />
+    <Content Include="Images\desktop2old.gif" />
+    <Content Include="Images\desktop3.jpg" />
+    <Content Include="Images\desktop3old.gif" />
+    <Content Include="Images\desktop4.jpg" />
+    <Content Include="Images\desktop4old.gif" />
+    <Content Include="Images\desktoplogo1.gif" />
+    <Content Include="Images\desktoplogo2.gif" />
+    <Content Include="Images\desktoplogo3.gif" />
+    <Content Include="Images\desktoplogo4.gif" />
+    <Content Include="Images\DocumentFlow\0001.gif" />
+    <Content Include="Images\DocumentFlow\0002.gif" />
+    <Content Include="Images\DocumentFlow\0003.gif" />
+    <Content Include="Images\DocumentFlow\0004.gif" />
+    <Content Include="Images\DocumentFlow\0005.gif" />
+    <Content Include="Images\DocumentFlow\0006.gif" />
+    <Content Include="Images\end.gif" />
+    <Content Include="Images\endbott.gif" />
+    <Content Include="Images\folder.gif" />
+    <Content Include="Images\forum_isnews.gif" />
+    <Content Include="Images\forum_nonews.gif" />
+    <Content Include="Images\greenbuttonbg.gif" />
+    <Content Include="Images\head.jpg" />
+    <Content Include="Images\head1.jpg" />
+    <Content Include="Images\head2.jpg" />
+    <Content Include="Images\head3.jpg" />
+    <Content Include="Images\head4.jpg" />
+    <Content Include="Images\head42.jpg" />
+    <Content Include="Images\head4old.jpg" />
+    <Content Include="Images\head5.jpg" />
+    <Content Include="Images\head6.jpg" />
+    <Content Include="Images\head62.jpg" />
+    <Content Include="Images\head7.jpg" />
+    <Content Include="Images\hotfolder.gif" />
+    <Content Include="Images\icon\00.gif" />
+    <Content Include="Images\icon\001.gif" />
+    <Content Include="Images\icon\002.GIF" />
+    <Content Include="Images\icon\003.GIF" />
+    <Content Include="Images\icon\004.GIF" />
+    <Content Include="Images\icon\005.GIF" />
+    <Content Include="Images\icon\006.GIF" />
+    <Content Include="Images\icon\007.GIF" />
+    <Content Include="Images\icon\008.GIF" />
+    <Content Include="Images\icon\009.GIF" />
+    <Content Include="Images\icon\01.gif" />
+    <Content Include="Images\icon\010.GIF" />
+    <Content Include="Images\icon\011.GIF" />
+    <Content Include="Images\icon\012.GIF" />
+    <Content Include="Images\icon\013.GIF" />
+    <Content Include="Images\icon\014.GIF" />
+    <Content Include="Images\icon\015.GIF" />
+    <Content Include="Images\icon\016.GIF" />
+    <Content Include="Images\icon\017.GIF" />
+    <Content Include="Images\icon\018.GIF" />
+    <Content Include="Images\icon\019.GIF" />
+    <Content Include="Images\icon\02.gif" />
+    <Content Include="Images\icon\020.GIF" />
+    <Content Include="Images\icon\021.GIF" />
+    <Content Include="Images\icon\022.GIF" />
+    <Content Include="Images\icon\023.GIF" />
+    <Content Include="Images\icon\024.GIF" />
+    <Content Include="Images\icon\025.GIF" />
+    <Content Include="Images\icon\026.GIF" />
+    <Content Include="Images\icon\027.GIF" />
+    <Content Include="Images\icon\028.GIF" />
+    <Content Include="Images\icon\029.GIF" />
+    <Content Include="Images\icon\03.gif" />
+    <Content Include="Images\icon\030.GIF" />
+    <Content Include="Images\icon\031.GIF" />
+    <Content Include="Images\icon\032.GIF" />
+    <Content Include="Images\icon\033.GIF" />
+    <Content Include="Images\icon\034.GIF" />
+    <Content Include="Images\icon\035.GIF" />
+    <Content Include="Images\icon\036.GIF" />
+    <Content Include="Images\icon\037.GIF" />
+    <Content Include="Images\icon\038.GIF" />
+    <Content Include="Images\icon\039.GIF" />
+    <Content Include="Images\icon\04.gif" />
+    <Content Include="Images\icon\040.GIF" />
+    <Content Include="Images\icon\041.GIF" />
+    <Content Include="Images\icon\042.GIF" />
+    <Content Include="Images\icon\043.GIF" />
+    <Content Include="Images\icon\044.GIF" />
+    <Content Include="Images\icon\045.GIF" />
+    <Content Include="Images\icon\046.GIF" />
+    <Content Include="Images\icon\047.GIF" />
+    <Content Include="Images\icon\048.GIF" />
+    <Content Include="Images\icon\049.GIF" />
+    <Content Include="Images\icon\05.gif" />
+    <Content Include="Images\icon\050.GIF" />
+    <Content Include="Images\icon\051.GIF" />
+    <Content Include="Images\icon\052.GIF" />
+    <Content Include="Images\icon\053.GIF" />
+    <Content Include="Images\icon\054.GIF" />
+    <Content Include="Images\icon\055.GIF" />
+    <Content Include="Images\icon\056.GIF" />
+    <Content Include="Images\icon\057.GIF" />
+    <Content Include="Images\icon\058.GIF" />
+    <Content Include="Images\icon\059.GIF" />
+    <Content Include="Images\icon\06.gif" />
+    <Content Include="Images\icon\060.GIF" />
+    <Content Include="Images\icon\061.GIF" />
+    <Content Include="Images\icon\062.GIF" />
+    <Content Include="Images\icon\063.GIF" />
+    <Content Include="Images\icon\064.GIF" />
+    <Content Include="Images\icon\065.GIF" />
+    <Content Include="Images\icon\066.GIF" />
+    <Content Include="Images\icon\067.GIF" />
+    <Content Include="Images\icon\068.GIF" />
+    <Content Include="Images\icon\069.GIF" />
+    <Content Include="Images\icon\07.gif" />
+    <Content Include="Images\icon\070.GIF" />
+    <Content Include="Images\icon\071.GIF" />
+    <Content Include="Images\icon\072.GIF" />
+    <Content Include="Images\icon\073.GIF" />
+    <Content Include="Images\icon\074.GIF" />
+    <Content Include="Images\icon\075.GIF" />
+    <Content Include="Images\icon\076.GIF" />
+    <Content Include="Images\icon\077.GIF" />
+    <Content Include="Images\icon\078.GIF" />
+    <Content Include="Images\icon\079.GIF" />
+    <Content Include="Images\icon\08.gif" />
+    <Content Include="Images\icon\080.GIF" />
+    <Content Include="Images\icon\081.GIF" />
+    <Content Include="Images\icon\082.GIF" />
+    <Content Include="Images\icon\083.GIF" />
+    <Content Include="Images\icon\084.GIF" />
+    <Content Include="Images\icon\085.GIF" />
+    <Content Include="Images\icon\086.GIF" />
+    <Content Include="Images\icon\087.GIF" />
+    <Content Include="Images\icon\088.GIF" />
+    <Content Include="Images\icon\089.GIF" />
+    <Content Include="Images\icon\09.gif" />
+    <Content Include="Images\icon\090.GIF" />
+    <Content Include="Images\icon\091.GIF" />
+    <Content Include="Images\icon\092.GIF" />
+    <Content Include="Images\icon\093.GIF" />
+    <Content Include="Images\icon\094.GIF" />
+    <Content Include="Images\icon\095.GIF" />
+    <Content Include="Images\icon\096.GIF" />
+    <Content Include="Images\icon\097.GIF" />
+    <Content Include="Images\icon\098.GIF" />
+    <Content Include="Images\icon\099.GIF" />
+    <Content Include="Images\icon\10.gif" />
+    <Content Include="Images\icon\100.GIF" />
+    <Content Include="Images\icon\101.GIF" />
+    <Content Include="Images\icon\102.GIF" />
+    <Content Include="Images\icon\103.GIF" />
+    <Content Include="Images\icon\104.GIF" />
+    <Content Include="Images\icon\105.GIF" />
+    <Content Include="Images\icon\106.GIF" />
+    <Content Include="Images\icon\107.GIF" />
+    <Content Include="Images\icon\108.GIF" />
+    <Content Include="Images\icon\109.GIF" />
+    <Content Include="Images\icon\11.gif" />
+    <Content Include="Images\icon\110.GIF" />
+    <Content Include="Images\icon\111.GIF" />
+    <Content Include="Images\icon\112.GIF" />
+    <Content Include="Images\icon\113.GIF" />
+    <Content Include="Images\icon\114.GIF" />
+    <Content Include="Images\icon\115.GIF" />
+    <Content Include="Images\icon\116.GIF" />
+    <Content Include="Images\icon\117.GIF" />
+    <Content Include="Images\icon\118.GIF" />
+    <Content Include="Images\icon\119.GIF" />
+    <Content Include="Images\icon\12.gif" />
+    <Content Include="Images\icon\120.GIF" />
+    <Content Include="Images\icon\121.GIF" />
+    <Content Include="Images\icon\122.GIF" />
+    <Content Include="Images\icon\123.GIF" />
+    <Content Include="Images\icon\124.GIF" />
+    <Content Include="Images\icon\125.GIF" />
+    <Content Include="Images\icon\126.GIF" />
+    <Content Include="Images\icon\127.GIF" />
+    <Content Include="Images\icon\128.GIF" />
+    <Content Include="Images\icon\129.GIF" />
+    <Content Include="Images\icon\13.gif" />
+    <Content Include="Images\icon\130.GIF" />
+    <Content Include="Images\icon\131.GIF" />
+    <Content Include="Images\icon\132.GIF" />
+    <Content Include="Images\icon\133.GIF" />
+    <Content Include="Images\icon\134.GIF" />
+    <Content Include="Images\icon\135.GIF" />
+    <Content Include="Images\icon\136.GIF" />
+    <Content Include="Images\icon\137.GIF" />
+    <Content Include="Images\icon\138.GIF" />
+    <Content Include="Images\icon\139.GIF" />
+    <Content Include="Images\icon\14.gif" />
+    <Content Include="Images\icon\140.GIF" />
+    <Content Include="Images\icon\141.GIF" />
+    <Content Include="Images\icon\142.GIF" />
+    <Content Include="Images\icon\143.GIF" />
+    <Content Include="Images\icon\144.GIF" />
+    <Content Include="Images\icon\145.GIF" />
+    <Content Include="Images\icon\146.GIF" />
+    <Content Include="Images\icon\147.GIF" />
+    <Content Include="Images\icon\148.GIF" />
+    <Content Include="Images\icon\149.GIF" />
+    <Content Include="Images\icon\15.gif" />
+    <Content Include="Images\icon\150.GIF" />
+    <Content Include="Images\icon\151.GIF" />
+    <Content Include="Images\icon\152.GIF" />
+    <Content Include="Images\icon\153.GIF" />
+    <Content Include="Images\icon\154.GIF" />
+    <Content Include="Images\icon\155.GIF" />
+    <Content Include="Images\icon\156.GIF" />
+    <Content Include="Images\icon\157.GIF" />
+    <Content Include="Images\icon\158.GIF" />
+    <Content Include="Images\icon\159.GIF" />
+    <Content Include="Images\icon\16.gif" />
+    <Content Include="Images\icon\160.GIF" />
+    <Content Include="Images\icon\161.GIF" />
+    <Content Include="Images\icon\162.GIF" />
+    <Content Include="Images\icon\163.GIF" />
+    <Content Include="Images\icon\164.GIF" />
+    <Content Include="Images\icon\165.GIF" />
+    <Content Include="Images\icon\166.GIF" />
+    <Content Include="Images\icon\167.GIF" />
+    <Content Include="Images\icon\168.GIF" />
+    <Content Include="Images\icon\169.GIF" />
+    <Content Include="Images\icon\17.gif" />
+    <Content Include="Images\icon\170.GIF" />
+    <Content Include="Images\icon\171.GIF" />
+    <Content Include="Images\icon\172.GIF" />
+    <Content Include="Images\icon\173.GIF" />
+    <Content Include="Images\icon\174.GIF" />
+    <Content Include="Images\icon\175.GIF" />
+    <Content Include="Images\icon\176.GIF" />
+    <Content Include="Images\icon\177.GIF" />
+    <Content Include="Images\icon\178.GIF" />
+    <Content Include="Images\icon\179.GIF" />
+    <Content Include="Images\icon\18.gif" />
+    <Content Include="Images\icon\180.GIF" />
+    <Content Include="Images\icon\181.GIF" />
+    <Content Include="Images\icon\182.GIF" />
+    <Content Include="Images\icon\183.GIF" />
+    <Content Include="Images\icon\184.GIF" />
+    <Content Include="Images\icon\185.GIF" />
+    <Content Include="Images\icon\186.GIF" />
+    <Content Include="Images\icon\187.GIF" />
+    <Content Include="Images\icon\188.GIF" />
+    <Content Include="Images\icon\189.GIF" />
+    <Content Include="Images\icon\19.gif" />
+    <Content Include="Images\icon\190.GIF" />
+    <Content Include="Images\icon\191.GIF" />
+    <Content Include="Images\icon\192.GIF" />
+    <Content Include="Images\icon\193.GIF" />
+    <Content Include="Images\icon\194.GIF" />
+    <Content Include="Images\icon\195.GIF" />
+    <Content Include="Images\icon\196.GIF" />
+    <Content Include="Images\icon\197.GIF" />
+    <Content Include="Images\icon\198.GIF" />
+    <Content Include="Images\icon\199.GIF" />
+    <Content Include="Images\icon\20.gif" />
+    <Content Include="Images\icon\200.GIF" />
+    <Content Include="Images\icon\201.GIF" />
+    <Content Include="Images\icon\202.GIF" />
+    <Content Include="Images\icon\203.GIF" />
+    <Content Include="Images\icon\204.GIF" />
+    <Content Include="Images\icon\205.GIF" />
+    <Content Include="Images\icon\206.GIF" />
+    <Content Include="Images\icon\207.GIF" />
+    <Content Include="Images\icon\208.GIF" />
+    <Content Include="Images\icon\209.GIF" />
+    <Content Include="Images\icon\21.gif" />
+    <Content Include="Images\icon\210.GIF" />
+    <Content Include="Images\icon\211.GIF" />
+    <Content Include="Images\icon\212.GIF" />
+    <Content Include="Images\icon\213.GIF" />
+    <Content Include="Images\icon\214.GIF" />
+    <Content Include="Images\icon\215.GIF" />
+    <Content Include="Images\icon\216.GIF" />
+    <Content Include="Images\icon\217.GIF" />
+    <Content Include="Images\icon\218.GIF" />
+    <Content Include="Images\icon\219.GIF" />
+    <Content Include="Images\icon\22.gif" />
+    <Content Include="Images\icon\220.GIF" />
+    <Content Include="Images\icon\221.GIF" />
+    <Content Include="Images\icon\222.GIF" />
+    <Content Include="Images\icon\223.GIF" />
+    <Content Include="Images\icon\224.GIF" />
+    <Content Include="Images\icon\225.GIF" />
+    <Content Include="Images\icon\226.GIF" />
+    <Content Include="Images\icon\227.GIF" />
+    <Content Include="Images\icon\228.GIF" />
+    <Content Include="Images\icon\229.GIF" />
+    <Content Include="Images\icon\23.gif" />
+    <Content Include="Images\icon\230.GIF" />
+    <Content Include="Images\icon\231.GIF" />
+    <Content Include="Images\icon\232.GIF" />
+    <Content Include="Images\icon\233.GIF" />
+    <Content Include="Images\icon\234.GIF" />
+    <Content Include="Images\icon\235.GIF" />
+    <Content Include="Images\icon\236.GIF" />
+    <Content Include="Images\icon\237.GIF" />
+    <Content Include="Images\icon\238.GIF" />
+    <Content Include="Images\icon\239.GIF" />
+    <Content Include="Images\icon\24.gif" />
+    <Content Include="Images\icon\240.GIF" />
+    <Content Include="Images\icon\241.GIF" />
+    <Content Include="Images\icon\242.GIF" />
+    <Content Include="Images\icon\243.GIF" />
+    <Content Include="Images\icon\244.GIF" />
+    <Content Include="Images\icon\245.GIF" />
+    <Content Include="Images\icon\246.GIF" />
+    <Content Include="Images\icon\247.GIF" />
+    <Content Include="Images\icon\248.GIF" />
+    <Content Include="Images\icon\249.GIF" />
+    <Content Include="Images\icon\25.gif" />
+    <Content Include="Images\icon\250.GIF" />
+    <Content Include="Images\icon\251.GIF" />
+    <Content Include="Images\icon\252.GIF" />
+    <Content Include="Images\icon\253.GIF" />
+    <Content Include="Images\icon\254.GIF" />
+    <Content Include="Images\icon\255.GIF" />
+    <Content Include="Images\icon\256.GIF" />
+    <Content Include="Images\icon\257.GIF" />
+    <Content Include="Images\icon\258.GIF" />
+    <Content Include="Images\icon\259.GIF" />
+    <Content Include="Images\icon\26.gif" />
+    <Content Include="Images\icon\260.GIF" />
+    <Content Include="Images\icon\261.GIF" />
+    <Content Include="Images\icon\262.GIF" />
+    <Content Include="Images\icon\263.GIF" />
+    <Content Include="Images\icon\264.GIF" />
+    <Content Include="Images\icon\265.GIF" />
+    <Content Include="Images\icon\266.GIF" />
+    <Content Include="Images\icon\267.GIF" />
+    <Content Include="Images\icon\268.GIF" />
+    <Content Include="Images\icon\269.GIF" />
+    <Content Include="Images\icon\27.gif" />
+    <Content Include="Images\icon\270.GIF" />
+    <Content Include="Images\icon\271.GIF" />
+    <Content Include="Images\icon\272.GIF" />
+    <Content Include="Images\icon\273.gif" />
+    <Content Include="Images\icon\274.GIF" />
+    <Content Include="Images\icon\275.GIF" />
+    <Content Include="Images\icon\276.GIF" />
+    <Content Include="Images\icon\277.GIF" />
+    <Content Include="Images\icon\278.gif" />
+    <Content Include="Images\icon\279.GIF" />
+    <Content Include="Images\icon\28.gif" />
+    <Content Include="Images\icon\280.GIF" />
+    <Content Include="Images\icon\281.GIF" />
+    <Content Include="Images\icon\282.GIF" />
+    <Content Include="Images\icon\283.GIF" />
+    <Content Include="Images\icon\284.gif" />
+    <Content Include="Images\icon\285.GIF" />
+    <Content Include="Images\icon\286.GIF" />
+    <Content Include="Images\icon\287.GIF" />
+    <Content Include="Images\icon\288.GIF" />
+    <Content Include="Images\icon\289.GIF" />
+    <Content Include="Images\icon\29.gif" />
+    <Content Include="Images\icon\290.GIF" />
+    <Content Include="Images\icon\291.GIF" />
+    <Content Include="Images\icon\292.GIF" />
+    <Content Include="Images\icon\293.GIF" />
+    <Content Include="Images\icon\294.GIF" />
+    <Content Include="Images\icon\295.GIF" />
+    <Content Include="Images\icon\296.GIF" />
+    <Content Include="Images\icon\30.gif" />
+    <Content Include="Images\icon\30s.gif" />
+    <Content Include="Images\icon\31.gif" />
+    <Content Include="Images\icon\32.gif" />
+    <Content Include="Images\icon\33.gif" />
+    <Content Include="Images\icon\34.gif" />
+    <Content Include="Images\icon\35.gif" />
+    <Content Include="Images\icon\mydoc.gif" />
+    <Content Include="Images\index_r10_c5.gif" />
+    <Content Include="Images\index_r11_c1.gif" />
+    <Content Include="Images\index_r11_c3.gif" />
+    <Content Include="Images\index_r12_c1.gif" />
+    <Content Include="Images\index_r13_c1.gif" />
+    <Content Include="Images\index_r14_c6.gif" />
+    <Content Include="Images\index_r14_c7.gif" />
+    <Content Include="Images\index_r14_c8.gif" />
+    <Content Include="Images\index_r14_c9.gif" />
+    <Content Include="Images\index_r15_c7.gif" />
+    <Content Include="Images\index_r15_c9.gif" />
+    <Content Include="Images\index_r16_c1.gif" />
+    <Content Include="Images\index_r1_c1.gif" />
+    <Content Include="Images\index_r1_c2.gif" />
+    <Content Include="Images\index_r1_c6.gif" />
+    <Content Include="Images\index_r1_c8.gif" />
+    <Content Include="Images\index_r2_c6.gif" />
+    <Content Include="Images\index_r2_c8.gif" />
+    <Content Include="Images\index_r3_c1.gif" />
+    <Content Include="Images\index_r3_c4.gif" />
+    <Content Include="Images\index_r3_c6.gif" />
+    <Content Include="Images\index_r4_c4.gif" />
+    <Content Include="Images\index_r5_c4.gif" />
+    <Content Include="Images\index_r6_c4.gif" />
+    <Content Include="Images\index_r7_c4.gif" />
+    <Content Include="Images\index_r7_c5.gif" />
+    <Content Include="Images\index_r7_c7.gif" />
+    <Content Include="Images\index_r8_c4.gif" />
+    <Content Include="Images\index_r8_c5.gif" />
+    <Content Include="Images\index_r9_c4.gif" />
+    <Content Include="Images\index_r9_c5.gif" />
+    <Content Include="Images\index_top_r1_c1.gif" />
+    <Content Include="Images\index_top_r2_c1.gif" />
+    <Content Include="Images\index_top_r2_c2.gif" />
+    <Content Include="Images\lefttreebg.gif" />
+    <Content Include="Images\line1.gif" />
+    <Content Include="Images\login.asp" />
+    <Content Include="Images\logininst.gif" />
+    <Content Include="Images\logo.gif" />
+    <Content Include="Images\logout.asp" />
+    <Content Include="Images\mailClose.gif" />
+    <Content Include="Images\maillistbutton1.gif" />
+    <Content Include="Images\maillistbutton1old.gif" />
+    <Content Include="Images\maillistbutton2.gif" />
+    <Content Include="Images\maillistbutton2old.gif" />
+    <Content Include="Images\mailOpen.gif" />
+    <Content Include="Images\mailren.gif" />
+    <Content Include="Images\mailuserbg.gif" />
+    <Content Include="Images\mailwrite.gif" />
+    <Content Include="Images\menuback.gif" />
+    <Content Include="Images\menubar.gif" />
+    <Content Include="Images\more.gif" />
+    <Content Include="Images\MyDoc.gif" />
+    <Content Include="Images\new.gif" />
+    <Content Include="Images\newface.jpg" />
+    <Content Include="Images\newface1.jpg" />
+    <Content Include="Images\newmain_r1_c1.jpg" />
+    <Content Include="Images\newmain_r1_c4.jpg" />
+    <Content Include="Images\newmain_r1_c41.jpg" />
+    <Content Include="Images\newmain_r1_c7.jpg" />
+    <Content Include="Images\newmain_r4_c1.gif" />
+    <Content Include="Images\newmain_r4_c1.jpg" />
+    <Content Include="Images\newmain_r4_c1old.jpg" />
+    <Content Include="Images\newmain_r4_c2.gif" />
+    <Content Include="Images\newmain_r4_c2.jpg" />
+    <Content Include="Images\newmain_r4_c2old.jpg" />
+    <Content Include="Images\newmain_r7_c2.jpg" />
+    <Content Include="Images\newmain_r9_c2.gif" />
+    <Content Include="Images\newmain_r9_c2.jpg" />
+    <Content Include="Images\newmain_r9_c2old.jpg" />
+    <Content Include="Images\next.gif" />
+    <Content Include="Images\noffice.swf" />
+    <Content Include="Images\nopage.gif" />
+    <Content Include="Images\opentree.gif" />
+    <Content Include="Images\page.gif" />
+    <Content Include="Images\pass.gif" />
+    <Content Include="Images\person.gif" />
+    <Content Include="Images\person2.gif" />
+    <Content Include="Images\prev.gif" />
+    <Content Include="Images\Project1.exe" />
+    <Content Include="Images\p_centerbg.gif" />
+    <Content Include="Images\p_leftbg.gif" />
+    <Content Include="Images\p_leftcenterbg.gif" />
+    <Content Include="Images\p_leftrightrbg.gif" />
+    <Content Include="Images\p_more.gif" />
+    <Content Include="Images\p_more2.gif" />
+    <Content Include="Images\p_rightbg.gif" />
+    <Content Include="Images\quxiao.jpg" />
+    <Content Include="Images\redbuttonbg.gif" />
+    <Content Include="Images\red_ball.gif" />
+    <Content Include="Images\Schedule_logo.gif" />
+    <Content Include="Images\shoprite.gif" />
+    <Content Include="Images\smsremind.gif" />
+    <Content Include="Images\spacer.gif" />
+    <Content Include="Images\sysbulletin.gif" />
+    <Content Include="Images\temp.gif" />
+    <Content Include="Images\tend.gif" />
+    <Content Include="Images\time.gif" />
+    <Content Include="Images\top.gif" />
+    <Content Include="Images\top1.gif" />
+    <Content Include="Images\top2.gif" />
+    <Content Include="Images\top3.gif" />
+    <Content Include="Images\treetopbg.jpg" />
+    <Content Include="Images\Udsheadbg.gif" />
+    <Content Include="Images\Udslogo.gif" />
+    <Content Include="Images\Udssearch.gif" />
+    <Content Include="Images\Udssearchbutton.gif" />
+    <Content Include="Images\Udssearchbutton2.gif" />
+    <Content Include="Images\Udssearchhead.gif" />
+    <Content Include="Images\udssearch_qwjs.gif" />
+    <Content Include="Images\Untitled-2_r1_c1.gif" />
+    <Content Include="Images\user_s.gif" />
+    <Content Include="Images\welcome.gif" />
+    <Content Include="Images\welcome.jpg" />
+    <Content Include="Images\副本 newmain_r4_c1old.jpg" />
+    <Content Include="Images\副本 newmain_r9_c2old.jpg" />
+    <Content Include="Images\副本 person2.gif" />
+    <Content Include="Images\副本 quxiao.jpg" />
+    <Content Include="Inc\ControlClientContactHistory.ascx" />
+    <Content Include="Inc\ControlClientContactHistory_thisWeek.ascx" />
+    <Content Include="Inc\ControlCustomProjectTreeView.ascx" />
+    <Content Include="Inc\ControlDepartmentTreeView.ascx" />
+    <Content Include="Inc\ControlHeader.aspx" />
+    <Content Include="Inc\ControlPositionTreeView.ascx" />
+    <Content Include="Inc\ControlProjectTreeView.ascx" />
+    <Content Include="Inc\ControlRoleTreeView.ascx" />
+    <Content Include="Inc\ControlSellmanContactHistory.ascx" />
+    <Content Include="Index.aspx" />
+    <Content Include="SubModule\AssignRule\ClassTree.aspx" />
+    <Content Include="SubModule\AssignRule\RightList.aspx" />
+    <Content Include="SubModule\AssignRule\RightListView.aspx" />
+    <Content Include="SubModule\AssignRule\TreeView.aspx" />
+    <Content Include="SubModule\CM\Attachment\1.htm" />
+    <Content Include="SubModule\CM\Attachment\41.txt" />
+    <Content Include="SubModule\CM\Client.aspx" />
+    <Content Include="SubModule\CM\ClientContact.aspx" />
+    <Content Include="SubModule\CM\ClientContact_thisWeek.aspx" />
+    <Content Include="SubModule\CM\ClientHistoryContact.aspx" />
+    <Content Include="SubModule\CM\ClientLinkmanList.aspx" />
+    <Content Include="SubModule\CM\ClientListView.aspx" />
+    <Content Include="SubModule\CM\Linkman.aspx" />
+    <Content Include="SubModule\CM\LinkmanListView.aspx" />
+    <Content Include="SubModule\CM\ListView.aspx" />
+    <Content Include="SubModule\CM\Search\ClientInfo.aspx" />
+    <Content Include="SubModule\CM\Search\ContactInfo.aspx" />
+    <Content Include="SubModule\CM\Search\index.aspx" />
+    <Content Include="SubModule\CM\StaffList.aspx" />
+    <Content Include="SubModule\CM\Stat\ContactedClient.aspx" />
+    <Content Include="SubModule\CM\Stat\Contact_Client.aspx" />
+    <Content Include="SubModule\CM\Stat\Fee.aspx" />
+    <Content Include="SubModule\CM\Stat\index.aspx" />
+    <Content Include="SubModule\CM\Stat\sellman.aspx" />
+    <Content Include="SubModule\CM\Stat\sellmanclient.aspx" />
+    <Content Include="SubModule\CM\Stat\sellmancontact.aspx" />
+    <Content Include="SubModule\CM\Stat\sellmanfee.aspx" />
+    <Content Include="SubModule\Error.aspx" />
+    <Content Include="SubModule\Index.aspx" />
+    <Content Include="SubModule\Linkman\AddLinkman.aspx" />
+    <Content Include="SubModule\Linkman\CustomLinkmanInfo.aspx" />
+    <Content Include="SubModule\Linkman\ListView.aspx" />
+    <Content Include="SubModule\Linkman\Search\index.aspx" />
+    <Content Include="SubModule\Linkman\StaffInfo.aspx" />
+    <Content Include="SubModule\Login\checkout.aspx" />
+    <Content Include="SubModule\Login\Index.aspx" />
+    <Content Include="SubModule\Login\Logout.aspx" />
+    <Content Include="SubModule\Login\VerifySignIn.aspx" />
+    <Content Include="SubModule\Position\ChangePosition.aspx" />
+    <Content Include="SubModule\Position\Index.htm" />
+    <Content Include="SubModule\Position\ListView.aspx" />
+    <Content Include="SubModule\Position\NewStaff.aspx" />
+    <Content Include="SubModule\Position\OPosition.aspx" />
+    <Content Include="SubModule\Position\PositionTreeView.aspx" />
+    <Content Include="SubModule\Position\UpdateCaste.aspx" />
+    <Content Include="SubModule\Query\Google.aspx" />
+    <Content Include="SubModule\Query\Listview.aspx" />
+    <Content Include="SubModule\Role\Index.aspx" />
+    <Content Include="SubModule\Role\Index.htm" />
+    <Content Include="SubModule\Role\ListView.aspx" />
+    <Content Include="SubModule\Role\ORole.aspx" />
+    <Content Include="SubModule\Role\RoleTreeView.aspx" />
+    <Content Include="SubModule\Schedule\CalendarView.aspx" />
+    <Content Include="SubModule\Schedule\Manage.aspx" />
+    <Content Include="SubModule\Schedule\TaskComment.aspx" />
+    <Content Include="SubModule\Schedule\TaskDetail.aspx" />
+    <Content Include="SubModule\Schedule\TaskList.aspx" />
+    <Content Include="SubModule\Schedule\TaskStatus.aspx" />
+    <Content Include="SubModule\Schedule\ViewDayTask.aspx" />
+    <Content Include="SubModule\SM\Index.aspx" />
+    <Content Include="SubModule\SM\MsgHistory.aspx" />
+    <Content Include="SubModule\SM\MsgList.aspx" />
+    <Content Include="SubModule\SM\MsgManage.aspx" />
+    <Content Include="SubModule\SM\MsgSend.aspx" />
+    <Content Include="SubModule\SM\SelectReceiver.aspx" />
+    <Content Include="SubModule\SM\Setup.aspx" />
+    <Content Include="SubModule\Staff\ManageStaff.aspx" />
+    <Content Include="SubModule\Staff\ModifyInfo.aspx" />
+    <Content Include="SubModule\Staff\ModifyInfo1.aspx" />
+    <Content Include="SubModule\Staff\Rehab.aspx" />
+    <Content Include="SubModule\Staff\Report\StaffReport.aspx" />
+    <Content Include="SubModule\Staff\Sch\ResultList.aspx" />
+    <Content Include="SubModule\Staff\Sch\Search.aspx" />
+    <Content Include="SubModule\Staff\Search.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Approve\Listview.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\Catalog.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\DeleteItem.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\Display.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\help.htm" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ListView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ManageBoard.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ManageBoardMaster.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ManageBoardMember.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ManageCatalog.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\MoveItem.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\NewItem.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\Search\index.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\Search\SearchResult.aspx" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\blue.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\bold.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\center.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\code.GIF" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\email1.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\fly.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\glow.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\image.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\italicize.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\media.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\move.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\quote1.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\real.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\red.GIF" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\shadow.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\size3.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\swf.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\underline.gif" />
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\url1.gif" />
+    <Content Include="SubModule\UnitiveDocument\CopyTeam\TreeView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Desktop.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DisplayStaffInfo.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\BangdingRole.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\BindStaff.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\DefineStyle.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\DisplayDocument.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\DisplayFlow.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\DisplayStyle.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\DisplayTacheMember.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\DraftList.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\EditFlow.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\EditJump.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\EditStyle.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\EditTache.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\FlowTemplate.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\ListDocument.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\Listview.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\ManageFlow.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\ManageStyle.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\NewDocument.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\Query.aspx" />
+    <Content Include="SubModule\UnitiveDocument\DocumentFlow\SelectProject.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Document\ApproveDocument.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Document\BrowseDocument.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Document\DeliverDocument.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Document\Download.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Document\ListView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Index.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Left.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\Compose.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\Download.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\External\Index.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\External\PopSetup.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\External\SetupNavi.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\Index.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\ReadMail.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\SelectReceiver.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\TreeView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\ManageProject.aspx" />
+    <Content Include="SubModule\UnitiveDocument\ManageQuery\ManageQuery.aspx" />
+    <Content Include="SubModule\UnitiveDocument\MemberListView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\MoveTeam\TreeView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\NewDoc\Listview.aspx" />
+    <Content Include="SubModule\UnitiveDocument\oClassNode.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Online.aspx" />
+    <Content Include="SubModule\UnitiveDocument\onlineperson.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Project.aspx" />
+    <Content Include="SubModule\UnitiveDocument\ProjectDetail.aspx" />
+    <Content Include="SubModule\UnitiveDocument\ProjectTreeView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Setup\MySetup.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Setup\Setup.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Subscription\Listview.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Switch.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Task\Listview.aspx" />
+    <Content Include="SubModule\USBKey\USBKey_setup.aspx" />
+    <Content Include="SubModule\WorkAttendance\checksucessful.aspx" />
+    <Content Include="SubModule\WorkAttendance\Default.aspx" />
+    <Content Include="SubModule\WorkAttendance\loginchecksucessful.htm" />
+    <Content Include="SubModule\WorkAttendance\Report\DutyReport.aspx" />
+    <Content Include="SubModule\WorkAttendance\SearchData.aspx" />
+    <Content Include="SubModule\WorkAttendance\Set.aspx" />
+    <Content Include="SubModule\WorkAttendance\ShowDay.aspx" />
+    <Content Include="SubModule\WorkAttendance\StaffData.aspx" />
+    <Content Include="SubModule\WorkAttendance\tmpStaffData.aspx" />
+    <Content Include="Web Reference\wsms\sms.disco" />
+    <Content Include="Web.config" />
+    <Content Include="webctrl_client\1_0\images\folder.gif" />
+    <Content Include="webctrl_client\1_0\images\folderopen.gif" />
+    <Content Include="webctrl_client\1_0\images\html.gif" />
+    <Content Include="webctrl_client\1_0\images\root.gif" />
+    <Content Include="webctrl_client\1_0\MultiPage.htc" />
+    <Content Include="webctrl_client\1_0\TabStrip.htc" />
+    <Content Include="webctrl_client\1_0\toolbar.htc" />
+    <Content Include="webctrl_client\1_0\treeimages\f.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\fminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\fplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\i.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\L.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\Lminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\Lplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\minus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\plus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\r.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\Rminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\Rplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\F.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Fminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Fplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\I.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\L.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Lminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Lplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\minus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\plus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\r.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Rminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Rplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\T.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Tminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\Tplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\rtl\white.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\T.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\Tminus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\Tplus.gif" />
+    <Content Include="webctrl_client\1_0\treeimages\white.gif" />
+    <Content Include="webctrl_client\1_0\treeview.htc" />
+    <Content Include="webctrl_client\1_0\webservice.htc" />
+    <Content Include="webctrl_client\1_0\webserviced.htc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\AssignRights.cs" />
+    <Compile Include="Components\BBS.cs" />
+    <Compile Include="Components\Class.cs" />
+    <Compile Include="Components\CM.cs" />
+    <Compile Include="Components\Database.cs" />
+    <Compile Include="Components\Department.cs" />
+    <Compile Include="Components\Desktop.cs" />
+    <Compile Include="Components\Directory.cs" />
+    <Compile Include="Components\Document.cs" />
+    <Compile Include="Components\DocumentFlow.cs" />
+    <Compile Include="Components\Error.cs" />
+    <Compile Include="Components\Linkman.cs" />
+    <Compile Include="Components\Mail.cs" />
+    <Compile Include="Components\Position.cs" />
+    <Compile Include="Components\Project.cs" />
+    <Compile Include="Components\Role.cs" />
+    <Compile Include="Components\SMS.cs" />
+    <Compile Include="Components\Staff.cs" />
+    <Compile Include="Components\Task.cs" />
+    <Compile Include="Components\Team.cs" />
+    <Compile Include="Components\Tool.cs" />
+    <Compile Include="Components\UBB.cs" />
+    <Compile Include="Components\WA.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Inc\ControlClientContactHistory.ascx.cs">
+      <DependentUpon>ControlClientContactHistory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlClientContactHistory_thisWeek.ascx.cs">
+      <DependentUpon>ControlClientContactHistory_thisWeek.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlCustomProjectTreeView.ascx.cs">
+      <DependentUpon>ControlCustomProjectTreeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlDepartmentTreeView.ascx.cs">
+      <DependentUpon>ControlDepartmentTreeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlHeader.aspx.cs">
+      <DependentUpon>ControlHeader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlPositionTreeView.ascx.cs">
+      <DependentUpon>ControlPositionTreeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlProjectTreeView.ascx.cs">
+      <DependentUpon>ControlProjectTreeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlRoleTreeView.ascx.cs">
+      <DependentUpon>ControlRoleTreeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inc\ControlSellmanContactHistory.ascx.cs">
+      <DependentUpon>ControlSellmanContactHistory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubModule\AssignRule\ClassTree.aspx.cs">
+      <DependentUpon>ClassTree.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\AssignRule\RightList.aspx.cs">
+      <DependentUpon>RightList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\AssignRule\RightListView.aspx.cs">
+      <DependentUpon>RightListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\AssignRule\TreeView.aspx.cs">
+      <DependentUpon>TreeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Client.aspx.cs">
+      <DependentUpon>Client.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\ClientContact.aspx.cs">
+      <DependentUpon>ClientContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\ClientContact_thisWeek.aspx.cs">
+      <DependentUpon>ClientContact_thisWeek.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\ClientHistoryContact.aspx.cs">
+      <DependentUpon>ClientHistoryContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\ClientLinkmanList.aspx.cs">
+      <DependentUpon>ClientLinkmanList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\ClientListView.aspx.cs">
+      <DependentUpon>ClientListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Linkman.aspx.cs">
+      <DependentUpon>Linkman.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\LinkmanListView.aspx.cs">
+      <DependentUpon>LinkmanListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\ListView.aspx.cs">
+      <DependentUpon>ListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Search\ClientInfo.aspx.cs">
+      <DependentUpon>ClientInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Search\ContactInfo.aspx.cs">
+      <DependentUpon>ContactInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Search\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\StaffList.aspx.cs">
+      <DependentUpon>StaffList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\ContactedClient.aspx.cs">
+      <DependentUpon>ContactedClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\Contact_Client.aspx.cs">
+      <DependentUpon>Contact_Client.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\Fee.aspx.cs">
+      <DependentUpon>Fee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\sellman.aspx.cs">
+      <DependentUpon>sellman.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\sellmanclient.aspx.cs">
+      <DependentUpon>sellmanclient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\sellmancontact.aspx.cs">
+      <DependentUpon>sellmancontact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\CM\Stat\sellmanfee.aspx.cs">
+      <DependentUpon>sellmanfee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Linkman\AddLinkman.aspx.cs">
+      <DependentUpon>AddLinkman.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Linkman\CustomLinkmanInfo.aspx.cs">
+      <DependentUpon>CustomLinkmanInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Linkman\ListView.aspx.cs">
+      <DependentUpon>ListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Linkman\Search\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Linkman\StaffInfo.aspx.cs">
+      <DependentUpon>StaffInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Login\checkout.aspx.cs">
+      <DependentUpon>checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Login\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Login\Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Login\VerifySignIn.aspx.cs">
+      <DependentUpon>VerifySignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\ChangePosition.aspx.cs">
+      <DependentUpon>ChangePosition.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\ListView.aspx.cs">
+      <DependentUpon>ListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\NewStaff.aspx.cs">
+      <DependentUpon>NewStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\OPosition.aspx.cs">
+      <DependentUpon>OPosition.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\PositionTreeView.aspx.cs">
+      <DependentUpon>PositionTreeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\UpdateCaste.aspx.cs">
+      <DependentUpon>UpdateCaste.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Query\Google.aspx.cs">
+      <DependentUpon>Google.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Query\Listview.aspx.cs">
+      <DependentUpon>Listview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Role\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Role\ListView.aspx.cs">
+      <DependentUpon>ListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Role\ORole.aspx.cs">
+      <DependentUpon>ORole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Role\RoleTreeView.aspx.cs">
+      <DependentUpon>RoleTreeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Schedule\CalendarView.aspx.cs">
+      <DependentUpon>CalendarView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Schedule\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Schedule\TaskComment.aspx.cs">
+      <DependentUpon>TaskComment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Schedule\TaskDetail.aspx.cs">
+      <DependentUpon>TaskDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Schedule\TaskList.aspx.cs">
+      <DependentUpon>TaskList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Schedule\TaskStatus.aspx.cs">
+      <DependentUpon>TaskStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Schedule\ViewDayTask.aspx.cs">
+      <DependentUpon>ViewDayTask.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\SM\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\SM\MsgHistory.aspx.cs">
+      <DependentUpon>MsgHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\SM\MsgList.aspx.cs">
+      <DependentUpon>MsgList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\SM\MsgManage.aspx.cs">
+      <DependentUpon>MsgManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\SM\MsgSend.aspx.cs">
+      <DependentUpon>MsgSend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\SM\SelectReceiver.aspx.cs">
+      <DependentUpon>SelectReceiver.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\ManageStaff.aspx.cs">
+      <DependentUpon>ManageStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\ModifyInfo.aspx.cs">
+      <DependentUpon>ModifyInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\ModifyInfo1.aspx.cs">
+      <DependentUpon>ModifyInfo1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\Rehab.aspx.cs">
+      <DependentUpon>Rehab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\Report\StaffDataSet.cs">
+      <DependentUpon>StaffDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\Staff\Report\StaffList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\Report\StaffReport.aspx.cs">
+      <DependentUpon>StaffReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\Sch\ResultList.aspx.cs">
+      <DependentUpon>ResultList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\Sch\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Staff\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Approve\Listview.aspx.cs">
+      <DependentUpon>Listview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\Catalog.aspx.cs">
+      <DependentUpon>Catalog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\DeleteItem.aspx.cs">
+      <DependentUpon>DeleteItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\Display.aspx.cs">
+      <DependentUpon>Display.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\ListView.aspx.cs">
+      <DependentUpon>ListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\ManageBoard.aspx.cs">
+      <DependentUpon>ManageBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\ManageBoardMaster.aspx.cs">
+      <DependentUpon>ManageBoardMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\ManageBoardMember.aspx.cs">
+      <DependentUpon>ManageBoardMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\ManageCatalog.aspx.cs">
+      <DependentUpon>ManageCatalog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\MoveItem.aspx.cs">
+      <DependentUpon>MoveItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\NewItem.aspx.cs">
+      <DependentUpon>NewItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\Search\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\BBS\Search\SearchResult.aspx.cs">
+      <DependentUpon>SearchResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\CopyTeam\TreeView.aspx.cs">
+      <DependentUpon>TreeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Desktop.aspx.cs">
+      <DependentUpon>Desktop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DisplayStaffInfo.aspx.cs">
+      <DependentUpon>DisplayStaffInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\BangdingRole.aspx.cs">
+      <DependentUpon>BangdingRole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\BindStaff.aspx.cs">
+      <DependentUpon>BindStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\DefineStyle.aspx.cs">
+      <DependentUpon>DefineStyle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\DisplayDocument.aspx.cs">
+      <DependentUpon>DisplayDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\DisplayFlow.aspx.cs">
+      <DependentUpon>DisplayFlow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\DisplayStyle.aspx.cs">
+      <DependentUpon>DisplayStyle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\DisplayTacheMember.aspx.cs">
+      <DependentUpon>DisplayTacheMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\DraftList.aspx.cs">
+      <DependentUpon>DraftList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\EditFlow.aspx.cs">
+      <DependentUpon>EditFlow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\EditJump.aspx.cs">
+      <DependentUpon>EditJump.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\EditStyle.aspx.cs">
+      <DependentUpon>EditStyle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\EditTache.aspx.cs">
+      <DependentUpon>EditTache.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\FlowTemplate.aspx.cs">
+      <DependentUpon>FlowTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\ListDocument.aspx.cs">
+      <DependentUpon>ListDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\Listview.aspx.cs">
+      <DependentUpon>Listview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\ManageFlow.aspx.cs">
+      <DependentUpon>ManageFlow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\ManageStyle.aspx.cs">
+      <DependentUpon>ManageStyle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\NewDocument.aspx.cs">
+      <DependentUpon>NewDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\Query.aspx.cs">
+      <DependentUpon>Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\DocumentFlow\SelectProject.aspx.cs">
+      <DependentUpon>SelectProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Document\ApproveDocument.aspx.cs">
+      <DependentUpon>ApproveDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Document\BrowseDocument.aspx.cs">
+      <DependentUpon>BrowseDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Document\DeliverDocument.aspx.cs">
+      <DependentUpon>DeliverDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Document\Download.aspx.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Document\ListView.aspx.cs">
+      <DependentUpon>ListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\Compose.aspx.cs">
+      <DependentUpon>Compose.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\Download.aspx.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\External\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\External\PopSetup.aspx.cs">
+      <DependentUpon>PopSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\External\SetupNavi.aspx.cs">
+      <DependentUpon>SetupNavi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\ReadMail.aspx.cs">
+      <DependentUpon>ReadMail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\SelectReceiver.aspx.cs">
+      <DependentUpon>SelectReceiver.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\TreeView.aspx.cs">
+      <DependentUpon>TreeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\ManageProject.aspx.cs">
+      <DependentUpon>ManageProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\ManageQuery\ManageQuery.aspx.cs">
+      <DependentUpon>ManageQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\MemberListView.aspx.cs">
+      <DependentUpon>MemberListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\MoveTeam\TreeView.aspx.cs">
+      <DependentUpon>TreeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\NewDoc\Listview.aspx.cs">
+      <DependentUpon>Listview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\oClassNode.aspx.cs">
+      <DependentUpon>oClassNode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Online.aspx.cs">
+      <DependentUpon>Online.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\onlineperson.aspx.cs">
+      <DependentUpon>onlineperson.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Project.aspx.cs">
+      <DependentUpon>Project.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\ProjectDetail.aspx.cs">
+      <DependentUpon>ProjectDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\ProjectTreeView.aspx.cs">
+      <DependentUpon>ProjectTreeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Setup\MySetup.aspx.cs">
+      <DependentUpon>MySetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Setup\Setup.aspx.cs">
+      <DependentUpon>Setup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Subscription\Listview.aspx.cs">
+      <DependentUpon>Listview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Switch.aspx.cs">
+      <DependentUpon>Switch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Task\Listview.aspx.cs">
+      <DependentUpon>Listview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\USBKey\USBKey_setup.aspx.cs">
+      <DependentUpon>USBKey_setup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Report\DataSet1.cs">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Report\DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Report\DetailDuty.cs">
+      <DependentUpon>DetailDuty.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Report\DutyReport.aspx.cs">
+      <DependentUpon>DutyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Report\rpt_DutyReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Report\TotalDuty.cs">
+      <DependentUpon>TotalDuty.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Report\TotalDuty.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TotalDuty.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\SearchData.aspx.cs">
+      <DependentUpon>SearchData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\Set.aspx.cs">
+      <DependentUpon>Set.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\ShowDay.aspx.cs">
+      <DependentUpon>ShowDay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\StaffData.aspx.cs">
+      <DependentUpon>StaffData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\WorkAttendance\tmpStaffData.aspx.cs">
+      <DependentUpon>tmpStaffData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web Reference\wsms\Reference.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Css\Calendar.css.bak" />
+    <Content Include="Help\help.files\image001.wmz" />
+    <Content Include="Help\help.files\image003.wmz" />
+    <Content Include="Help\help.files\oledata.mso" />
+    <Content Include="SubModule\CM\Attachment\39.doc" />
+    <Content Include="SubModule\CM\Attachment\40.doc" />
+    <None Include="SubModule\Staff\Report\StaffDataSet.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SubModule\Staff\Report\StaffDataSet.xsx">
+      <DependentUpon>StaffDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="SubModule\UnitiveDocument\BBS\ubb\Thumbs.db" />
+    <Content Include="SubModule\WorkAttendance\Report\DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="SubModule\WorkAttendance\Report\DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="SubModule\WorkAttendance\Report\DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="SubModule\WorkAttendance\Report\DetailDuty.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SubModule\WorkAttendance\Report\DetailDuty.xsx">
+      <DependentUpon>DetailDuty.xsd</DependentUpon>
+    </Content>
+    <Content Include="SubModule\WorkAttendance\Report\TotalDuty.xsc">
+      <DependentUpon>TotalDuty.xsd</DependentUpon>
+    </Content>
+    <None Include="SubModule\WorkAttendance\Report\TotalDuty.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TotalDuty.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="SubModule\WorkAttendance\Report\TotalDuty.xsx">
+      <DependentUpon>TotalDuty.xsd</DependentUpon>
+    </Content>
+    <Content Include="UDS.vsdisco" />
+    <Content Include="Web Reference\wsms\Reference.map" />
+    <Content Include="Web Reference\wsms\sms.wsdl" />
+    <Content Include="SubModule\WorkAttendance\Report\TotalDuty.xss">
+      <DependentUpon>TotalDuty.xsd</DependentUpon>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Global.asax.resx">
+      <DependentUpon>Global.asax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlClientContactHistory.ascx.resx">
+      <DependentUpon>ControlClientContactHistory.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlClientContactHistory_thisWeek.ascx.resx">
+      <DependentUpon>ControlClientContactHistory_thisWeek.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlCustomProjectTreeView.ascx.resx">
+      <DependentUpon>ControlCustomProjectTreeView.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlDepartmentTreeView.ascx.resx">
+      <DependentUpon>ControlDepartmentTreeView.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlHeader.aspx.resx">
+      <DependentUpon>ControlHeader.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlPositionTreeView.ascx.resx">
+      <DependentUpon>ControlPositionTreeView.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlProjectTreeView.ascx.resx">
+      <DependentUpon>ControlProjectTreeView.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlRoleTreeView.ascx.resx">
+      <DependentUpon>ControlRoleTreeView.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inc\ControlSellmanContactHistory.ascx.resx">
+      <DependentUpon>ControlSellmanContactHistory.ascx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Index.aspx.resx">
+      <DependentUpon>Index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\AssignRule\ClassTree.aspx.resx">
+      <DependentUpon>ClassTree.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\AssignRule\RightList.aspx.resx">
+      <DependentUpon>RightList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\AssignRule\RightListView.aspx.resx">
+      <DependentUpon>RightListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\AssignRule\TreeView.aspx.resx">
+      <DependentUpon>TreeView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Client.aspx.resx">
+      <DependentUpon>Client.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\ClientContact.aspx.resx">
+      <DependentUpon>ClientContact.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\ClientContact_thisWeek.aspx.resx">
+      <DependentUpon>ClientContact_thisWeek.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\ClientHistoryContact.aspx.resx">
+      <DependentUpon>ClientHistoryContact.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\ClientLinkmanList.aspx.resx">
+      <DependentUpon>ClientLinkmanList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\ClientListView.aspx.resx">
+      <DependentUpon>ClientListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Linkman.aspx.resx">
+      <DependentUpon>Linkman.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\LinkmanListView.aspx.resx">
+      <DependentUpon>LinkmanListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\ListView.aspx.resx">
+      <DependentUpon>ListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Search\ClientInfo.aspx.resx">
+      <DependentUpon>ClientInfo.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Search\ContactInfo.aspx.resx">
+      <DependentUpon>ContactInfo.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Search\index.aspx.resx">
+      <DependentUpon>index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\StaffList.aspx.resx">
+      <DependentUpon>StaffList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\ContactedClient.aspx.resx">
+      <DependentUpon>ContactedClient.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\Contact_Client.aspx.resx">
+      <DependentUpon>Contact_Client.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\Fee.aspx.resx">
+      <DependentUpon>Fee.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\index.aspx.resx">
+      <DependentUpon>index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\sellman.aspx.resx">
+      <DependentUpon>sellman.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\sellmanclient.aspx.resx">
+      <DependentUpon>sellmanclient.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\sellmancontact.aspx.resx">
+      <DependentUpon>sellmancontact.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\CM\Stat\sellmanfee.aspx.resx">
+      <DependentUpon>sellmanfee.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Error.aspx.resx">
+      <DependentUpon>Error.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Index.aspx.resx">
+      <DependentUpon>Index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Linkman\AddLinkman.aspx.resx">
+      <DependentUpon>AddLinkman.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Linkman\CustomLinkmanInfo.aspx.resx">
+      <DependentUpon>CustomLinkmanInfo.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Linkman\ListView.aspx.resx">
+      <DependentUpon>ListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Linkman\Search\index.aspx.resx">
+      <DependentUpon>index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Linkman\StaffInfo.aspx.resx">
+      <DependentUpon>StaffInfo.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Login\checkout.aspx.resx">
+      <DependentUpon>checkout.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Login\Index.aspx.resx">
+      <DependentUpon>Index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Login\Logout.aspx.resx">
+      <DependentUpon>Logout.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Login\VerifySignIn.aspx.resx">
+      <DependentUpon>VerifySignIn.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Position\ChangePosition.aspx.resx">
+      <DependentUpon>ChangePosition.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Position\ListView.aspx.resx">
+      <DependentUpon>ListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Position\NewStaff.aspx.resx">
+      <DependentUpon>NewStaff.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Position\OPosition.aspx.resx">
+      <DependentUpon>OPosition.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Position\PositionTreeView.aspx.resx">
+      <DependentUpon>PositionTreeView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Position\UpdateCaste.aspx.resx">
+      <DependentUpon>UpdateCaste.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Query\Google.aspx.resx">
+      <DependentUpon>Google.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Query\Listview.aspx.resx">
+      <DependentUpon>Listview.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Role\Index.aspx.resx">
+      <DependentUpon>Index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Role\ListView.aspx.resx">
+      <DependentUpon>ListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Role\ORole.aspx.resx">
+      <DependentUpon>ORole.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Role\RoleTreeView.aspx.resx">
+      <DependentUpon>RoleTreeView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Schedule\CalendarView.aspx.resx">
+      <DependentUpon>CalendarView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Schedule\Manage.aspx.resx">
+      <DependentUpon>Manage.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Schedule\TaskComment.aspx.resx">
+      <DependentUpon>TaskComment.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Schedule\TaskDetail.aspx.resx">
+      <DependentUpon>TaskDetail.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Schedule\TaskList.aspx.resx">
+      <DependentUpon>TaskList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Schedule\TaskStatus.aspx.resx">
+      <DependentUpon>TaskStatus.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Schedule\ViewDayTask.aspx.resx">
+      <DependentUpon>ViewDayTask.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\SM\Index.aspx.resx">
+      <DependentUpon>Index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\SM\MsgHistory.aspx.resx">
+      <DependentUpon>MsgHistory.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\SM\MsgList.aspx.resx">
+      <DependentUpon>MsgList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\SM\MsgManage.aspx.resx">
+      <DependentUpon>MsgManage.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\SM\MsgSend.aspx.resx">
+      <DependentUpon>MsgSend.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\SM\SelectReceiver.aspx.resx">
+      <DependentUpon>SelectReceiver.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\ManageStaff.aspx.resx">
+      <DependentUpon>ManageStaff.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\ModifyInfo.aspx.resx">
+      <DependentUpon>ModifyInfo.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\ModifyInfo1.aspx.resx">
+      <DependentUpon>ModifyInfo1.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\Rehab.aspx.resx">
+      <DependentUpon>Rehab.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\Report\StaffList.resx">
+      <DependentUpon>StaffList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\Report\StaffList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>StaffList1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\Report\StaffReport.aspx.resx">
+      <DependentUpon>StaffReport.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\Sch\ResultList.aspx.resx">
+      <DependentUpon>ResultList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\Sch\Search.aspx.resx">
+      <DependentUpon>Search.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\Staff\Search.aspx.resx">
+      <DependentUpon>Search.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Approve\Listview.aspx.resx">
+      <DependentUpon>Listview.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\Catalog.aspx.resx">
+      <DependentUpon>Catalog.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\DeleteItem.aspx.resx">
+      <DependentUpon>DeleteItem.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\Display.aspx.resx">
+      <DependentUpon>Display.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\ListView.aspx.resx">
+      <DependentUpon>ListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\ManageBoard.aspx.resx">
+      <DependentUpon>ManageBoard.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\ManageBoardMaster.aspx.resx">
+      <DependentUpon>ManageBoardMaster.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\ManageBoardMember.aspx.resx">
+      <DependentUpon>ManageBoardMember.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\ManageCatalog.aspx.resx">
+      <DependentUpon>ManageCatalog.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\MoveItem.aspx.resx">
+      <DependentUpon>MoveItem.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\NewItem.aspx.resx">
+      <DependentUpon>NewItem.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\Search\index.aspx.resx">
+      <DependentUpon>index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\BBS\Search\SearchResult.aspx.resx">
+      <DependentUpon>SearchResult.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\CopyTeam\TreeView.aspx.resx">
+      <DependentUpon>TreeView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Desktop.aspx.resx">
+      <DependentUpon>Desktop.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DisplayStaffInfo.aspx.resx">
+      <DependentUpon>DisplayStaffInfo.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\BangdingRole.aspx.resx">
+      <DependentUpon>BangdingRole.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\BindStaff.aspx.resx">
+      <DependentUpon>BindStaff.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\DefineStyle.aspx.resx">
+      <DependentUpon>DefineStyle.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\DisplayDocument.aspx.resx">
+      <DependentUpon>DisplayDocument.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\DisplayFlow.aspx.resx">
+      <DependentUpon>DisplayFlow.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\DisplayStyle.aspx.resx">
+      <DependentUpon>DisplayStyle.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\DisplayTacheMember.aspx.resx">
+      <DependentUpon>DisplayTacheMember.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\DraftList.aspx.resx">
+      <DependentUpon>DraftList.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\EditFlow.aspx.resx">
+      <DependentUpon>EditFlow.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\EditJump.aspx.resx">
+      <DependentUpon>EditJump.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\EditStyle.aspx.resx">
+      <DependentUpon>EditStyle.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\EditTache.aspx.resx">
+      <DependentUpon>EditTache.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\FlowTemplate.aspx.resx">
+      <DependentUpon>FlowTemplate.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\ListDocument.aspx.resx">
+      <DependentUpon>ListDocument.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\Listview.aspx.resx">
+      <DependentUpon>Listview.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\ManageFlow.aspx.resx">
+      <DependentUpon>ManageFlow.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\ManageStyle.aspx.resx">
+      <DependentUpon>ManageStyle.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\NewDocument.aspx.resx">
+      <DependentUpon>NewDocument.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\Query.aspx.resx">
+      <DependentUpon>Query.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\DocumentFlow\SelectProject.aspx.resx">
+      <DependentUpon>SelectProject.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Document\ApproveDocument.aspx.resx">
+      <DependentUpon>ApproveDocument.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Document\BrowseDocument.aspx.resx">
+      <DependentUpon>BrowseDocument.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Document\DeliverDocument.aspx.resx">
+      <DependentUpon>DeliverDocument.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Document\Download.aspx.resx">
+      <DependentUpon>Download.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Document\ListView.aspx.resx">
+      <DependentUpon>ListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\Compose.aspx.resx">
+      <DependentUpon>Compose.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\Download.aspx.resx">
+      <DependentUpon>Download.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\External\Index.aspx.resx">
+      <DependentUpon>Index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\External\PopSetup.aspx.resx">
+      <DependentUpon>PopSetup.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\External\SetupNavi.aspx.resx">
+      <DependentUpon>SetupNavi.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\Index.aspx.resx">
+      <DependentUpon>Index.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\ReadMail.aspx.resx">
+      <DependentUpon>ReadMail.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\SelectReceiver.aspx.resx">
+      <DependentUpon>SelectReceiver.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Mail\TreeView.aspx.resx">
+      <DependentUpon>TreeView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\ManageProject.aspx.resx">
+      <DependentUpon>ManageProject.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\ManageQuery\ManageQuery.aspx.resx">
+      <DependentUpon>ManageQuery.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\MemberListView.aspx.resx">
+      <DependentUpon>MemberListView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\MoveTeam\TreeView.aspx.resx">
+      <DependentUpon>TreeView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\NewDoc\Listview.aspx.resx">
+      <DependentUpon>Listview.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\oClassNode.aspx.resx">
+      <DependentUpon>oClassNode.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Online.aspx.resx">
+      <DependentUpon>Online.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\onlineperson.aspx.resx">
+      <DependentUpon>onlineperson.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Project.aspx.resx">
+      <DependentUpon>Project.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\ProjectDetail.aspx.resx">
+      <DependentUpon>ProjectDetail.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\ProjectTreeView.aspx.resx">
+      <DependentUpon>ProjectTreeView.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Setup\MySetup.aspx.resx">
+      <DependentUpon>MySetup.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Setup\Setup.aspx.resx">
+      <DependentUpon>Setup.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Subscription\Listview.aspx.resx">
+      <DependentUpon>Listview.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Switch.aspx.resx">
+      <DependentUpon>Switch.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\UnitiveDocument\Task\Listview.aspx.resx">
+      <DependentUpon>Listview.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\USBKey\USBKey_setup.aspx.resx">
+      <DependentUpon>USBKey_setup.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\Default.aspx.resx">
+      <DependentUpon>Default.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\Report\DutyReport.aspx.resx">
+      <DependentUpon>DutyReport.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\Report\rpt_DutyReport.resx">
+      <DependentUpon>rpt_DutyReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\Report\rpt_DutyReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rpt_DutyReport2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\SearchData.aspx.resx">
+      <DependentUpon>SearchData.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\Set.aspx.resx">
+      <DependentUpon>Set.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\ShowDay.aspx.resx">
+      <DependentUpon>ShowDay.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\StaffData.aspx.resx">
+      <DependentUpon>StaffData.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubModule\WorkAttendance\tmpStaffData.aspx.resx">
+      <DependentUpon>tmpStaffData.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Log\" />
+    <Folder Include="SubModule\Department\" />
+    <Folder Include="SubModule\Staff\Report\ReportExportFile\" />
+    <Folder Include="SubModule\UnitiveDocument\DocumentFlow\AttachFiles\" />
+    <Folder Include="SubModule\UnitiveDocument\DocumentFlow\Template\" />
+    <Folder Include="SubModule\UnitiveDocument\Document\AttachFiles\" />
+    <Folder Include="SubModule\UnitiveDocument\Mail\AttachFiles\" />
+    <Folder Include="SubModule\UnitiveDocument\Schedule\" />
+    <Folder Include="SubModule\WorkAttendance\Report\ReportExportFile\" />
+    <Folder Include="udsIndex\uds_doc\" />
+    <Folder Include="udsIndex\uds_mail\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:7040/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
