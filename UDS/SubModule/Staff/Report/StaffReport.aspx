@@ -1,9 +1,9 @@
-<%@ Register TagPrefix="cr1" Namespace="CrystalDecisions.Web" Assembly="CrystalDecisions.Web, Version=9.1.5000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" %>
+<%@ Register TagPrefix="cr1" Namespace="CrystalDecisions.Web" Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" %>
 <%@ Page language="c#" Codebehind="StaffReport.aspx.cs" AutoEventWireup="false" Inherits="UDS.SubModule.Staff.Report.StaffReport" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
-		<title>人员报表</title>
+		<title>浜哄憳鎶ヨ〃</title>
 		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
 		<meta content="C#" name="CODE_LANGUAGE">
 		<meta content="JavaScript" name="vs_defaultClientScript">
@@ -52,11 +52,11 @@
 				runat="server" Height="50px" Width="350px" DisplayGroupTree="False"></CR1:CRYSTALREPORTVIEWER>
 			<DIV id="div_opt" style="DISPLAY: none; Z-INDEX: 103; LEFT: 24px; WIDTH: 400px; POSITION: absolute; TOP: 232px; HEIGHT: 40px"
 				ms_positioning="FlowLayout">&nbsp;
-				<asp:linkbutton id="lbtn_IEPrint" runat="server">IE打印预览</asp:linkbutton>&nbsp;格式转换
+				<asp:linkbutton id="lbtn_IEPrint" runat="server">IE鎵撳嵃棰勮</asp:linkbutton>&nbsp;鏍煎紡杞崲
 				<asp:dropdownlist id="ddl_FileFormat" runat="server">
 					<asp:ListItem Value="pdf">Pdf</asp:ListItem>
 					<asp:ListItem Value="doc">Word</asp:ListItem>
-				</asp:dropdownlist><asp:button id="btn_Change" runat="server" Text="转换"></asp:button></DIV>
+				</asp:dropdownlist><asp:button id="btn_Change" runat="server" Text="杞崲"></asp:button></DIV>
 		</form>
 	</body>
 </HTML>

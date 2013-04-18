@@ -1,9 +1,9 @@
 <%@ Page language="c#" Codebehind="DutyReport.aspx.cs" AutoEventWireup="false" Inherits="UDS.SubModule.WorkAttendance.Report.DutyReport" %>
-<%@ Register TagPrefix="cr" Namespace="CrystalDecisions.Web" Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" %>
+<%@ Register TagPrefix="cr" Namespace="CrystalDecisions.Web" Assembly="CrystalDecisions.Web, Version=9.1.5000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
-		<title>鎵撳嵃鎶ヨ〃</title>
+		<title>打印报表</title>
 		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
 		<meta content="C#" name="CODE_LANGUAGE">
 		<meta content="JavaScript" name="vs_defaultClientScript">
@@ -48,17 +48,17 @@
 	</HEAD>
 	<body  MS_POSITIONING="GridLayout">
 		<form id="Form1" method="post" runat="server">
-			<FONT face="瀹嬩綋">
+			<FONT face="宋体">
 				<cr:crystalreportviewer id="cv_Duty" style="Z-INDEX: 101; LEFT: 0px; POSITION: absolute; TOP: 0px" runat="server"
 					Height="50px" Width="350px" DisplayGroupTree="False"></cr:crystalreportviewer>
 				<DIV id="div_opt" style="DISPLAY: none; Z-INDEX: 102; LEFT: 320px; WIDTH: 400px; POSITION: absolute; TOP: 288px; HEIGHT: 40px"
 					ms_positioning="FlowLayout">&nbsp;
-					<asp:LinkButton id="lbtn_IEPrint" runat="server">IE鎵撳嵃棰勮</asp:LinkButton>&nbsp;鏍煎紡杞崲
+					<asp:LinkButton id="lbtn_IEPrint" runat="server">IE打印预览</asp:LinkButton>&nbsp;格式转换
 					<asp:DropDownList id="ddl_FileFormat" runat="server">
 						<asp:ListItem Value="pdf">Pdf</asp:ListItem>
 						<asp:ListItem Value="doc">Word</asp:ListItem>
 					</asp:DropDownList>
-					<asp:Button id="btn_Change" runat="server" Text="杞崲"></asp:Button>
+					<asp:Button id="btn_Change" runat="server" Text="转换"></asp:Button>
 				</DIV>
 			</FONT>
 		</form>

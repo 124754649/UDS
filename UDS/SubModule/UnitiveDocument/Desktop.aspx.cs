@@ -30,7 +30,11 @@ namespace UDS.SubModule.UnitiveDocument
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			HttpCookie UserCookie = Request.Cookies["Username"];
-			Username = UserCookie.Value.ToString();
+
+            if (null != UserCookie)
+            {
+                Username = UserCookie.Value.ToString();
+            }
 			
 			
 			if(!Page.IsPostBack)
@@ -76,18 +80,19 @@ namespace UDS.SubModule.UnitiveDocument
 		{
 			UDS.Components.Task task = new UDS.Components.Task();
 			DataTable mydb = Tools.ConvertDataReaderToDataTable(task.GetAllTaskBySomeone(DateTime.Today.ToShortDateString(),Username,1));
-		
-			if(mydb.Rows.Count<5)
-			{
-				int tmp = 5-mydb.Rows.Count;
-				for(int i=0;i<tmp;i++)
-				{
-					DataRow myDataRow = mydb.NewRow();
-					myDataRow[0] = "-";
-					mydb.Rows.Add(myDataRow);
+
+            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+            //if(mydb.Rows.Count<5)
+            //{
+            //    int tmp = 5-mydb.Rows.Count;
+            //    for(int i=0;i<tmp;i++)
+            //    {
+            //        DataRow myDataRow = mydb.NewRow();
+            //        myDataRow[0] = "-";
+            //        mydb.Rows.Add(myDataRow);
 					
-				}
-			}
+            //    }
+            //}
 			this.dgList .DataSource = mydb.DefaultView;
 			this.dgList.DataBind();
 			// setgrid();
@@ -235,35 +240,37 @@ namespace UDS.SubModule.UnitiveDocument
 
 			dr = myDesktop.GetMyDocument(UserName,10);
 			DataTable dt =Tools.ConvertDataReaderToDataTable(dr);
-			if(dt.Rows.Count<5)
-			{
-				int tmp = 5-dt.Rows.Count;
-				for(int i=0;i<tmp;i++)
-				{
-					DataRow myDataRow = dt.NewRow();
-					myDataRow[0] = "-";
-					dt.Rows.Add(myDataRow);
+            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+            //if(dt.Rows.Count<5)
+            //{
+            //    int tmp = 5-dt.Rows.Count;
+            //    for(int i=0;i<tmp;i++)
+            //    {
+            //        DataRow myDataRow = dt.NewRow();
+            //        myDataRow[0] = "-";
+            //        dt.Rows.Add(myDataRow);
 					
-				}
-			}
+            //    }
+            //}
 			dgDocList.DataSource = dt.DefaultView;
 			dgDocList.DataBind();
 
 			dr = myDesktop.GetMyMail(UserName,1);
 			dt =Tools.ConvertDataReaderToDataTable(dr);
-			if(dt.Rows.Count<5)
-			{
-				int tmp = 5-dt.Rows.Count;
-				for(int i=0;i<tmp;i++)
-				{
-					DataRow myDataRow = dt.NewRow();
-					myDataRow[0] = "-";
-				//	myDataRow[4] = "";
-					myDataRow[7] = "";
-					dt.Rows.Add(myDataRow);
+            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+            //if(dt.Rows.Count<5)
+            //{
+            //    int tmp = 5-dt.Rows.Count;
+            //    for(int i=0;i<tmp;i++)
+            //    {
+            //        DataRow myDataRow = dt.NewRow();
+            //        myDataRow[0] = "-";
+            //    //	myDataRow[4] = "";
+            //        myDataRow[7] = "";
+            //        dt.Rows.Add(myDataRow);
 					
-				}
-			}
+            //    }
+            //}
 //			DataView dv = dt.DefaultView;
 //			dv.Sort = "MailSendDate Desc";
 			dgMailList.DataSource = dt.DefaultView ;
@@ -271,17 +278,18 @@ namespace UDS.SubModule.UnitiveDocument
 
 			dr = myDesktop.GetMyApprove(UserName,2);
 			dt =Tools.ConvertDataReaderToDataTable(dr);
-			if(dt.Rows.Count<5)
-			{
-				int tmp = 5-dt.Rows.Count;
-				for(int i=0;i<tmp;i++)
-				{
-					DataRow myDataRow = dt.NewRow();
-					myDataRow[0] = "-";
-					dt.Rows.Add(myDataRow);
+            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+            //if(dt.Rows.Count<5)
+            //{
+            //    int tmp = 5-dt.Rows.Count;
+            //    for(int i=0;i<tmp;i++)
+            //    {
+            //        DataRow myDataRow = dt.NewRow();
+            //        myDataRow[0] = "-";
+            //        dt.Rows.Add(myDataRow);
 					
-				}
-			}
+            //    }
+            //}
 			dgAppDocList.DataSource = dt.DefaultView;
 			dgAppDocList.DataBind();
 			dr.Close();

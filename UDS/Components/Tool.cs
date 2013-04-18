@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace UDS.Components
 {
@@ -20,27 +21,32 @@ namespace UDS.Components
 		{
 			DataTable datatable = new DataTable();
 			DataTable schemaTable = dataReader.GetSchemaTable();
+			List<DataColumn> listCols = new List<DataColumn>();
 			//动态添加列
 			try
 			{
-			
-				foreach(DataRow myRow in schemaTable.Rows)
+				if (null != schemaTable)
 				{
-					DataColumn myDataColumn = new DataColumn();
-					myDataColumn.DataType	= myRow.GetType();
-					myDataColumn.ColumnName = myRow[0].ToString();
-					datatable.Columns.Add(myDataColumn);
+					foreach (DataRow drow in schemaTable.Rows)
+					{
+						string columnName = System.Convert.ToString(drow["ColumnName"]);
+						DataColumn column = new DataColumn(columnName, (Type)(drow["DataType"]));
+						column.Unique = (bool)drow["IsUnique"];
+						column.AllowDBNull = (bool)drow["AllowDBNull"];
+						column.AutoIncrement = (bool)drow["IsAutoIncrement"];
+						listCols.Add(column);
+                        datatable.Columns.Add(column);
+					}
 				}
 				//添加数据
 				while(dataReader.Read())
 				{
 					DataRow myDataRow = datatable.NewRow();
-					for(int i=0;i<schemaTable.Rows.Count;i++)
-					{
-						myDataRow[i] = dataReader[i].ToString();
-					}
+                    for (int i = 0; i < listCols.Count; i++)
+                    {
+                        myDataRow[((DataColumn)listCols[i])] = dataReader[i];
+                    }
 					datatable.Rows.Add(myDataRow);
-					myDataRow = null;
 				}
 				schemaTable = null;
 				dataReader.Close();
