@@ -2033,19 +2033,18 @@
     <Compile Include="Web Reference\wsms\Reference.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Css\Calendar.css.bak" />
     <Content Include="Help\help.files\image001.wmz" />
     <Content Include="Help\help.files\image003.wmz" />
     <Content Include="Help\help.files\oledata.mso" />
     <Content Include="SubModule\CM\Attachment\39.doc" />
     <Content Include="SubModule\CM\Attachment\40.doc" />
+    <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />
     <None Include="SubModule\Staff\Report\StaffDataSet.xsd">
       <SubType>Designer</SubType>
     </None>
     <Content Include="SubModule\Staff\Report\StaffDataSet.xsx">
       <DependentUpon>StaffDataSet.xsd</DependentUpon>
     </Content>
-    <Content Include="SubModule\UnitiveDocument\BBS\ubb\Thumbs.db" />
     <Content Include="SubModule\WorkAttendance\Report\DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
