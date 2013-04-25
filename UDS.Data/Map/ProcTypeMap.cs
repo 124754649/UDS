@@ -7,7 +7,7 @@ using FluentNHibernate.Mapping;
 
 namespace UDS.Data.Map
 {
-    public class ProcTypeMap: ClassMap<ProcType>
+    public class ProcTypeMap: ClassMap<ProcTypes>
     {
         public ProcTypeMap()
         {

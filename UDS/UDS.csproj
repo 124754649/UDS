@@ -74,6 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Css\BasicLayout.css" />
+    <Content Include="Css\bootstrap-responsive.css" />
+    <Content Include="Css\bootstrap-responsive.min.css" />
+    <Content Include="Css\bootstrap.css" />
+    <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\Calendar.css" />
     <Content Include="Css\calendar.js" />
     <Content Include="Css\meizzDate.js" />
@@ -1133,6 +1137,8 @@
     <Content Include="Images\副本 newmain_r9_c2old.jpg" />
     <Content Include="Images\副本 person2.gif" />
     <Content Include="Images\副本 quxiao.jpg" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Inc\ControlClientContactHistory.ascx" />
     <Content Include="Inc\ControlClientContactHistory_thisWeek.ascx" />
     <Content Include="Inc\ControlCustomProjectTreeView.ascx" />
@@ -1143,6 +1149,9 @@
     <Content Include="Inc\ControlRoleTreeView.ascx" />
     <Content Include="Inc\ControlSellmanContactHistory.ascx" />
     <Content Include="Index.aspx" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\jquery-1.9.1.min.js" />
     <Content Include="SubModule\AssignRule\ClassTree.aspx" />
     <Content Include="SubModule\AssignRule\RightList.aspx" />
     <Content Include="SubModule\AssignRule\RightListView.aspx" />

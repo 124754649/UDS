@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace UDS.Data
 {
     [DataContract]
-    public class ProcType
+    public class ProcTypes
     {
         [DataMember]
         private int procID;

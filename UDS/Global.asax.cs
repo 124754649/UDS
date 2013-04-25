@@ -28,10 +28,10 @@ namespace UDS
             ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
                 new ScriptResourceDefinition
                 {
-                    Path = "~/scripts/jquery-1.7.2.min.js",
-                    DebugPath = "~/scripts/jquery-1.7.2.min.js",
-                    CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.min.js",
-                    CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.js"
+                    Path = "~/js/jquery-1.9.1.min.js",
+                    DebugPath = "~/js/jquery-1.9.1.min.js",
+                    //CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.min.js",
+                    //CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.js"
                 });
 		}
 

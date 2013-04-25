@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UDS.Data
 {
-    [DataMember]
+    [DataContract]
     public class RoleStaff
     {
         [DataMember]
