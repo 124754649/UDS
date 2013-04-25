@@ -38,15 +38,15 @@
                         <div class="control-group">
                             <label class="control-label" for="txtUsername" style="color:white">”√ªß√˚</label>
                             <div class="controls controls-row">
-                                <asp:TextBox ID="txtUsername" runat="server" ClientIDMode="Static" CssClass="span3"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername" ErrorMessage="*" CssClass="span2" Display="Dynamic" ForeColor="Red" Font-Size="Larger"></asp:RequiredFieldValidator>
+                                <asp:TextBox ID="txtUsername" runat="server" ClientIDMode="Static"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername" ErrorMessage="*" Display="Dynamic" ForeColor="Red" Font-Size="Larger"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="txtPassword" style="color:white">√‹¬Î</label>
                             <div class="controls controls-row">
-                                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ClientIDMode="Static" CssClass="span3"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="*" CssClass="span2" Display="Dynamic" ForeColor="Red" Font-Size="Larger"></asp:RequiredFieldValidator>
+                                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ClientIDMode="Static"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="*" Display="Dynamic" ForeColor="Red" Font-Size="Larger"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                         <div class="control-group">
