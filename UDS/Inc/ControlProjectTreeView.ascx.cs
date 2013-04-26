@@ -30,6 +30,7 @@ namespace UDS.Inc
 			if(!Page.IsPostBack)
 			{	
 				InitRootNodeDataTable();
+                TreeView1.SystemImagesPath = VirtualPathUtility.ToAbsolute("~/webctrl_client/1_0/treeimages/");
 				InitTreeRootNode(TreeView1.Nodes);
 				TreeView1.ExpandLevel = 1;
 			//	TreeView1.Nodes[80].Expanded=true;
@@ -42,39 +43,6 @@ namespace UDS.Inc
 			
 			
 		}
-
-		#region 将DataReader 转为 DataTable
-		/// <summary>
-		/// 将DataReader 转为 DataTable
-		/// </summary>
-		/// <param name="DataReader">DataReader</param>
-		public DataTable ConvertDataReaderToDataTable(SqlDataReader dataReader)
-		{
-			DataTable datatable = new DataTable();
-			DataTable schemaTable = dataReader.GetSchemaTable();
-			//动态添加列
-			foreach(DataRow myRow in schemaTable.Rows)
-			{
-				DataColumn myDataColumn = new DataColumn();
-				myDataColumn.DataType	= System.Type.GetType("System.String");
-				myDataColumn.ColumnName = myRow[0].ToString();
-				datatable.Columns.Add(myDataColumn);
-			}
-			//添加数据
-			while(dataReader.Read())
-			{
-				DataRow myDataRow = datatable.NewRow();
-				for(int i=0;i<schemaTable.Rows.Count;i++)
-				{
-					myDataRow[i] = dataReader[i].ToString();
-				}
-				datatable.Rows.Add(myDataRow);
-				myDataRow = null;
-			}
-			schemaTable = null;
-			return datatable;
-		}
-		#endregion
 
 		/// <summary>
 		/// 初始化 RootNode DataTable
@@ -97,7 +65,7 @@ namespace UDS.Inc
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl1 = ConvertDataReaderToDataTable(dataReader);
+            dataTbl1 = dataReader.ToDataTable(false);
 			dataReader.Close();
 			dataTbl1.TableName = "TreeView";
 		}
@@ -121,7 +89,8 @@ namespace UDS.Inc
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl2 = ConvertDataReaderToDataTable(dataReader); 
+			//dataTbl2 = ConvertDataReaderToDataTable(dataReader); 
+            dataTbl2 = dataReader.ToDataTable(false);
 			dataReader.Close();
 			dataTbl2.TableName = "TreeView";
 		}
@@ -177,7 +146,7 @@ namespace UDS.Inc
 		/// </summary>
 		private string GetIcon(string ClassType)
 		{
-			string rtnValue = "../../DataImages/";
+			string rtnValue = VirtualPathUtility.ToAbsolute("~/DataImages/");
 			switch (ClassType)
 			{
 				case "0":

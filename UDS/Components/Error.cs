@@ -18,21 +18,21 @@ namespace UDS.Components
 		/// <param name="message">¼ÇÂ¼µÄÄÚÈÝ</param>
         public static void Log(string message)
         {
-            string filefullname = System.Web.HttpContext.Current.Server.MapPath(FILE_NAME);
+            //string filefullname = System.Web.HttpContext.Current.Server.MapPath(FILE_NAME);
 
-            if (File.Exists(filefullname))
-            {
-                StreamWriter sr = File.AppendText(FILE_NAME);
-                sr.WriteLine("\n");
-                sr.WriteLine(DateTime.Now.ToString() + message);
-                sr.Close();
-            }
-            else
-            {
-                StreamWriter sr = File.CreateText(FILE_NAME);
-                sr.Close();
-            }
-
+            //if (File.Exists(filefullname))
+            //{
+            //    StreamWriter sr = File.AppendText(FILE_NAME);
+            //    sr.WriteLine("\n");
+            //    sr.WriteLine(DateTime.Now.ToString() + message);
+            //    sr.Close();
+            //}
+            //else
+            //{
+            //    StreamWriter sr = File.CreateText(FILE_NAME);
+            //    sr.Close();
+            //}
+            throw new Exception(message);
         }
 
     }

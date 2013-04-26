@@ -80,9 +80,16 @@
     <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\Calendar.css" />
     <Content Include="Css\calendar.js" />
+    <Content Include="Css\font-awesome-ie7.min.css" />
+    <Content Include="Css\font-awesome.css" />
+    <Content Include="Css\font-awesome.min.css" />
     <Content Include="Css\meizzDate.js" />
     <Content Include="Css\mycss.css" />
     <Content Include="Css\mycss1.css" />
+    <Content Include="Css\quantumcode-ie.css" />
+    <Content Include="Css\quantumcode-resposive.css" />
+    <Content Include="Css\quantumcode-skins.css" />
+    <Content Include="Css\quantumcode.css" />
     <Content Include="Css\Search.css" />
     <Content Include="Css\tr.js" />
     <Content Include="Css\TreeView.Css" />
@@ -208,6 +215,7 @@
     <Content Include="DataImages\xpRecentDoc.gif" />
     <Content Include="DataImages\xpRecycle.gif" />
     <Content Include="DataImages\xpShared.gif" />
+    <Content Include="font\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Help\About.aspx" />
     <Content Include="Help\filelist.xml" />
@@ -1152,6 +1160,8 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-1.9.1.min.js" />
+    <Content Include="js\quantumcode-elements.js" />
+    <Content Include="js\quantumcode.js" />
     <Content Include="SubModule\AssignRule\ClassTree.aspx" />
     <Content Include="SubModule\AssignRule\RightList.aspx" />
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
@@ -1381,6 +1391,7 @@
     <Compile Include="Components\Document.cs" />
     <Compile Include="Components\DocumentFlow.cs" />
     <Compile Include="Components\Error.cs" />
+    <Compile Include="Components\Extensions.cs" />
     <Compile Include="Components\Linkman.cs" />
     <Compile Include="Components\Mail.cs" />
     <Compile Include="Components\Position.cs" />
@@ -2047,6 +2058,10 @@
     <Content Include="Help\help.files\oledata.mso" />
     <Content Include="SubModule\CM\Attachment\39.doc" />
     <Content Include="SubModule\CM\Attachment\40.doc" />
+    <Content Include="font\fontawesome-webfont.eot" />
+    <Content Include="font\fontawesome-webfont.ttf" />
+    <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="font\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />
     <None Include="SubModule\Staff\Report\StaffDataSet.xsd">
       <SubType>Designer</SubType>

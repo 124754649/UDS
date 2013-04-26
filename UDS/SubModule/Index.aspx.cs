@@ -8,6 +8,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using UDS.Components;
+using System.Data.SqlClient;
 
 namespace UDS.SubModule
 {
@@ -16,9 +18,16 @@ namespace UDS.SubModule
 	/// </summary>
 	public class Index : System.Web.UI.Page
 	{
+        public string UserName;
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// 在此处放置用户代码以初始化页面
+            UserName = UDS.Components.Staff.GetRealNameByUsername(Request.Cookies["UserName"].Value.ToString());
+
+            if (!Page.IsPostBack)
+            {
+                
+            }
 		}
 
 		#region Web Form Designer generated code
