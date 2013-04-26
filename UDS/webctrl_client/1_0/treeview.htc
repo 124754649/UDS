@@ -755,7 +755,7 @@ function ondocumentready()
     f_CleanupEvents();
 
     g_strQueuedEvents = "";
-
+    
     if (HoverNodeIndex.length > 0)
         HoverNode(getNodeFromIndex(HoverNodeIndex));
 
@@ -1008,7 +1008,7 @@ function buildTreeFromRoot()
     // Create TREEVIEW surrogate div, to encapsulate all other DIVs.
     treeviewNode = element.document.createElement("HTML");
     var bodyNode = element.document.createElement("BODY");
-    bodyNode.dir = element.getAttribute("dir");
+    //bodyNode.dir = element.getAttribute("dir");
     bodyNode.style.direction = element.currentStyle.direction;        
     
     var head = element.document.createElement("HEAD");

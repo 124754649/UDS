@@ -21,7 +21,7 @@
 		</script>
 	</HEAD>
 	<body leftMargin="0" topMargin="0" rightMargin="5">
-		<form id="Desktop" method="post" runat="server">
+		<form id="WorkArea" method="post" runat="server">
 			<table cellSpacing="10" cellPadding="0" width="100%" align="center" border="0">
 				<tr>
 					<td vAlign="top">

@@ -205,17 +205,17 @@
 					</li>
 					<li class="light-blue user-profile">
 						<a class="user-menu dropdown-toggle" href="#" data-toggle="dropdown">
-							<img alt="Jason's Photo" src="assets/avatars/user.jpg" class="nav-user-photo" />
+							<img style="display:none" alt="Jason's Photo" src="assets/avatars/user.jpg" class="nav-user-photo" />
 							<span id="user_info">
-								<small>Welcome,</small> Jason
+								<small>欢迎,</small> <%= UserName %>
 							</span>
 							<i class="icon-caret-down"></i>
 						</a>
 						<ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-							<li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-							<li><a href="#"><i class="icon-user"></i> Profile</a></li>
+							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Setup/MySetup.aspx") %>'><i class="icon-cog"></i>密码</a></li>
+							<li style="display:none"><a href="#"><i class="icon-user"></i> Profile</a></li>
 							<li class="divider"></li>
-							<li><a href="#"><i class="icon-off"></i> Logout</a></li>
+							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/Login/logout.aspx?Action=2") %>'><i class="icon-off"></i>退出</a></li>
 						</ul>
 					</li>
 			  </ul><!--/.ace-nav-->
@@ -230,17 +230,17 @@
 				
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
-						<button class="btn btn-small btn-success"><i class="icon-signal"></i></button>
-						<button class="btn btn-small btn-info"><i class="icon-pencil"></i></button>
+						<button id="btnMyDesktop" class="btn btn-small btn-success"><i class="icon-desktop">我的桌面</i></button>
+						<!--<button class="btn btn-small btn-info"><i class="icon-pencil"></i></button>
 						<button class="btn btn-small btn-warning"><i class="icon-group"></i></button>
-						<button class="btn btn-small btn-danger"><i class="icon-cogs"></i></button>
+						<button class="btn btn-small btn-danger"><i class="icon-cogs"></i></button>-->
 					</div>
-					<div id="sidebar-shortcuts-mini">
+					<!--<div id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
 						<span class="btn btn-info"></span>
 						<span class="btn btn-warning"></span>
 						<span class="btn btn-danger"></span>
-					</div>
+					</div>-->
 				</div><!-- #sidebar-shortcuts -->
                 <form id="Projecttreeview" method="post" runat="server">
 				    <uc1:controlprojecttreeview id="ControlProjectTreeView1" runat="server"></uc1:controlprojecttreeview>
@@ -249,10 +249,10 @@
 			</div><!--/#sidebar-->
             <div id="main-content" class="clearfix">
                 <div id="breadcrumbs">
-						<ul class="breadcrumb">
+						<!--<ul class="breadcrumb">
 							<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
 							<li class="active">Dashboard</li>
-						</ul><!--.breadcrumb-->
+						</ul>--><!--.breadcrumb-->
 
 						<!--<div id="nav-search">
 							<form class="form-search">
@@ -264,6 +264,7 @@
 						</div>--><!--#nav-search-->
 					</div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
+                    <iframe id="MainFrame" name="MainFrame" style="width:100%;height:100%;border:0px"></iframe>
                 </div><!--/#page-content-->
             </div><!-- #main-content -->
         </div><!--/.fluid-container#main-container-->
@@ -271,6 +272,26 @@
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/quantumcode-elements.js"></script>
         <script type="text/javascript" src="../js/quantumcode.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#MainFrame").load(function () {
+                    var height = $(this).contents().find("#WorkArea").height() + 40;
+                    //这样给以一个最小高度  
+                    $(this).height(height < 400 ? 400 : height);
+                });
+            });
+
+            $(function () {
+                $("#btnMyDesktop").click(function () {
+                    //console.log($("#MainFrame"));
+                    $("#MainFrame")[0].src='<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>';
+                });
+            });
+
+            $(document).ready(function () {
+                $("#MainFrame")[0].src = '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>';
+            });
+        </script>
     </body>
 	<%--<frameset id="UpFrame" rows="89,82%" frameborder="0" border="0" framespacing="0">
 		<frame id="header" name="header" scrolling="no" noresize src="../Inc/ControlHeader.aspx">

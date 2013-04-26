@@ -1335,7 +1335,9 @@
     <Content Include="SubModule\WorkAttendance\StaffData.aspx" />
     <Content Include="SubModule\WorkAttendance\tmpStaffData.aspx" />
     <Content Include="Web Reference\wsms\sms.disco" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="webctrl_client\1_0\images\folder.gif" />
     <Content Include="webctrl_client\1_0\images\folderopen.gif" />
     <Content Include="webctrl_client\1_0\images\html.gif" />

@@ -109,7 +109,7 @@ namespace UDS.Inc
 				tn.ID		   = drv["ClassID"].ToString();
 				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
-				tn.NavigateUrl = "Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString();
+				tn.NavigateUrl = ResolveUrl("~/SubModule/UnitiveDocument/Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString());
 				tn.Target      = "MainFrame";
 				TNC.Add(tn);
 				InitChildNodeDataTable(Int32.Parse(tn.ID.ToString()));
@@ -133,7 +133,7 @@ namespace UDS.Inc
 				tn.ID		   = drv["ClassID"].ToString();
 				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
-				tn.NavigateUrl = "Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString();
+				tn.NavigateUrl = ResolveUrl("~/SubModule/UnitiveDocument/Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString());
 				tn.Target      = "MainFrame";
 				TNC.Add(tn);
 				InitTreeChildNode(tn.Nodes,tn.ID);

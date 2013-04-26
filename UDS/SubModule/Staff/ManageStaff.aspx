@@ -68,7 +68,7 @@
 		<LINK href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body MS_POSITIONING="GridLayout" leftmargin="0" topmargin="0">
-		<form id="ManageStaff" method="post" runat="server">
+		<form id="WorkArea" method="post" runat="server">
 			<FONT face="ËÎÌו">
 				<TABLE id="Table1" cellSpacing="0" cellPadding="0" width="100%" border="0">
 					<tr>
