@@ -39,14 +39,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CRVsPackageLib, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Interop.jmail">
       <HintPath>..\lib\Interop.jmail.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -1232,7 +1224,6 @@
     <Content Include="SubModule\Staff\ModifyInfo.aspx" />
     <Content Include="SubModule\Staff\ModifyInfo1.aspx" />
     <Content Include="SubModule\Staff\Rehab.aspx" />
-    <Content Include="SubModule\Staff\Report\StaffReport.aspx" />
     <Content Include="SubModule\Staff\Sch\ResultList.aspx" />
     <Content Include="SubModule\Staff\Sch\Search.aspx" />
     <Content Include="SubModule\Staff\Search.aspx" />
@@ -1328,7 +1319,6 @@
     <Content Include="SubModule\WorkAttendance\checksucessful.aspx" />
     <Content Include="SubModule\WorkAttendance\Default.aspx" />
     <Content Include="SubModule\WorkAttendance\loginchecksucessful.htm" />
-    <Content Include="SubModule\WorkAttendance\Report\DutyReport.aspx" />
     <Content Include="SubModule\WorkAttendance\SearchData.aspx" />
     <Content Include="SubModule\WorkAttendance\Set.aspx" />
     <Content Include="SubModule\WorkAttendance\ShowDay.aspx" />
@@ -1713,13 +1703,6 @@
     <Compile Include="SubModule\Staff\Report\StaffDataSet.cs">
       <DependentUpon>StaffDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="SubModule\Staff\Report\StaffList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SubModule\Staff\Report\StaffReport.aspx.cs">
-      <DependentUpon>StaffReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="SubModule\Staff\Sch\ResultList.aspx.cs">
       <DependentUpon>ResultList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2015,13 +1998,6 @@
     </Compile>
     <Compile Include="SubModule\WorkAttendance\Report\DetailDuty.cs">
       <DependentUpon>DetailDuty.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="SubModule\WorkAttendance\Report\DutyReport.aspx.cs">
-      <DependentUpon>DutyReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SubModule\WorkAttendance\Report\rpt_DutyReport.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SubModule\WorkAttendance\Report\TotalDuty.cs">
       <DependentUpon>TotalDuty.xsd</DependentUpon>
@@ -2341,15 +2317,9 @@
     <EmbeddedResource Include="SubModule\Staff\Rehab.aspx.resx">
       <DependentUpon>Rehab.aspx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubModule\Staff\Report\StaffList.resx">
-      <DependentUpon>StaffList.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubModule\Staff\Report\StaffList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>StaffList1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubModule\Staff\Report\StaffReport.aspx.resx">
-      <DependentUpon>StaffReport.aspx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubModule\Staff\Sch\ResultList.aspx.resx">
       <DependentUpon>ResultList.aspx.cs</DependentUpon>
@@ -2563,16 +2533,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubModule\WorkAttendance\Default.aspx.resx">
       <DependentUpon>Default.aspx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubModule\WorkAttendance\Report\DutyReport.aspx.resx">
-      <DependentUpon>DutyReport.aspx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubModule\WorkAttendance\Report\rpt_DutyReport.resx">
-      <DependentUpon>rpt_DutyReport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubModule\WorkAttendance\Report\rpt_DutyReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rpt_DutyReport2.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SubModule\WorkAttendance\SearchData.aspx.resx">
       <DependentUpon>SearchData.aspx.cs</DependentUpon>

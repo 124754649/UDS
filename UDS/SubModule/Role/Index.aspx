@@ -1,11 +1,23 @@
 <%@ Page CodeBehind="Index.aspx.cs" Language="c#" AutoEventWireup="false" Inherits="UDS.SubModule.Role.Index" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
+<!DOCTYPE html>
 <html>
-	<head>
+	<head runat="server">
 		<TITLE>部门设置</TITLE>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
-		<meta name="GENERATOR" content="Microsoft Visual Studio.NET 7.0">
-		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+        <link rel="stylesheet" href="../../Css/bootstrap.css" />
+        <link rel="stylesheet" href="../../Css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="../../Css/font-awesome.min.css" />
+        <!--[if IE 7]>
+		  <link rel="stylesheet" href="../../Css/font-awesome-ie7.min.css" />
+		<![endif]-->
+        <link rel="stylesheet" href="../../Css/quantumcode.css" />
+        <link rel="stylesheet" href="../../Css/quantumcode-resposive.css" />
+        <link rel="stylesheet" href="../../Css/quantumcode-skins.css" />
+
+        <!--[if lt IE 9]>
+		  <link rel="stylesheet" href="../../Css/quantumcode-ie.css" />
+		<![endif]-->
 	</head>
 	<frameset id="thisFrame" cols="180,*" cols="184,76%">
 		<frame name="LeftFrame" src="RoleTreeView.aspx" frameBorder="no" scrolling="no" noresize>

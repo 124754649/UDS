@@ -8,11 +8,10 @@ namespace UDS.Inc
 	using System.Web;
 	using System.Web.SessionState;
 	using System.Web.UI;
-	//using System.Web.UI.WebControls;
+	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 	using System.Data.SqlClient;
 	using UDS.Components;
-	using Microsoft.Web.UI.WebControls;
 	using System.Configuration;  
 
 	/// <summary>
@@ -20,8 +19,8 @@ namespace UDS.Inc
 	/// </summary>
 	public abstract class ClassTreeView : System.Web.UI.UserControl
 	{
-		protected Microsoft.Web.UI.WebControls.TreeView TreeView1;
 		protected DataTable dataTbl1,dataTbl2;
+        protected System.Web.UI.WebControls.TreeView TreeView1;
 		
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -30,11 +29,8 @@ namespace UDS.Inc
 			if(!Page.IsPostBack)
 			{	
 				InitRootNodeDataTable();
-                TreeView1.SystemImagesPath = VirtualPathUtility.ToAbsolute("~/webctrl_client/1_0/treeimages/");
 				InitTreeRootNode(TreeView1.Nodes);
-				TreeView1.ExpandLevel = 1;
-			//	TreeView1.Nodes[80].Expanded=true;
-			//	InitTree(TreeView1.Nodes,"0");
+                TreeView1.ExpandDepth = 1;
 			}
 		}
 	
@@ -104,16 +100,16 @@ namespace UDS.Inc
 			dataView		   = dataTbl1.Copy().DefaultView;
 		//	dataView.RowFilter = "ClassParentID = ClassID";
 			foreach(DataRowView drv in dataView)
-			{	
+			{
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value		   = drv["ClassID"].ToString();
 				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 				tn.NavigateUrl = ResolveUrl("~/SubModule/UnitiveDocument/Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString());
 				tn.Target      = "MainFrame";
 				TNC.Add(tn);
-				InitChildNodeDataTable(Int32.Parse(tn.ID.ToString()));
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitChildNodeDataTable(Int32.Parse(tn.Value.ToString()));
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 			dataTbl1 = null;
 			dataTbl2 = null;
@@ -130,13 +126,13 @@ namespace UDS.Inc
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value		   = drv["ClassID"].ToString();
 				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 				tn.NavigateUrl = ResolveUrl("~/SubModule/UnitiveDocument/Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString());
 				tn.Target      = "MainFrame";
 				TNC.Add(tn);
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 		}	
 		

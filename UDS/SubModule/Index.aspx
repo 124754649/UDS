@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="uc1" TagName="ControlProjectTreeView" Src="~/Inc/ControlProjectTreeView.ascx" %>
 <!DOCTYPE html>
 <html>
-	<head>
+	<head runat="server">
 		<TITLE><%= ConfigurationManager.AppSettings["productName"] %></TITLE>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
@@ -230,7 +230,7 @@
 				
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
-						<button id="btnMyDesktop" class="btn btn-small btn-success"><i class="icon-desktop">我的桌面</i></button>
+						<button id="btnMyDesktop" class="btn btn-small btn-success"><i class="icon-desktop"></i>我的桌面</button>
 						<!--<button class="btn btn-small btn-info"><i class="icon-pencil"></i></button>
 						<button class="btn btn-small btn-warning"><i class="icon-group"></i></button>
 						<button class="btn btn-small btn-danger"><i class="icon-cogs"></i></button>-->
@@ -264,7 +264,7 @@
 						</div>--><!--#nav-search-->
 					</div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
-                    <iframe id="MainFrame" name="MainFrame" style="width:100%;height:100%;border:0px"></iframe>
+                    <iframe id="MainFrame" name="MainFrame" style="width:100%;height:100%;border:0px" frameborder="0"></iframe>
                 </div><!--/#page-content-->
             </div><!-- #main-content -->
         </div><!--/.fluid-container#main-container-->
