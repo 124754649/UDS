@@ -8,11 +8,9 @@ namespace UDS.Inc
 	using System.Web;
 	using System.Web.SessionState;
 	using System.Web.UI;
-	//using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
+	using System.Web.UI.WebControls;
 	using System.Data.SqlClient;
 	using UDS.Components;
-	using Microsoft.Web.UI.WebControls;
 	using System.Configuration;  
 
 	/// <summary>
@@ -20,7 +18,7 @@ namespace UDS.Inc
 	/// </summary>
 	public abstract class ControlRoleTreeView : System.Web.UI.UserControl
 	{
-		protected Microsoft.Web.UI.WebControls.TreeView TreeView1;
+        protected System.Web.UI.WebControls.TreeView TreeView1;
 		protected DataTable dataTbl1,dataTbl2;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -39,7 +37,6 @@ namespace UDS.Inc
 
 		private void GetRoleNode(TreeNode tv)
 		{
-			TreeView1.ShowToolTip = true;
 			Database db = new Database();
 			SqlDataReader dr = null;
 			try
@@ -48,12 +45,12 @@ namespace UDS.Inc
 				while(dr.Read())
 				{
 					TreeNode tn    = new TreeNode();
-					tn.ID          = dr["Role_ID"].ToString();
+					tn.Value          = dr["Role_ID"].ToString();
 					tn.Text        = "<span onmouseover=javascript:title='"+dr["Role_Description"].ToString()+"'>"+dr["Role_Name"].ToString()+"</span>";
 					tn.ImageUrl    = GetIcon("9");
-					tn.NavigateUrl = "ListView.aspx?Role_ID="+dr["Role_ID"].ToString();
-					tn.Target      = "MainFrame";
-					tv.Nodes.Add(tn);
+					tn.NavigateUrl = ResolveUrl("~/SubModule/Role/ListView.aspx?Role_ID="+dr["Role_ID"].ToString());
+					tn.Target      = "RoleMainFrame";
+					tv.ChildNodes.Add(tn);
 				}
 				dr.Close();
 			}
@@ -70,7 +67,7 @@ namespace UDS.Inc
 		/// </summary>
 		private string GetIcon(string ClassType)
 		{
-			string rtnValue = "../../DataImages/";
+            string rtnValue = VirtualPathUtility.ToAbsolute("~/DataImages/");
 			switch (ClassType)
 			{
 				case "0":

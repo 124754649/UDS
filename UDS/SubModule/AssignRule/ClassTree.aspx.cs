@@ -7,11 +7,10 @@ using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
-//using System.Web.UI.WebControls;
+using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using UDS.Inc;
 using UDS.Components;
-using Microsoft.Web.UI.WebControls;
 
 namespace UDS.SubModule.AssginRule
 {
@@ -22,7 +21,7 @@ namespace UDS.SubModule.AssginRule
 	{
 		protected System.Web.UI.WebControls.Button OK;
 		protected DataTable dataTbl1,dataTbl2;
-		protected Microsoft.Web.UI.WebControls.TreeView TreeView1;
+        protected System.Web.UI.WebControls.TreeView TreeView1;
 	
 		/// <summary>
 		/// 表示要显示的根节点的ID
@@ -41,7 +40,7 @@ namespace UDS.SubModule.AssginRule
 			{	
 				InitRootNodeDataTable();
 				InitTreeRootNode(TreeView1.Nodes);
-				TreeView1.ExpandLevel = 1;
+				TreeView1.ExpandDepth = 1;
 			}
 					
 			
@@ -52,39 +51,6 @@ namespace UDS.SubModule.AssginRule
 			
 			
 		}
-
-		#region 将DataReader 转为 DataTable
-		/// <summary>
-		/// 将DataReader 转为 DataTable
-		/// </summary>
-		/// <param name="DataReader">DataReader</param>
-		public DataTable ConvertDataReaderToDataTable(SqlDataReader dataReader)
-		{
-			DataTable datatable = new DataTable();
-			DataTable schemaTable = dataReader.GetSchemaTable();
-			//动态添加列
-			foreach(DataRow myRow in schemaTable.Rows)
-			{
-				DataColumn myDataColumn = new DataColumn();
-				myDataColumn.DataType	= System.Type.GetType("System.String");
-				myDataColumn.ColumnName = myRow[0].ToString();
-				datatable.Columns.Add(myDataColumn);
-			}
-			//添加数据
-			while(dataReader.Read())
-			{
-				DataRow myDataRow = datatable.NewRow();
-				for(int i=0;i<schemaTable.Rows.Count;i++)
-				{
-					myDataRow[i] = dataReader[i].ToString();
-				}
-				datatable.Rows.Add(myDataRow);
-				myDataRow = null;
-			}
-			schemaTable = null;
-			return datatable;
-		}
-		#endregion
 
 		/// <summary>
 		/// 初始化 RootNode DataTable
@@ -107,7 +73,7 @@ namespace UDS.SubModule.AssginRule
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl1 = ConvertDataReaderToDataTable(dataReader); 
+			dataTbl1 = dataReader.ToDataTable(true); 
 			dataTbl1.TableName = "TreeView";
 		}
 
@@ -130,7 +96,7 @@ namespace UDS.SubModule.AssginRule
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl2 = ConvertDataReaderToDataTable(dataReader); 
+			dataTbl2 = dataReader.ToDataTable(true); 
 			dataTbl2.TableName = "TreeView";
 		}
 
@@ -145,20 +111,20 @@ namespace UDS.SubModule.AssginRule
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value		   = drv["ClassID"].ToString();
 				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 				tn.NavigateUrl = "RightList.aspx?ClassID="+drv["ClassID"].ToString() + "&SrcID=" + SrcID.ToString() + "&DisplayType=" + DisplayType.ToString();
 				tn.Target      = "RightList";
 				TNC.Add(tn);
-				InitChildNodeDataTable(Int32.Parse(tn.ID.ToString()));
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitChildNodeDataTable(Int32.Parse(tn.Value.ToString()));
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 			dataTbl1 = null;
 			dataTbl2 = null;
 
 			TreeNode tnn    = new TreeNode();
-			tnn.ID		   = "0";
+			tnn.Value		   = "0";
 			tnn.Text		   = "<span onmousemove=javascript:title='全局对象'>全局对象</span>";
 			tnn.ImageUrl    = GetIcon("-1");
 			tnn.NavigateUrl = "RightList.aspx?ClassID=0&SrcID=" + SrcID.ToString() + "&DisplayType=" + DisplayType.ToString();
@@ -180,13 +146,13 @@ namespace UDS.SubModule.AssginRule
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value = drv["ClassID"].ToString();
 				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 				tn.NavigateUrl = "RightList.aspx?ClassID="+drv["ClassID"].ToString() + "&SrcID=" + SrcID.ToString() + "&DisplayType=" + DisplayType.ToString();
 				tn.Target      = "RightList";
 				TNC.Add(tn);
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 		}	
 			
@@ -196,7 +162,7 @@ namespace UDS.SubModule.AssginRule
 		/// </summary>
 		private string GetIcon(string ClassType)
 		{
-			string rtnValue = "../../DataImages/";
+            string rtnValue = VirtualPathUtility.ToAbsolute("~/DataImages/");
 			switch (ClassType)
 			{
 				case "0":

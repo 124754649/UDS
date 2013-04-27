@@ -12,50 +12,6 @@ namespace UDS.Components
 	/// </summary>
 	public class MailClass
 	{
-
-		#region 将DataReader 转为 DataTable
-		/// <summary>
-		/// 将DataReader 转为 DataTable
-		/// </summary>
-		/// <param name="DataReader">DataReader</param>
-		public  DataTable ConvertDataReaderToDataTable(SqlDataReader dataReader)
-		{
-			DataTable datatable = new DataTable();
-			DataTable schemaTable = dataReader.GetSchemaTable();
-			//动态添加列
-			try
-			{
-			
-				foreach(DataRow myRow in schemaTable.Rows)
-				{
-					DataColumn myDataColumn = new DataColumn();
-					myDataColumn.DataType	= myRow.GetType();
-					myDataColumn.ColumnName = myRow[0].ToString();
-					datatable.Columns.Add(myDataColumn);
-				}
-				//添加数据
-				while(dataReader.Read())
-				{
-					DataRow myDataRow = datatable.NewRow();
-					for(int i=0;i<schemaTable.Rows.Count;i++)
-					{
-						myDataRow[i] = dataReader[i].ToString();
-					}
-					datatable.Rows.Add(myDataRow);
-					myDataRow = null;
-				}
-				schemaTable = null;
-				return datatable;
-			}
-			catch(Exception ex)
-			{
-				Error.Log(ex.ToString());
-				return datatable;
-			}
-			
-		}
-
-		#endregion
 		
 		#region 获取某用户的某信箱中的信件 返回DataTable
 		/// <summary>
@@ -76,7 +32,7 @@ namespace UDS.Components
 			try
 			{
 				data.RunProc("SP_MailGetBriefInfo",prams, out dataReader);
-				datatable = ConvertDataReaderToDataTable(dataReader);
+				datatable = dataReader.ToDataTable(false);
 				dataReader.Close();
 				return datatable;
 			}
@@ -110,7 +66,7 @@ namespace UDS.Components
 			try
 			{
 				data.RunProc("SP_MailInClassGetBriefInfo",prams, out dataReader);
-				datatable = ConvertDataReaderToDataTable(dataReader);
+				datatable = dataReader.ToDataTable(false);
 				dataReader.Close();
 				return datatable;
 			}

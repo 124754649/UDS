@@ -6,11 +6,10 @@ using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
-//using System.Web.UI.WebControls;
+using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using UDS.Components;
-using Microsoft.Web.UI.WebControls;
 using System.Configuration;  
 
 namespace UDS.SubModule.UnitiveDocument.MoveTeam
@@ -20,7 +19,7 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 	/// </summary>
 	public class TreeView : System.Web.UI.Page
 	{
-		protected Microsoft.Web.UI.WebControls.TreeView TreeView1;
+        protected System.Web.UI.WebControls.TreeView TreeView1;
 		protected DataTable dataTbl1,dataTbl2;
 		protected String Action="";
 		public  String ToID="",FromID="";
@@ -47,39 +46,6 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 			}
 		}
 
-		#region 将DataReader 转为 DataTable
-		/// <summary>
-		/// 将DataReader 转为 DataTable
-		/// </summary>
-		/// <param name="DataReader">DataReader</param>
-		public DataTable ConvertDataReaderToDataTable(SqlDataReader dataReader)
-		{
-			DataTable datatable = new DataTable();
-			DataTable schemaTable = dataReader.GetSchemaTable();
-			//动态添加列
-			foreach(DataRow myRow in schemaTable.Rows)
-			{
-				DataColumn myDataColumn = new DataColumn();
-				myDataColumn.DataType	= System.Type.GetType("System.String");
-				myDataColumn.ColumnName = myRow[0].ToString();
-				datatable.Columns.Add(myDataColumn);
-			}
-			//添加数据
-			while(dataReader.Read())
-			{
-				DataRow myDataRow = datatable.NewRow();
-				for(int i=0;i<schemaTable.Rows.Count;i++)
-				{
-					myDataRow[i] = dataReader[i].ToString();
-				}
-				datatable.Rows.Add(myDataRow);
-				myDataRow = null;
-			}
-			schemaTable = null;
-			return datatable;
-		}
-		#endregion
-
 		/// <summary>
 		/// 初始化 RootNode DataTable
 		/// </summary>
@@ -102,7 +68,7 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl1 = ConvertDataReaderToDataTable(dataReader); 
+			dataTbl1 = dataReader.ToDataTable(true); 
 			dataTbl1.TableName = "TreeView";
 		}
 
@@ -125,7 +91,7 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl2 = ConvertDataReaderToDataTable(dataReader); 
+			dataTbl2 = dataReader.ToDataTable(true); 
 			dataTbl2.TableName = "TreeView";
 		}
 
@@ -140,14 +106,14 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value		   = drv["ClassID"].ToString();
 				tn.Text		   = drv["ClassName"].ToString();
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 				//tn.NavigateUrl = "# onclick='alert('dddd')'";
 				//tn.Target      = "self";
 				TNC.Add(tn);
-				InitChildNodeDataTable(Int32.Parse(tn.ID.ToString()));
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitChildNodeDataTable(Int32.Parse(tn.Value.ToString()));
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 			dataTbl1 = null;
 			dataTbl2 = null;
@@ -164,13 +130,13 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value		   = drv["ClassID"].ToString();
 				tn.Text		   = drv["ClassName"].ToString();
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 				//tn.NavigateUrl = "#";
 				//tn.Target      = "parent";
 				TNC.Add(tn);
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 		}	
 		
@@ -180,7 +146,7 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 		/// </summary>
 		private string GetIcon(string ClassType)
 		{
-			string rtnValue = "../../../DataImages/";
+			string rtnValue = VirtualPathUtility.ToAbsolute("~/DataImages/");
 			switch (ClassType)
 			{
 				case "0":

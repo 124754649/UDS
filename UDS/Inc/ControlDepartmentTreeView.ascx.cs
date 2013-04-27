@@ -8,11 +8,10 @@ namespace UDS.Inc
 	using System.Web;
 	using System.Web.SessionState;
 	using System.Web.UI;
-	//using System.Web.UI.WebControls;
+	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 	using System.Data.SqlClient;
 	using UDS.Components;
-	using Microsoft.Web.UI.WebControls;
 	using System.Configuration;  
 
 	/// <summary>
@@ -20,7 +19,7 @@ namespace UDS.Inc
 	/// </summary>
 	public abstract class ControlDepartmentTreeView : System.Web.UI.UserControl
 	{
-		protected Microsoft.Web.UI.WebControls.TreeView TreeView1;
+		protected System.Web.UI.WebControls.TreeView TreeView1;
 		protected DataTable dataTbl1,dataTbl2;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -36,39 +35,6 @@ namespace UDS.Inc
 				
 			}
 		}
-
-		#region 将DataReader 转为 DataTable
-		/// <summary>
-		/// 将DataReader 转为 DataTable
-		/// </summary>
-		/// <param name="DataReader">DataReader</param>
-		public DataTable ConvertDataReaderToDataTable(SqlDataReader dataReader)
-		{
-			DataTable datatable = new DataTable();
-			DataTable schemaTable = dataReader.GetSchemaTable();
-			//动态添加列
-			foreach(DataRow myRow in schemaTable.Rows)
-			{
-				DataColumn myDataColumn = new DataColumn();
-				myDataColumn.DataType = System.Type.GetType("System.String");
-				myDataColumn.ColumnName = myRow[0].ToString();
-				datatable.Columns.Add(myDataColumn);
-			}
-			//添加数据
-			while(dataReader.Read())
-			{
-				DataRow myDataRow = datatable.NewRow();
-				for(int i=0;i<schemaTable.Rows.Count;i++)
-				{
-					myDataRow[i] = dataReader[i].ToString();
-				}
-				datatable.Rows.Add(myDataRow);
-				myDataRow = null;
-			}
-			schemaTable = null;
-			return datatable;
-		}
-		#endregion
 
 		/// <summary>
 		/// 初始化 RootNode DataTable
@@ -86,7 +52,7 @@ namespace UDS.Inc
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl1 = ConvertDataReaderToDataTable(dataReader); 
+			dataTbl1 = dataReader.ToDataTable(true); 
 			dataTbl1.TableName = "TreeView";
 		}
 
@@ -109,7 +75,7 @@ namespace UDS.Inc
 				Response.Write(ex.ToString());
 				//UDS.Components.Error.Log(ex.ToString());
 			}
-			dataTbl2 = ConvertDataReaderToDataTable(dataReader); 
+			dataTbl2 = dataReader.ToDataTable(true); 
 			dataTbl2.TableName = "TreeView";
 		}
 
@@ -124,14 +90,14 @@ namespace UDS.Inc
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn   = new TreeNode();
-				tn.ID		  = drv["Department_ID"].ToString();
+				tn.Value		  = drv["Department_ID"].ToString();
 				tn.Text		  = "<span onmouseover=javascript:title='"+drv["Department_Description"].ToString()+"'>"+drv["Department_Name"].ToString()+"</span>";
 				tn.ImageUrl   = GetIcon("8");
-				tn.NavigateUrl = "ListView.aspx?DeptID=" + tn.ID;
+				tn.NavigateUrl = "ListView.aspx?DeptID=" + tn.Value;
 				tn.Target = "MainFrame";
 				TNC.Add(tn);
-				InitChildNodeDataTable(Int32.Parse(tn.ID.ToString()));
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitChildNodeDataTable(Int32.Parse(tn.Value.ToString()));
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 			
 			dataTbl1 = null;
@@ -149,14 +115,14 @@ namespace UDS.Inc
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn   = new TreeNode();
-				tn.ID		  = drv["Department_ID"].ToString();
+				tn.Value		  = drv["Department_ID"].ToString();
 				tn.Text		  = "<span onmouseover=javascript:title='"+drv["Department_Description"].ToString()+"'>"+drv["Department_Name"].ToString()+"</span>";
 				tn.ImageUrl   = GetIcon("9");
-				tn.NavigateUrl = "ListView.aspx?DeptID=" + tn.ID;
+				tn.NavigateUrl = "ListView.aspx?DeptID=" + tn.Value;
 				tn.Target = "MainFrame";
 				TNC.Add(tn);
-				InitChildNodeDataTable(Int32.Parse(tn.ID.ToString()));
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitChildNodeDataTable(Int32.Parse(tn.Value.ToString()));
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 		}	
 		
@@ -166,7 +132,7 @@ namespace UDS.Inc
 		/// </summary>
 		private string GetIcon(string ClassType)
 		{
-			string rtnValue = "../../DataImages/";
+			string rtnValue = VirtualPathUtility.ToAbsolute("~/DataImages/");
 			switch (ClassType)
 			{
 				case "0":

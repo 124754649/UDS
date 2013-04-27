@@ -75,12 +75,14 @@ namespace UDS.SubModule.UnitiveDocument
 							Response.Redirect("../LinkMan/Listview.aspx");
 							break;
 						case "12":							
-							url="../position/index.htm";
-							Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>");
+							url="~/SubModule/position/Index.aspx";
+							//Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>");
+                            Response.Redirect(url);
 							break;
 						case "13":							
-							url="../role/Index.aspx";
-							Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>");
+							url="~/SubModule/role/Index.aspx";
+							//Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>");
+                            Response.Redirect(url);
 							break;
 						case "14":							
 							Response.Redirect("../WorkAttendance/SearchData.aspx");

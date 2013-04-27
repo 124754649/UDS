@@ -37,7 +37,7 @@
 			}
 		</script>
 	</HEAD>
-	<body text="#000000" leftMargin="0" topMargin="0" rightMargin="0" MS_POSITIONING="GridLayout">
+	<body id="WorkArea" text="#000000" leftMargin="0" topMargin="0" rightMargin="0" MS_POSITIONING="GridLayout">
 		<form id="ListView" runat="server">
 			<TABLE id="Table1" cellSpacing="0" cellPadding="0" width="100%" border="0">
 				<TR>

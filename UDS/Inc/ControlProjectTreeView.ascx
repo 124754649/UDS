@@ -1,4 +1,3 @@
-<%@ Register TagPrefix="iewc" Namespace="Microsoft.Web.UI.WebControls" Assembly="Microsoft.Web.UI.WebControls" %>
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="ControlProjectTreeView.ascx.cs" Inherits="UDS.Inc.ClassTreeView" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <asp:TreeView ID="TreeView1" runat="server" ImageSet="XPFileExplorer" NodeIndent="15">
     <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />

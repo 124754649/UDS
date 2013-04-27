@@ -26,16 +26,22 @@
 		</script>
 	</HEAD>
 	<body MS_POSITIONING="GridLayout">
+		<form id="TreeView" method="post" runat="server">
 		<table width="33%" border="0">
 			<tr>
-				<td>&nbsp;<iewc:treeview id="TreeView1" ondblclick="javascript:confirmRemove()" runat="server"></iewc:treeview></td>
+				<td>&nbsp;<asp:TreeView ID="TreeView1" runat="server" ImageSet="XPFileExplorer" NodeIndent="15" ShowLines="True">
+                    <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
+                    <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="2px" NodeSpacing="0px" VerticalPadding="2px" />
+                    <ParentNodeStyle Font-Bold="False" />
+                    <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px" VerticalPadding="0px" />
+                    </asp:TreeView>
+                </td>
 			</tr>
 			<tr>
 				<td>&nbsp;<FONT face="ËÎÌå">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</FONT><INPUT class="ButtonCss" type="button" value="È·¶¨" onclick="confirmRemove()"></td>
 			</tr>
 		</table>
-		<form id="TreeView" method="post" runat="server">
 		</form>
 	</body>
 </HTML>

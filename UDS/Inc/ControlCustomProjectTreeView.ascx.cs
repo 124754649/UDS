@@ -4,9 +4,8 @@ namespace UDS.Inc
 	using System.Data;
 	using System.Drawing;
 	using System.Web;
-	//using System.Web.UI.WebControls;
+	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
-	using Microsoft.Web.UI.WebControls;
 	using UDS.Components;
 	using System.Data.SqlClient;
 
@@ -16,7 +15,7 @@ namespace UDS.Inc
 	public class ControlCustomProjectTreeView : System.Web.UI.UserControl
 	{
 		protected DataTable dataTbl1,dataTbl2;
-		protected Microsoft.Web.UI.WebControls.TreeView tv1;
+        protected System.Web.UI.WebControls.TreeView tv1;
 
 		private string _imagepath = "";
 		private bool _displayfunctionnode = true;
@@ -91,7 +90,8 @@ namespace UDS.Inc
 			get
 			{
 				//if(tv1.SelectedNodeIndex!="0")
-					return Int32.Parse(tv1.GetNodeFromIndex(tv1.SelectedNodeIndex).ID);
+                return Int32.Parse(tv1.SelectedNode.Value);
+					//return Int32.Parse(tv1.GetNodeFromIndex(tv1.SelectedNodeIndex).ID);
 				//else
 				//	return 0;
 			}
@@ -106,7 +106,7 @@ namespace UDS.Inc
 		{
 			InitRootNodeDataTable();
 			InitTreeRootNode(tv1.Nodes);
-			tv1.ExpandLevel = 1;
+			tv1.ExpandDepth = 1;
 		}
 
 		/// <summary>
@@ -169,14 +169,14 @@ namespace UDS.Inc
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value		   = drv["ClassID"].ToString();
 				tn.Text		   = drv["ClassName"].ToString();
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString(),_imagepath);
 				//tn.NavigateUrl = "# onclick='alert('dddd')'";
 				//tn.Target      = "self";
 				TNC.Add(tn);
-				InitChildNodeDataTable(Int32.Parse(tn.ID.ToString()));
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitChildNodeDataTable(Int32.Parse(tn.Value.ToString()));
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 			dataTbl1 = null;
 			dataTbl2 = null;
@@ -193,13 +193,13 @@ namespace UDS.Inc
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
-				tn.ID		   = drv["ClassID"].ToString();
+				tn.Value		   = drv["ClassID"].ToString();
 				tn.Text		   = drv["ClassName"].ToString();
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString(),_imagepath);
 				//tn.NavigateUrl = "#";
 				//tn.Target      = "parent";
 				TNC.Add(tn);
-				InitTreeChildNode(tn.Nodes,tn.ID);
+				InitTreeChildNode(tn.ChildNodes,tn.Value);
 			}
 		}	
 		
@@ -209,7 +209,7 @@ namespace UDS.Inc
 		/// </summary>
 		private string GetIcon(string ClassType,string imagepath)
 		{
-			string rtnValue = imagepath;
+            string rtnValue = VirtualPathUtility.ToAbsolute(imagepath);
 			switch (ClassType)
 			{
 				case "0":

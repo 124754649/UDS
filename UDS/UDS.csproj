@@ -44,9 +44,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="microsoft.web.ui.webcontrols">
-      <HintPath>..\lib\microsoft.web.ui.webcontrols.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -1193,6 +1190,7 @@
     <Content Include="SubModule\Login\Logout.aspx" />
     <Content Include="SubModule\Login\VerifySignIn.aspx" />
     <Content Include="SubModule\Position\ChangePosition.aspx" />
+    <Content Include="SubModule\Position\Index.aspx" />
     <Content Include="SubModule\Position\Index.htm" />
     <Content Include="SubModule\Position\ListView.aspx" />
     <Content Include="SubModule\Position\NewStaff.aspx" />
@@ -1587,6 +1585,13 @@
     <Compile Include="SubModule\Position\ChangePosition.aspx.cs">
       <DependentUpon>ChangePosition.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Position\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubModule\Position\ListView.aspx.cs">
       <DependentUpon>ListView.aspx</DependentUpon>
