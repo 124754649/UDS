@@ -1149,6 +1149,7 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-1.9.1.min.js" />
+    <Content Include="js\jquery.iframe-auto-height.plugin.1.9.1.min.js" />
     <Content Include="js\quantumcode-elements.js" />
     <Content Include="js\quantumcode.js" />
     <Content Include="SubModule\AssignRule\ClassTree.aspx" />

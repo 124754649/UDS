@@ -23,10 +23,12 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 		protected DataTable dataTbl1,dataTbl2;
 		protected String Action="";
 		public  String ToID="",FromID="";
+        private string nodeTemplate = "<span class='treenodespan' data-id='{0}' data-text='{1}'>{1}</span>";
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			FromID	 = (Request.QueryString["FromID"]!=null)?Request.QueryString["FromID"].ToString():"";
+
 			if(!Page.IsPostBack)
 			{	
 				Action	 = (Request.QueryString["Action"]!=null)?Request.QueryString["Action"].ToString():"";
@@ -35,14 +37,27 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 				{
 					ToID	 = (Request.QueryString["ToID"]!=null)?Request.QueryString["ToID"].ToString():"";
 					UDS.Components.ProjectClass prj = new UDS.Components.ProjectClass();
-					prj.Remove(Int32.Parse(FromID),Int32.Parse(ToID));
-					prj = null;
+                    try
+                    {
+                        prj.Remove(Int32.Parse(FromID), Int32.Parse(ToID));
+                        Response.StatusCode = 200;
+                        Response.Write("OK");
+                    }
+                    catch (Exception eX)
+                    {
+                        Response.StatusCode = 400;
+                        Response.StatusDescription = eX.Message;
+                        Response.Write(eX.Message);
+                    }
+                    finally
+                    {
+                        prj = null;
+                    }
+
                     Response.End();
 				}
 				InitRootNodeDataTable();
-				InitTreeRootNode(TreeView1.Nodes);
-				//InitTree(TreeView1.Nodes,"0");
-			    
+				InitTreeRootNode(TreeView1.Nodes);			    
 			}
 		}
 
@@ -103,12 +118,16 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 			DataView dataView  = new DataView();
 			dataView		   = dataTbl1.Copy().DefaultView;
 			dataView.RowFilter = "ClassParentID = ClassID";
+            
 			foreach(DataRowView drv in dataView)
 			{	
 				TreeNode tn    = new TreeNode();
 				tn.Value		   = drv["ClassID"].ToString();
-				tn.Text		   = drv["ClassName"].ToString();
+				//tn.Text		   = drv["ClassName"].ToString();
+                tn.Text = string.Format(nodeTemplate, tn.Value, drv["ClassName"].ToString());
+
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
+                tn.SelectAction = TreeNodeSelectAction.None;
 				//tn.NavigateUrl = "# onclick='alert('dddd')'";
 				//tn.Target      = "self";
 				TNC.Add(tn);
@@ -131,8 +150,10 @@ namespace UDS.SubModule.UnitiveDocument.MoveTeam
 			{	
 				TreeNode tn    = new TreeNode();
 				tn.Value		   = drv["ClassID"].ToString();
-				tn.Text		   = drv["ClassName"].ToString();
+				//tn.Text		   = drv["ClassName"].ToString();
+                tn.Text = string.Format(nodeTemplate, tn.Value, drv["ClassName"].ToString());
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
+                tn.SelectAction = TreeNodeSelectAction.None;
 				//tn.NavigateUrl = "#";
 				//tn.Target      = "parent";
 				TNC.Add(tn);

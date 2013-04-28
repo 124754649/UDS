@@ -9,14 +9,14 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body MS_POSITIONING="GridLayout" leftmargin="0" topmargin="0">
-		<form id="RightList" method="post" runat="server">
+	<body leftmargin="0" topmargin="0">
+		<form id="WorkArea" method="post" runat="server">
 			<FONT face="宋体">
 				<TABLE id="Table1" style="BORDER-COLLAPSE: collapse" borderColor="#93BEE2" cellSpacing="0"
-					cellPadding="0" width="100%" align="center" border="1">
+					cellPadding="0" width="100%" align="center" border="0">
 					<TR>
-						<TD><asp:checkboxlist id="Act" runat="server" BorderColor="#E0E0E0" RepeatLayout="Flow" BorderWidth="1px"
-								BorderStyle="Solid" Height="99px" Width="100%"></asp:checkboxlist></TD>
+						<TD><asp:checkboxlist id="Act" runat="server" BorderColor="#E0E0E0" RepeatLayout="Flow" BorderWidth="0px"
+								BorderStyle="Solid" Height="100%" Width="100%"></asp:checkboxlist></TD>
 					</TR>
 					<TR>
 						<TD align="center" height="30"><asp:button id="cmdOK" runat="server" Text="确 定" Width="60px" CssClass="buttoncss"></asp:button>&nbsp;<asp:button id="cmdReturn" runat="server" Text="返 回" Width="60px" CssClass="buttoncss"></asp:button></TD>

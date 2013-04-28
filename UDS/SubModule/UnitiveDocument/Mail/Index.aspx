@@ -172,7 +172,7 @@
 									<HeaderStyle Width="80px"></HeaderStyle>
 									<ItemStyle Font-Size="X-Small"></ItemStyle>
 									<ItemTemplate>
-										<%# DataBinder.Eval(Container.DataItem,"MailReadFlag")==false?"<img src='../../../Images/mailclose.gif'>":"<img src='../../../Images/mailopen.gif'>" %>
+										<%# bool.Parse(DataBinder.Eval(Container.DataItem,"MailReadFlag").ToString())==false?"<img src='../../../Images/mailclose.gif'>":"<img src='../../../Images/mailopen.gif'>" %>
 									</ItemTemplate>
 								</asp:TemplateColumn>
 								<asp:BoundColumn DataField="ClassName" SortExpression="ClassName" HeaderText="ËùÊôÏîÄ¿">

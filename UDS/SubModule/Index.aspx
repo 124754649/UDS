@@ -272,11 +272,12 @@
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/quantumcode-elements.js"></script>
         <script type="text/javascript" src="../js/quantumcode.js"></script>
+        <script type="text/javascript" src="../js/jquery.iframe-auto-height.plugin.1.9.1.min.js"></script>
         <script type="text/javascript">
             $(function () {
                 $("#MainFrame").load(function () {
                     var height = $(this).contents().find("#WorkArea").height() + 40;
-                    //这样给以一个最小高度  
+                    //这样给以一个最小高度
                     $(this).height(height < 400 ? 400 : height);
                 });
             });
@@ -289,6 +290,7 @@
             });
 
             $(document).ready(function () {
+                $("iframe#MainFrame").iframeAutoHeight({ minHeight: 400 });
                 $("#MainFrame")[0].src = '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>';
             });
         </script>
