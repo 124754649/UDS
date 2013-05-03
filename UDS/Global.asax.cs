@@ -25,14 +25,14 @@ namespace UDS
 		protected void Session_Start(Object sender, EventArgs e)
 		{
 			Session.Timeout = 600;
-            ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
-                new ScriptResourceDefinition
-                {
-                    Path = "~/js/jquery-1.9.1.min.js",
-                    DebugPath = "~/js/jquery-1.9.1.min.js",
-                    //CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.min.js",
-                    //CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.js"
-                });
+            //ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
+            //    new ScriptResourceDefinition
+            //    {
+            //        Path = "~/js/jquery-1.9.1.min.js",
+            //        DebugPath = "~/js/jquery-1.9.1.min.js",
+            //        //CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.min.js",
+            //        //CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.js"
+            //    });
 		}
 
 		protected void Application_BeginRequest(Object sender, EventArgs e)

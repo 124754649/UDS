@@ -1,11 +1,10 @@
-<%@ Page CodeBehind="Index.aspx.cs" Language="c#" AutoEventWireup="false" Inherits="UDS.SubModule.Index" %>
+锘�<%@ Page CodeBehind="Index.aspx.cs" Language="c#" AutoEventWireup="false" Inherits="UDS.SubModule.Index" %>
 <%@ Register TagPrefix="uc1" TagName="ControlProjectTreeView" Src="~/Inc/ControlProjectTreeView.ascx" %>
 <!DOCTYPE html>
 <html>
 	<head runat="server">
 		<TITLE><%= ConfigurationManager.AppSettings["productName"] %></TITLE>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
         <link rel="stylesheet" href="../Css/bootstrap.css" />
         <link rel="stylesheet" href="../Css/bootstrap-responsive.min.css" />
         <link rel="stylesheet" href="../Css/font-awesome.min.css" />
@@ -207,15 +206,15 @@
 						<a class="user-menu dropdown-toggle" href="#" data-toggle="dropdown">
 							<img style="display:none" alt="Jason's Photo" src="assets/avatars/user.jpg" class="nav-user-photo" />
 							<span id="user_info">
-								<small>欢迎,</small> <%= UserName %>
+								<small>娆㈣繋,</small> <%= UserName %>
 							</span>
 							<i class="icon-caret-down"></i>
 						</a>
 						<ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Setup/MySetup.aspx") %>'><i class="icon-cog"></i>密码</a></li>
+							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Setup/MySetup.aspx") %>'><i class="icon-cog"></i>瀵嗙爜</a></li>
 							<li style="display:none"><a href="#"><i class="icon-user"></i> Profile</a></li>
 							<li class="divider"></li>
-							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/Login/logout.aspx?Action=2") %>'><i class="icon-off"></i>退出</a></li>
+							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/Login/logout.aspx?Action=2") %>'><i class="icon-off"></i>閫�鍑�</a></li>
 						</ul>
 					</li>
 			  </ul><!--/.ace-nav-->
@@ -230,7 +229,7 @@
 				
 				<div id="sidebar-shortcuts">
 					<div id="sidebar-shortcuts-large">
-						<button id="btnMyDesktop" class="btn btn-small btn-success"><i class="icon-desktop"></i>我的桌面</button>
+						<button id="btnMyDesktop" class="btn btn-small btn-success"><i class="icon-desktop"></i>鎴戠殑妗岄潰</button>
 						<!--<button class="btn btn-small btn-info"><i class="icon-pencil"></i></button>
 						<button class="btn btn-small btn-warning"><i class="icon-group"></i></button>
 						<button class="btn btn-small btn-danger"><i class="icon-cogs"></i></button>-->
@@ -247,12 +246,12 @@
                 </form>
 				<div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
 			</div><!--/#sidebar-->
-            <div id="main-content" class="clearfix">
+            <div id="main-content" class="clearfix" style="height:100%">
                 <div id="breadcrumbs">
-						<!--<ul class="breadcrumb">
-							<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li class="active">Dashboard</li>
-						</ul>--><!--.breadcrumb-->
+						<ul class="breadcrumb">
+							<!--<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+							<li class="active">Dashboard</li>-->
+						</ul><!--.breadcrumb-->
 
 						<!--<div id="nav-search">
 							<form class="form-search">
@@ -264,35 +263,81 @@
 						</div>--><!--#nav-search-->
 					</div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
-                    <iframe id="MainFrame" name="MainFrame" style="width:100%;height:100%;border:0px" frameborder="0"></iframe>
+                    <!--<iframe id="MainFrame" name="MainFrame" style="width:100%" frameborder="0"></iframe>-->
                 </div><!--/#page-content-->
             </div><!-- #main-content -->
         </div><!--/.fluid-container#main-container-->
-        <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/quantumcode-elements.js"></script>
         <script type="text/javascript" src="../js/quantumcode.js"></script>
         <script type="text/javascript" src="../js/jquery.iframe-auto-height.plugin.1.9.1.min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $("#MainFrame").load(function () {
-                    var height = $(this).contents().find("#WorkArea").height() + 40;
-                    //这样给以一个最小高度
-                    $(this).height(height < 400 ? 400 : height);
-                });
-            });
+        <script type="text/javascript" src="../js/underscore-min.js"></script>
+        <script type="text/javascript" src="../js/json2.js"></script>
+        <script type="text/javascript" src="../js/backbone-min.js"></script>
+        <script type="text/javascript" src="../js/breadcrumbModel.js"></script>
+        <script type="text/javascript">            
+            var bcItems = null;
+
+            var bcControl = null;
 
             $(function () {
                 $("#btnMyDesktop").click(function () {
-                    //console.log($("#MainFrame"));
-                    $("#MainFrame")[0].src='<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>';
+                    navigatemf('鎴戠殑妗岄潰', '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>', 'desktop');
                 });
             });
 
             $(document).ready(function () {
-                $("iframe#MainFrame").iframeAutoHeight({ minHeight: 400 });
-                $("#MainFrame")[0].src = '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>';
+                var mainframe = document.createElement("iframe");
+                mainframe.setAttribute("id", "MainFrame");
+                mainframe.setAttribute("name", "MainFrame");
+                mainframe.setAttribute("frameborder", "0");
+                mainframe.setAttribute("width", "100%");
+
+                $(mainframe).appendTo("#page-content");
+
+                if ($.browser.msie) {
+                    $("#MainFrame").load(function () {
+                        if ($.browser.version >= 9) {
+                            $("#MainFrame")[0].height = $("#MainFrame", window.top.document)[0].contentDocument.body.offsetHeight + 40;
+                        }
+                        else {
+                            $("#MainFrame")[0].height = $("#MainFrame", window.top.document)[0].Document.body.scrollHeight + 40;
+                        }
+                    });
+                }
+                else {
+                    $("iframe#MainFrame").iframeAutoHeight({ debug:true, minHeight: 400 });
+                }
+
+                if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {
+                    bcItems = new breadcrumbCollection();
+                    bcControl = new breadcrumbView({
+                        el: $(".breadcrumb"),
+                        model: bcItems
+                    });
+
+                    bcControl.render();
+                }
+
+                navigatemf('鎴戠殑妗岄潰', '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>', 'desktop');
             });
+
+            function navigatemf(title, url, groups) {
+                if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {
+                    tmpItem = new breadcrumbModel();
+                    tmpItem.Group(groups);
+                    tmpItem.Url(url);
+                    tmpItem.Title(title);
+
+                    bcItems.addBreadcrumb(tmpItem);
+                }
+
+                if ($.browser.ms)
+                    $("#MainFrame")[0].src = "about:blank";
+
+                $("#MainFrame")[0].src = url;
+            }
         </script>
     </body>
 	<%--<frameset id="UpFrame" rows="89,82%" frameborder="0" border="0" framespacing="0">

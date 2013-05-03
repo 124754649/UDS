@@ -90,7 +90,6 @@
                 }
                 else {
                     $(this).addClass("treenodespanselected");
-                    console.log($(lastnode));
                     if (null != lastnode)
                         $(lastnode).removeClass("treenodespanselected");
                     lastnode = this;

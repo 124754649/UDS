@@ -82,9 +82,9 @@
 			</TABLE>
 			<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 				<tr>
-					<td align="left"><font size="3"><input class=ButtonCss onclick="javascript:self.location='Compose.aspx?ClassID=0&amp;Action=1&amp;MailID=<%=MailID%>'" type=button value="回 复"><FONT face="宋体">&nbsp;
-							</FONT><input class=ButtonCss onclick="javascript:self.location='Compose.aspx?ClassID=0&amp;Action=2&amp;MailID=<%=MailID%>'" type=button value="转 发">&nbsp;<FONT face="宋体">
-							</FONT><input class=ButtonCss onclick="javascript:self.location='Index.aspx?FolderType=<%=FolderType%>&CurrentPageIndex=<%=CurrentPageIndex%>'" type=button value="返 回"><FONT face="宋体">&nbsp;
+					<td align="left"><font size="3"><input class=ButtonCss onclick='javascript:gotoURL("回复邮件", "<%= Page.ResolveUrl("Compose.aspx") %>", "ClassID=0&Action=1&MailID=<%=MailID%>");' type=button value="回 复"><FONT face="宋体">&nbsp;
+							</FONT><input class=ButtonCss onclick='javascript:gotoURL("转发邮件", "<%= Page.ResolveUrl("Compose.aspx") %>","ClassID=0&Action=2&MailID=<%= MailID %>");' type=button value="转 发">&nbsp;<FONT face="宋体">
+							</FONT><input class=ButtonCss onclick='javascript:gotoURL("我的邮件", "<%= Page.ResolveUrl("Index.aspx") %>", "FolderType=<%= FolderType%>&CurrentPageIndex=<%= CurrentPageIndex %>");' type=button value="返 回"><FONT face="宋体">&nbsp;
 							</FONT>
 							<asp:button id="btnDelete" runat="server" CssClass="ButtonCss" Text="删 除"></asp:button>&nbsp;&nbsp;
 							<input class="ButtonCss" onclick="Incoming()" type="button" value="归档"> </font>
@@ -93,5 +93,11 @@
 				</tr>
 			</table>
 		</form>
+        <script language="javascript">
+            function gotoURL(title, uri, params){
+                var url = uri + '?' + params;
+                parent.navigatemf(title, url, 'mail');
+            }
+        </script>
 	</body>
 </HTML>

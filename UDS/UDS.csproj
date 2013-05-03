@@ -1146,12 +1146,17 @@
     <Content Include="Inc\ControlRoleTreeView.ascx" />
     <Content Include="Inc\ControlSellmanContactHistory.ascx" />
     <Content Include="Index.aspx" />
+    <Content Include="js\backbone-min.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\breadcrumbModel.js" />
+    <Content Include="js\jquery-1.9.1.js" />
     <Content Include="js\jquery-1.9.1.min.js" />
     <Content Include="js\jquery.iframe-auto-height.plugin.1.9.1.min.js" />
+    <Content Include="js\json2.js" />
     <Content Include="js\quantumcode-elements.js" />
     <Content Include="js\quantumcode.js" />
+    <Content Include="js\underscore-min.js" />
     <Content Include="SubModule\AssignRule\ClassTree.aspx" />
     <Content Include="SubModule\AssignRule\RightList.aspx" />
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
@@ -1298,6 +1303,7 @@
     <Content Include="SubModule\UnitiveDocument\Mail\ReadMail.aspx" />
     <Content Include="SubModule\UnitiveDocument\Mail\SelectReceiver.aspx" />
     <Content Include="SubModule\UnitiveDocument\Mail\TreeView.aspx" />
+    <Content Include="SubModule\UnitiveDocument\Mail\WebForm1.aspx" />
     <Content Include="SubModule\UnitiveDocument\ManageProject.aspx" />
     <Content Include="SubModule\UnitiveDocument\ManageQuery\ManageQuery.aspx" />
     <Content Include="SubModule\UnitiveDocument\MemberListView.aspx" />
@@ -1920,6 +1926,13 @@
     <Compile Include="SubModule\UnitiveDocument\Mail\TreeView.aspx.cs">
       <DependentUpon>TreeView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\UnitiveDocument\Mail\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubModule\UnitiveDocument\ManageProject.aspx.cs">
       <DependentUpon>ManageProject.aspx</DependentUpon>
