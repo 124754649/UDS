@@ -43,84 +43,106 @@ namespace UDS.SubModule.UnitiveDocument.Mail
 			{
 				FolderType = Request.QueryString["FolderType"].ToString();
 			}
-					
-			if(Action=="3")
-			{
-				MailIncoming(RMailID,ClassID);
-			}
-			
-			
-			
-			if(!Page.IsPostBack)
-			{
-				MailID = Request.QueryString["MailID"];
-				ShowBodyDetail();
-				this.btnDelete .Attributes["onclick"]= "javascript:return confirm('您确认要删除此邮件吗?');";
-			}
+
+            if (Action == "3")
+            {
+                try
+                {
+                    MailIncoming(RMailID, ClassID);
+                    Response.StatusCode = 200;
+                    Response.StatusDescription = "归档成功";
+                    Response.Write("归档成功");
+                }
+                catch (Exception eX)
+                {
+                    Response.StatusCode = 400;
+                    Response.StatusDescription = eX.Message;
+                    Response.Write(eX.Message);
+                }
+
+                Response.End();
+            }
+            else
+            {
+
+                if (!Page.IsPostBack)
+                {
+                    MailID = Request.QueryString["MailID"];
+                    ShowBodyDetail();
+                    this.btnDelete.Attributes["onclick"] = "javascript:return confirm('您确认要删除此邮件吗?');";
+                }
+            }
 		}
 
 		#region 邮件归档
 		public void MailIncoming(string MailID,string ClassID)
 		{
-		
+            SqlDataReader dataReader = null; 
+
 			if(MailID!=""&&ClassID!="")
 			{
-				try
-				{
-					String Username = Request.Cookies["Username"].Value.ToString();
-					MailClass mailclass = new MailClass();
-					SqlDataReader dataReader = null; 
-					ProjectClass pjt = new ProjectClass();
-					DocBody docbody = new DocBody();
-					DocumentClass doc = new DocumentClass();
+                try
+                {
+                    throw new Exception("错误测试");
 
-					dataReader = mailclass.GetMailCompleteInfoDbreader(MailID);
-					if(dataReader.Read())
-					{
-						int cstRightToApproveDocument = 2;
-					
-						docbody.DocTitle			= dataReader["MailSubject"].ToString();
-						docbody.DocContent			= dataReader["MailBody"].ToString();;
-						docbody.DocAddedBy			= dataReader["MailSender"].ToString();;
-						docbody.DocClassID			= Int32.Parse(ClassID);
-						docbody.DocAddedDate        = DateTime.Now.ToString();
-						docbody.DocApprover			= (pjt.GetAccessPermission(Int32.Parse(ClassID),Username,cstRightToApproveDocument))?Username:"";
-						docbody.DocApproveDate		= (pjt.GetAccessPermission(Int32.Parse(ClassID),Username,cstRightToApproveDocument))?DateTime.Now.ToString():"";
-						docbody.DocApproved         = (docbody.DocApprover =="")?0:1;
-						docbody.DocAttribute        = 0;
-						docbody.DocType				= 0;
-				
-					}
-					dataReader.Close();
-					string DocID = doc.AddDocBody(docbody);
-				
-					dataReader = mailclass.GetMailAttInfoDbreader(MailID);
-					while(dataReader.Read())
-					{
-						DocAttachFile docatt = new DocAttachFile();
-						docatt.FileAttribute  = 0;
-						docatt.FileSize       = Int32.Parse(dataReader["FileSize"].ToString());
-						docatt.FileName	      = dataReader["FileName"].ToString();
-						docatt.FileAuthor     = Username;
-						docatt.FileCatlog     = "文档";
-						docatt.FileVisualPath = "Mail"+dataReader["FileVisualPath"].ToString();
-						docatt.FileAddedDate  = DateTime.Now.ToString();
-						docatt.DocID          = Int32.Parse(DocID);
-						doc.AddAttach(docatt,Int32.Parse(DocID));
-					}
-					
-					
-					dataReader = null;
-					pjt		   = null;
-					docbody    = null;
+                    String Username = Request.Cookies["Username"].Value.ToString();
+                    MailClass mailclass = new MailClass();
+                    ProjectClass pjt = new ProjectClass();
+                    DocBody docbody = new DocBody();
+                    DocumentClass doc = new DocumentClass();
 
-					Response.Write("<script language=javascript>alert('归档成功!');</script>");
-				}
-				catch(Exception oe)
-				{
-					UDS.Components.Error.Log(oe.ToString());
-					Server.Transfer("../Error.aspx");
-				}
+                    dataReader = mailclass.GetMailCompleteInfoDbreader(MailID);
+                    if (dataReader.Read())
+                    {
+                        int cstRightToApproveDocument = 2;
+
+                        docbody.DocTitle = dataReader["MailSubject"].ToString();
+                        docbody.DocContent = dataReader["MailBody"].ToString(); ;
+                        docbody.DocAddedBy = dataReader["MailSender"].ToString(); ;
+                        docbody.DocClassID = Int32.Parse(ClassID);
+                        docbody.DocAddedDate = DateTime.Now.ToString();
+                        docbody.DocApprover = (pjt.GetAccessPermission(Int32.Parse(ClassID), Username, cstRightToApproveDocument)) ? Username : "";
+                        docbody.DocApproveDate = (pjt.GetAccessPermission(Int32.Parse(ClassID), Username, cstRightToApproveDocument)) ? DateTime.Now.ToString() : "";
+                        docbody.DocApproved = (docbody.DocApprover == "") ? 0 : 1;
+                        docbody.DocAttribute = 0;
+                        docbody.DocType = 0;
+
+                    }
+                    dataReader.Close();
+                    string DocID = doc.AddDocBody(docbody);
+
+                    dataReader = mailclass.GetMailAttInfoDbreader(MailID);
+                    while (dataReader.Read())
+                    {
+                        DocAttachFile docatt = new DocAttachFile();
+                        docatt.FileAttribute = 0;
+                        docatt.FileSize = Int32.Parse(dataReader["FileSize"].ToString());
+                        docatt.FileName = dataReader["FileName"].ToString();
+                        docatt.FileAuthor = Username;
+                        docatt.FileCatlog = "文档";
+                        docatt.FileVisualPath = "Mail" + dataReader["FileVisualPath"].ToString();
+                        docatt.FileAddedDate = DateTime.Now.ToString();
+                        docatt.DocID = Int32.Parse(DocID);
+                        doc.AddAttach(docatt, Int32.Parse(DocID));
+                    }
+
+
+                    dataReader = null;
+                    pjt = null;
+                    docbody = null;
+                }
+                catch (Exception oe)
+                {
+                    throw new Exception(oe.Message);
+                }
+                finally
+                {
+                    if(null != dataReader)
+                        if (!dataReader.IsClosed)
+                        {
+                            dataReader.Close();
+                        }
+                }
 			}
 
 		}

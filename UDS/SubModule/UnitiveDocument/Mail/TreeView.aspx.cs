@@ -23,17 +23,29 @@ namespace UDS.SubModule.UnitiveDocument.Mail
 		protected DataTable dataTbl1,dataTbl2;
 		protected String Action="";
 		public  String ToID="",FromID="";
+
+        public string CurrentText;
+        public string CurrentID;
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			
-			if(!Page.IsPostBack)
-			{	
-							
-				InitRootNodeDataTable();
-				InitTreeRootNode(TreeView1.Nodes);
-				//InitTree(TreeView1.Nodes,"0");
-			    
-			}
+
+            if (!Page.IsPostBack)
+            {
+
+                InitRootNodeDataTable();
+                InitTreeRootNode(TreeView1.Nodes);
+                //InitTree(TreeView1.Nodes,"0");
+
+                CurrentText = "";
+                CurrentID = "";
+
+            }
+            else
+            {
+                CurrentText = TreeView1.SelectedNode.Text;
+                CurrentID = TreeView1.SelectedValue;
+            }
 		}
 
 		/// <summary>
@@ -97,7 +109,7 @@ namespace UDS.SubModule.UnitiveDocument.Mail
 			{	
 				TreeNode tn    = new TreeNode();
 				tn.Value		   = drv["ClassID"].ToString();
-				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
+                tn.Text = drv["ClassName"].ToString();
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 				//tn.NavigateUrl = "Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString();
 				tn.Target      = "MainFrame";
@@ -121,7 +133,7 @@ namespace UDS.SubModule.UnitiveDocument.Mail
 			{	
 				TreeNode tn    = new TreeNode();
 				tn.Value		   = drv["ClassID"].ToString();
-				tn.Text		   = "<span onmousemove=javascript:title='"+drv["ClassName"]+"'>"+drv["ClassName"].ToString()+"</span>";
+				tn.Text		   = drv["ClassName"].ToString();
 				tn.ImageUrl    = GetIcon(drv["ClassType"].ToString());
 			//	tn.NavigateUrl = "Switch.aspx?Action=1&ClassID="+drv["ClassID"].ToString();
 				tn.Target      = "MainFrame";

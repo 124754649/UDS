@@ -54,7 +54,7 @@ namespace UDS.SubModule.Schedule
 		protected System.Web.UI.WebControls.Label Label4;
 		protected System.Web.UI.WebControls.DropDownList listBeginTime;
 		protected System.Web.UI.WebControls.CheckBox cbRemind;
-		protected HtmlGenericControl DayTaskFrm;
+		protected System.Web.UI.HtmlControls.HtmlIframe DayTaskFrm;
 
 
 		private void Page_Load(object sender, System.EventArgs e)

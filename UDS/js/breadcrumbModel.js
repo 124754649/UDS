@@ -1,5 +1,5 @@
 ﻿var breadcrumbModel = Backbone.Model.extend({
-    default: {
+    defaults: {
         group: "",
         url: "",
         title: ""
@@ -66,13 +66,13 @@ var breadcrumbView = Backbone.View.extend({
             "<% if(0 == index) { %>",
                 "<li><i class='icon-home'></i>",
                 "<% if(index != breadcrumbItems.length - 1) { %>",
-                    "<a href='javascript:navigatemf(\"<%= item.title %>\", \"<%= item.url %>\", \"<%= item.group %>\")'><%= item.title %></a><span class='divider'><i class='icon-angle-right'></i></span>",
+                    "<a data-index='<%= index%>' class='bca' href='javascript:navigatemf(\"<%= item.title %>\", \"<%= item.url %>\", \"<%= item.group %>\")'><%= item.title %></a><span class='divider'><i class='icon-angle-right'></i></span>",
                 "<% } else { %>",
                     "<%= item.title %></li>",
                 "<% } %>",
             "<% } else { %>",
                 "<% if(index != breadcrumbItems.length - 1) { %>",
-                    "<a href='javascript:navigatemf(\"<%= item.title %>\", \"<%= item.url %>\", \"<%= item.group %>\")'><%= item.title %></a><span class='divider'><i class='icon-angle-right'></i></span>",
+                    "<a data-index='<%= index%>' class='bca' href='javascript:navigatemf(\"<%= item.title %>\", \"<%= item.url %>\", \"<%= item.group %>\")'><%= item.title %></a><span class='divider'><i class='icon-angle-right'></i></span>",
                 "<% } else { %>",
                     "<%= item.title %></li>",
                 "<% } %>",
@@ -82,11 +82,19 @@ var breadcrumbView = Backbone.View.extend({
     initialize: function (options) {
         this.model.bind("add", this.render, this);
     },
+    events:{
+        "click a.bca": "innerClick"
+    },
     render: function () {
         this.$el.html(this.template({
                 breadcrumbItems: this.model.toJSON()
             }
         ));
         return this;
+    },
+    innerClick: function (evt) {
+        while (this.model.length != $(evt.currentTarget).data("index")) {
+            this.model.pop();
+        }
     }
 });

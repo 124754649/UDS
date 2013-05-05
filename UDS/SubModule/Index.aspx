@@ -244,7 +244,7 @@
                 <form id="Projecttreeview" method="post" runat="server">
 				    <uc1:controlprojecttreeview id="ControlProjectTreeView1" runat="server"></uc1:controlprojecttreeview>
                 </form>
-				<div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
+				<!--<div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>-->
 			</div><!--/#sidebar-->
             <div id="main-content" class="clearfix" style="height:100%">
                 <div id="breadcrumbs">
@@ -263,7 +263,7 @@
 						</div>--><!--#nav-search-->
 					</div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
-                    <!--<iframe id="MainFrame" name="MainFrame" style="width:100%" frameborder="0"></iframe>-->
+                    <iframe id="MainFrame" name="MainFrame" style="width:100%;border:0 none" frameborder="0"></iframe>
                 </div><!--/#page-content-->
             </div><!-- #main-content -->
         </div><!--/.fluid-container#main-container-->
@@ -288,14 +288,6 @@
             });
 
             $(document).ready(function () {
-                var mainframe = document.createElement("iframe");
-                mainframe.setAttribute("id", "MainFrame");
-                mainframe.setAttribute("name", "MainFrame");
-                mainframe.setAttribute("frameborder", "0");
-                mainframe.setAttribute("width", "100%");
-
-                $(mainframe).appendTo("#page-content");
-
                 if ($.browser.msie) {
                     $("#MainFrame").load(function () {
                         if ($.browser.version >= 9) {
@@ -307,10 +299,10 @@
                     });
                 }
                 else {
-                    $("iframe#MainFrame").iframeAutoHeight({ debug:true, minHeight: 400 });
+                    $("iframe#MainFrame").iframeAutoHeight({ debug:false, minHeight: 400, heightOffset: 40 });
                 }
 
-                if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {
+                //if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {
                     bcItems = new breadcrumbCollection();
                     bcControl = new breadcrumbView({
                         el: $(".breadcrumb"),
@@ -318,20 +310,20 @@
                     });
 
                     bcControl.render();
-                }
+                //}
 
                 navigatemf('我的桌面', '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>', 'desktop');
             });
 
             function navigatemf(title, url, groups) {
-                if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {
+                //if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {
                     tmpItem = new breadcrumbModel();
                     tmpItem.Group(groups);
                     tmpItem.Url(url);
                     tmpItem.Title(title);
 
                     bcItems.addBreadcrumb(tmpItem);
-                }
+                //}
 
                 if ($.browser.ms)
                     $("#MainFrame")[0].src = "about:blank";
