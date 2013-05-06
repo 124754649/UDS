@@ -546,8 +546,8 @@ namespace UDS.SubModule.CM.Stat
 				case "添加日期":
 					tbx_searchvalue.Visible = true;
 					rbl_searchvalue.Visible = false;
-					tbx_searchvalue.ReadOnly = true;
-					tbx_searchvalue.Attributes["onfocus"] = "setday(this)";
+					//tbx_searchvalue.ReadOnly = true;
+					//tbx_searchvalue.Attributes["onfocus"] = "setday(this)";
 					break;
 				case "本周新增客户":
 					tbx_searchvalue.Visible = false;
