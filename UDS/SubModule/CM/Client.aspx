@@ -8,7 +8,6 @@
 		<meta content="JavaScript" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
-		<script language="JavaScript" src="../../../Css/meizzDate.js"></script>
 		<script>
 		function displaypenal()
 		{
@@ -178,7 +177,7 @@
 										</asp:panel></TD>
 								</TR>
 							</TABLE>
-							<asp:label id="lbl_Message" runat="server" Width="92px" Visible="False"></asp:label><A href="javascript:window.close();">关闭窗口</A></TD>
+							<asp:label id="lbl_Message" runat="server" Width="92px" Visible="False"></asp:label><a href="javascript:parent.navigatemf('客户管理', '<%= Page.ResolveUrl("ClientListView.aspx") %>', 'CM');">返回客户管理</a></TD>
 					</TR>
 				</TABLE>
 			</FONT>

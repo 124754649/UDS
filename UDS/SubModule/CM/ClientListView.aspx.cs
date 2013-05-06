@@ -60,8 +60,10 @@ namespace UDS.SubModule.CM
 				userid = ViewState["userid"].ToString();
 				username = ViewState["username"].ToString();
 			}
-			
-			
+
+            btn_AddLinkman.Visible = false;
+            btn_AddClient.Visible = false;
+            btn_AddContact.Visible = false;
 		}
 
 		private void BindSubordinate()

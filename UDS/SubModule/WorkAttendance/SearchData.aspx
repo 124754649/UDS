@@ -11,7 +11,7 @@
 		<meta content="JavaScript" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
-		<script language="JavaScript" src="../../Css/meizzDate.js"></script>
+        <link type="text/css" rel="Stylesheet" href="../../Css/redmond/jquery-ui-1.10.3.custom.min.css" />
 		<script language="javascript">
 		function fillstring(str)
 		{
@@ -32,7 +32,7 @@
 			var todayDate = new Date();
 			var date = todayDate.getDate();
 			var month= todayDate.getMonth() +1;
-			var year= todayDate.getYear();
+			var year= todayDate.getFullYear();
 			var day = todayDate.getDay();
 			if(navigator.appName == "Netscape")
 			{
@@ -55,7 +55,7 @@
 				todayDate.setTime(todayDate.getTime()-daytoMon*oneday);
 				date = todayDate.getDate();
 				month= todayDate.getMonth() +1;
-				year= todayDate.getYear();
+				year= todayDate.getFullYear();
 				day = todayDate.getDay();
 				
 				begintime = year.toString() + "-" + fillstring(month.toString()) + "-" + fillstring(date.toString());
@@ -64,7 +64,7 @@
 				
 				date = todayDate.getDate();
 				month= todayDate.getMonth() +1;
-				year= todayDate.getYear();
+				year= todayDate.getFullYear();
 				
 				endtime = year.toString() + "-" + fillstring(month.toString()) + "-" + fillstring(date.toString());
 			}
@@ -75,7 +75,7 @@
 				todayDate.setTime(todayDate.getTime()-dateto1*oneday);
 				date = todayDate.getDate();
 				month= todayDate.getMonth() +1;
-				year= todayDate.getYear();
+				year= todayDate.getFullYear();
 				day = todayDate.getDay();
 				
 				begintime = year.toString() + "-" + fillstring(month.toString()) + "-" + fillstring(date.toString());
@@ -85,7 +85,7 @@
 				
 				date = todayDate.getDate();
 				month= todayDate.getMonth() +1;
-				year= todayDate.getYear();
+				year= todayDate.getFullYear();
 				
 				endtime = year.toString() + "-" + fillstring(month.toString()) + "-" + fillstring(date.toString());
 
@@ -139,7 +139,7 @@
 					<TR>
 						<TD style="WIDTH: 84px">输入时间段</TD>
 						<TD>开始时间：
-							<asp:textbox id="txtbegintime" onfocus="setday(this);" runat="server" CssClass="inputcss" Columns="10"
+							<asp:textbox ClientIDMode="Static" id="txtbegintime" runat="server" CssClass="inputcss" Columns="10"
 								ReadOnly="True"></asp:textbox><asp:requiredfieldvalidator id="RequiredFieldValidator1" runat="server" Display="None" ControlToValidate="txtbegintime"
 								ErrorMessage="开始时间不能为空"></asp:requiredfieldvalidator>--结束时间
 							<asp:textbox id="txtendtime" onfocus="setday(this);" runat="server" CssClass="inputcss" Columns="10"
@@ -215,5 +215,14 @@
 				</TABLE>
 			</FONT>
 		</form>
+        <script language="javascript" type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+        <script language="javascript" type="text/javascript" src="../../js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script language="javascript" type="text/javascript" src="../../js/jquery.ui.datepicker-zh-CN.js"></script>
+        <script language="javascript" type="text/javascript">
+            $(document).ready(function () {
+                $("#txtbegintime").datepicker();
+                $("#txtendtime").datepicker();
+            });
+        </script>
 	</body>
 </HTML>

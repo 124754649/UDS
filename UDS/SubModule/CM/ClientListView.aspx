@@ -124,8 +124,11 @@
                                                 type="button" value=" 查 询" name="Button1">&nbsp;<input class="redbuttoncss" onclick="selectAll()" type="button" value="全 选">
                                         <asp:Button ID="btn_Del" runat="server" CssClass="redbuttoncss" Text="删 除"></asp:Button>
                                         <asp:Button ID="btn_AddClient" runat="server" CssClass="redbuttoncss" Text="添加客户"></asp:Button>
-                                        <asp:Button ID="btn_AddLinkman" runat="server" CssClass="redbuttoncss" Text="添加联络人" OnClientClick="getSelectedIDs();return false;"></asp:Button>
+                                        <input type="button" class="redButtonCss" onclick='parent.navigatemf("添加客户", "<%= Page.ResolveUrl("Client.aspx") %>", "CM")' value="添加客户" />
+                                        <asp:Button ID="btn_AddLinkman" runat="server" CssClass="redbuttoncss" Text="添加联络人"></asp:Button>
+                                        <input type="button" class="redButtonCss" onclick="getSelectedIDs(1)" value="添加联络人" />
                                         <asp:Button ID="btn_AddContact" runat="server" CssClass="redbuttoncss" Text="添加接触"></asp:Button>
+                                        <input type="button" class="redButtonCss" onclick="getSelectedIDs(2)" value="添加接触" />
                                     </asp:Panel>
                                 </font></td>
                             </tr>
@@ -212,37 +215,53 @@
         </font>
     </form>
     <script language="javascript" type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../js/jqBrowser.js"></script>
     <script language="javascript" type="text/javascript">
-        $(document).ready(function () {
-            $(".cmCheckBox :checkbox").click(function () {
-                if ($(this).is(':checked')) {
-                    $(this).attr("checked", false);
+        function selectAll() {
+            $('.cmCheckBox :checkbox').each(function () {
+                if (this.checked) {
+                    //this.checked = false;
                 }
                 else {
-                    $(this).attr("checked", true);
+                    this.checked = true;
                 }
-            });
-        });
-
-        function selectAll() {
-            //var len = document.ClientListView.elements.length;
-            //var i;
-            //for (i = 0; i < len; i++) {
-            //    if (document.ClientListView.elements[i].type == "checkbox") {
-            //        document.ClientListView.elements[i].checked = !document.ClientListView.elements[i].checked;
-            //    }
-            //}
-            $(".cmCheckBox :checkbox").each(function () {
-                $(this).attr("checked", true);
             });
         }
 
-        function getSelectedIDs() {
-            $(".cmCheckBox :checkbox").each(function () {
-                if ($(this).attr("checked").is(':checked')) {
-                    console.log($(this).parent.data("id"));
+        function getSelectedIDs(type) {
+            var ids = [];
+            var index = 0;
+
+            var pre_url = null;
+            if(1 == type)
+            {
+                pre_url = '<%= Page.ResolveUrl("LinkMan.aspx?ClientID=") %>';
+            }
+            else if(2 == type)
+            {
+                pre_url = '<%= Page.ResolveUrl("ClientContact_thisWeek.aspx?ClientID=") %>';
+            }
+            $('.cmCheckBox :checkbox').each(function () {
+                if (this.checked) {
+                    ids[index] = $(this).parent().data("id");
+                    //index++;
                 }
             });
+
+            if (0 == ids.length) {
+                alert("没有选择客户");
+            }
+            else {
+                var url = pre_url + ids[0] + "&from=ClientList";
+                if(1 == type)
+                {
+                    parent.navigatemf("添加联系人", url, "CM");
+                }
+                else if(2 == type)
+                {
+                    parent.navigatemf("添加接触", url, "CM");
+                }
+            }
         }
     </script>
 </body>

@@ -74,7 +74,7 @@
 					</TR>
 				</TABLE>
 			</FONT>
-			<DIV style="DISPLAY: inline; WIDTH: 763px; HEIGHT: 15px" align="center" ms_positioning="FlowLayout"><FONT face="宋体"><a href="javascript:close();">关闭窗口</a></FONT></DIV>
+			<DIV style="DISPLAY: inline; WIDTH: 763px; HEIGHT: 15px" align="center" ms_positioning="FlowLayout"><FONT face="宋体"><a href="javascript:parent.navigatemf('客户管理', '<%= Page.ResolveUrl("ClientListView.aspx") %>', 'CM');">返回客户管理</a></FONT></DIV>
 		</form>
 	</body>
 </HTML>

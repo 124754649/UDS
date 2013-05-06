@@ -162,11 +162,9 @@ namespace UDS.SubModule.CM
 			{
 				clientid = Int32.Parse(ViewState["ClientID"].ToString());
 				contactid = Int32.Parse(ViewState["ContactID"].ToString());
-			}
-			
-			
-			tbx_contacttime.Attributes["onfocus"] = "setday(this)";
-			tbx_nextcontacttime.Attributes["onfocus"] = "setday(this)";
+			}			
+            //tbx_contacttime.Attributes["onfocus"] = "setday(this)";
+            //tbx_nextcontacttime.Attributes["onfocus"] = "setday(this)";
 
 		}
 
