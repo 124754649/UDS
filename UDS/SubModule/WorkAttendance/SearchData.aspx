@@ -140,10 +140,10 @@
 						<TD style="WIDTH: 84px">输入时间段</TD>
 						<TD>开始时间：
 							<asp:textbox ClientIDMode="Static" id="txtbegintime" runat="server" CssClass="inputcss" Columns="10"
-								ReadOnly="True"></asp:textbox><asp:requiredfieldvalidator id="RequiredFieldValidator1" runat="server" Display="None" ControlToValidate="txtbegintime"
+								></asp:textbox><asp:requiredfieldvalidator id="RequiredFieldValidator1" runat="server" Display="None" ControlToValidate="txtbegintime"
 								ErrorMessage="开始时间不能为空"></asp:requiredfieldvalidator>--结束时间
 							<asp:textbox id="txtendtime" onfocus="setday(this);" runat="server" CssClass="inputcss" Columns="10"
-								ReadOnly="True"></asp:textbox><asp:requiredfieldvalidator id="RequiredFieldValidator2" runat="server" Display="None" ControlToValidate="txtendtime"
+								></asp:textbox><asp:requiredfieldvalidator id="RequiredFieldValidator2" runat="server" Display="None" ControlToValidate="txtendtime"
 								ErrorMessage="结束不能为空"></asp:requiredfieldvalidator>&nbsp;
 							<asp:comparevalidator id="cvdate" runat="server" Display="None" ControlToValidate="txtendtime" ErrorMessage="结束时间应该大于开始时间"
 								Operator="GreaterThanEqual" ControlToCompare="txtbegintime"></asp:comparevalidator>&nbsp;

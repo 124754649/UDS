@@ -230,6 +230,8 @@ namespace UDS.SubModule.WorkAttendance
 				//缓存数据
 				Cache["WA_Duty"] = ds;
 
+                //TODO:这里进入打印界面。但是被隐藏了
+                btn_Report.Visible = false;
 				btn_Report.Attributes["onclick"] = "window.open('Report/DutyReport.aspx?idtype="+idtype+"&ids="+ids+"&begintime="+txtbegintime.Text+"&endtime="+txtendtime.Text+"')";
 			}
 			catch(Exception ex)

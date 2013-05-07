@@ -122,18 +122,20 @@ namespace UDS.SubModule.WorkAttendance
 					col.Align = "center";
 					if(Convert.ToBoolean(dr["needduty"])==true)
 					{
-						col.Style.Add("background-color",indaycolor);
+						//col.Style.Add("background-color",indaycolor);
+                        col.Attributes.Add("class", "inday");
 					}
 					else
 					{
-						col.Style.Add("background-color",outdaycolor);
+						//col.Style.Add("background-color",outdaycolor);
+                        col.Attributes.Add("class", "outday");
 					}
 					col.InnerText = DateTime.Parse(dr["datetime"].ToString()).Month.ToString()+"-"+DateTime.Parse(dr["datetime"].ToString()).Day.ToString();
 
 					//如果当前日期紧接前面的日期就添加列
 					if((row.Cells.Count+1)==j)
 					{
-						col.Style.Add("cursor", "hand");	
+						col.Style.Add("cursor", "pointer");	
 						row.Cells.Add(col);
 						col.Attributes["onclick"] = "Click_Cell(this);";				
 					}
@@ -150,7 +152,7 @@ namespace UDS.SubModule.WorkAttendance
 								tmpcol.InnerText = "";
 								row.Cells.Add(tmpcol);
 							}
-							col.Style.Add("cursor", "hand");	
+							col.Style.Add("cursor", "pointer");	
 							row.Cells.Add(col);
 							col.Attributes["onclick"] = "Click_Cell(this);";
 									
@@ -171,9 +173,20 @@ namespace UDS.SubModule.WorkAttendance
 									tmpcol.InnerText = "";
 									row.Cells.Add(tmpcol);
 								}
-								col.Style.Add("cursor", "hand");	
+								col.Style.Add("cursor", "pointer");	
 								row.Cells.Add(col);
-								col.Attributes["onclick"] = "if(this.style.backgroundColor=='"+indaycolor+"') this.style.backgroundColor = '"+outdaycolor+"';else this.style.backgroundColor = '"+indaycolor+"';Click_Cell(this);this.blur();";		
+								//col.Attributes["onclick"] = "if(this.style.backgroundColor=='"+indaycolor+"') this.style.backgroundColor = '"+outdaycolor+"';else this.style.backgroundColor = '"+indaycolor+"';Click_Cell(this);this.blur();";		
+                                col.Attributes["onclick"] = 
+                                    "if($(this).hasClass('inday')) {" +
+                                        "$(this).removeClass('inday');" +
+                                        "$(this).addClass('outday');" +
+                                    "}" +
+                                    "else {" +
+                                        "$(this).removeClass('outday');" +
+                                        "$(this).addClass('inday');" +
+                                    "}" +
+                                    "Click_Cell(this);" +
+                                    "$(this).blur();";
 							}
 						}
 						
