@@ -72,6 +72,7 @@
     <Content Include="Css\font-awesome-ie7.min.css" />
     <Content Include="Css\font-awesome.css" />
     <Content Include="Css\font-awesome.min.css" />
+    <Content Include="Css\logincss.css" />
     <Content Include="Css\meizzDate.js" />
     <Content Include="Css\mycss.css" />
     <Content Include="Css\mycss1.css" />
@@ -1034,6 +1035,7 @@
     <Content Include="Images\icon\34.gif" />
     <Content Include="Images\icon\35.gif" />
     <Content Include="Images\icon\mydoc.gif" />
+    <Content Include="Images\index_bg.png" />
     <Content Include="Images\index_r10_c5.gif" />
     <Content Include="Images\index_r11_c1.gif" />
     <Content Include="Images\index_r11_c3.gif" />
@@ -1073,6 +1075,7 @@
     <Content Include="Images\login.asp" />
     <Content Include="Images\logininst.gif" />
     <Content Include="Images\logo.gif" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\logout.asp" />
     <Content Include="Images\mailClose.gif" />
     <Content Include="Images\maillistbutton1.gif" />
@@ -1090,6 +1093,7 @@
     <Content Include="Images\new.gif" />
     <Content Include="Images\newface.jpg" />
     <Content Include="Images\newface1.jpg" />
+    <Content Include="Images\newface2.jpg" />
     <Content Include="Images\newmain_r1_c1.jpg" />
     <Content Include="Images\newmain_r1_c4.jpg" />
     <Content Include="Images\newmain_r1_c41.jpg" />
@@ -1173,6 +1177,7 @@
     <Content Include="js\jquery-1.9.1.min.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="js\jquery.backstretch.min.js" />
     <Content Include="js\jquery.iframe-auto-height.plugin.1.9.1.min.js" />
     <Content Include="js\jquery.ui.datepicker-zh-CN.js" />
     <Content Include="js\json2.js" />
@@ -2081,6 +2086,7 @@
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
     <Content Include="font\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />
     <None Include="SubModule\Staff\Report\StaffDataSet.xsd">
       <SubType>Designer</SubType>

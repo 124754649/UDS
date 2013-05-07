@@ -119,7 +119,7 @@
             //    }
             //}
             $(".docCheckBox :checkbox").each(function () {
-                $(this).attr("checked", true);
+                this.checked = true;
             });
         }
 
@@ -132,7 +132,7 @@
             //    }
             //}
             $(".docCheckBox :checkbox").each(function () {
-                $(this).attr("checked", false);
+                this.checked = false;
             });
         }
     </script>

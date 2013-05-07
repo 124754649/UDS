@@ -20,14 +20,20 @@
 		<![endif]-->
 
         <style>
-            
+            .brand img
+            {
+                margin:0;
+                padding:0;
+                max-height:40px;
+                border:0 none;
+            }
         </style>
 	</head>
     <body>
         <div class="navbar navbar-inverse">
 		  <div class="navbar-inner">
 		   <div class="container-fluid">
-			  <a class="brand" href="#"><small><i class="icon-leaf"></i> <%= ConfigurationManager.AppSettings["productName"] %></small> </a>
+			  <a class="brand" href="#"><img src='<%= Page.ResolveUrl("~/Images/logo.png") %>' alt='<%= ConfigurationManager.AppSettings["productName"] %>'> <%= ConfigurationManager.AppSettings["productName"] %></a>
 			  <ul class="nav ace-nav pull-right">
 					<li class="grey">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -211,7 +217,9 @@
 							<i class="icon-caret-down"></i>
 						</a>
 						<ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Setup/MySetup.aspx") %>'><i class="icon-cog"></i>密码</a></li>
+							<li><a href='javascript:navigatemf("密码设置", "<%= Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Setup/MySetup.aspx") %>", "HEAD")'><i class="icon-cog"></i>密码</a></li>
+                            <li class="divider"></li>
+                            <li><a href='javascript:navigatemf("考勤", "<%= Page.ResolveUrl("~/SubModule/WorkAttendance/Default.aspx") %>", "HEAD")'><i class="icon-signin"></i>考勤</a></li>
 							<li style="display:none"><a href="#"><i class="icon-user"></i> Profile</a></li>
 							<li class="divider"></li>
 							<li><a href='<%= Page.ResolveClientUrl("~/SubModule/Login/logout.aspx?Action=2") %>'><i class="icon-off"></i>退出</a></li>

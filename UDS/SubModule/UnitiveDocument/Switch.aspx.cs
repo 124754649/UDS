@@ -27,77 +27,76 @@ namespace UDS.SubModule.UnitiveDocument
 			string action		= Request.QueryString["Action"].ToString();
 			string classID		= Request.QueryString["classID"].ToString();
 			string classtype    = newClass.GetClassType(Int32.Parse(classID));
-			string url;
+            string className = newClass.GetClassName(int.Parse(classID));
+            string url = "";
 			Response.Cookies["ActiveNodeID"].Value = classID.ToString();
-			//Response.Write(action+","+classID+","+classtype);
+
 			switch (action)
 			{
 				case "0":
-					Response.Redirect("Document/DeliverDocument.aspx?ClassID="+classID);
+                    url = Page.ResolveUrl("Document/DeliverDocument.aspx?ClassID=" + classID);
 					break;
 				case "1":
 					switch (classtype)
 					{
 						case "0":
-							Response.Redirect("Project.aspx?classID="+classID);
+                            url = Page.ResolveUrl("Project.aspx?classID=" + classID);
 							break;
 						case "1":
-							Response.Redirect("Document/ListView.aspx?classID="+classID);
+							url = Page.ResolveUrl("Document/ListView.aspx?classID="+classID);
 							break;
 						case "2":
 						
 							break;
 						case "3":
-							Response.Redirect("BBS/Catalog.aspx?classID="+classID);
+							url = Page.ResolveUrl("BBS/Catalog.aspx?classID="+classID);
 							break;
 						case "4":
-							Response.Redirect("../Staff/ManageStaff.aspx?DisplayType=0");							
+							url = Page.ResolveUrl("../Staff/ManageStaff.aspx?DisplayType=0");							
 							break;
 						case "5":
-							Response.Redirect("Task/Listview.aspx");
+							url = Page.ResolveUrl("Task/Listview.aspx");
 							break;
 						case "6":
-							Response.Redirect("../Schedule/TaskList.aspx");
+							url = Page.ResolveUrl("../Schedule/TaskList.aspx");
 							break;
 						case "7":
-							Response.Redirect("Mail/Index.aspx?classID="+classID);														
+							url = Page.ResolveUrl("Mail/Index.aspx?classID="+classID);														
 							break;
 						case "8":
-							Response.Redirect("NewDoc/Listview.aspx");
+							url = Page.ResolveUrl("NewDoc/Listview.aspx");
 							break;							
 						case "9":
-							Response.Redirect("DocumentFlow/ListDocument.aspx");
+							url = Page.ResolveUrl("DocumentFlow/ListDocument.aspx");
 							break;	
 						case "10":
-							Response.Redirect("../CM/ClientListview.aspx");
+							url = Page.ResolveUrl("../CM/ClientListview.aspx");
 							break;
 						case "11":
-							Response.Redirect("../LinkMan/Listview.aspx");
+							url = Page.ResolveUrl("../LinkMan/Listview.aspx");
 							break;
 						case "12":							
-							url="~/SubModule/position/Index.aspx";
-							//Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>");
-                            Response.Redirect(url);
+							url=Page.ResolveUrl("~/SubModule/position/Index.aspx");
+							//Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>";
 							break;
 						case "13":							
-							url="~/SubModule/role/Index.aspx";
-							//Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>");
-                            Response.Redirect(url);
+							url=Page.ResolveUrl("~/SubModule/role/Index.aspx");
+							//Response.Write("<script laguage='javascript'>parent.location='" + url + "';</script>";
 							break;
 						case "14":							
-							Response.Redirect("../WorkAttendance/SearchData.aspx");
+							url = Page.ResolveUrl("../WorkAttendance/SearchData.aspx");
 							break;
 						case "15":							
-							Response.Redirect("../WorkAttendance/Set.aspx");
+							url = Page.ResolveUrl("../WorkAttendance/Set.aspx");
 							break;
 						case "16":							
-							Response.Redirect("../SM/Index.aspx");
+							url = Page.ResolveUrl("../SM/Index.aspx");
 							break;
 						case "17":							
-							Response.Redirect("../USBKey/USBKey_setup.aspx");
+							url = Page.ResolveUrl("../USBKey/USBKey_setup.aspx");
 							break;
 						case "100":
-							Response.Redirect("ManageQuery/ManageQuery.aspx");	
+                            url = Page.ResolveUrl("ManageQuery/ManageQuery.aspx");	
 							break;
 						default:
 							break;
@@ -106,6 +105,8 @@ namespace UDS.SubModule.UnitiveDocument
 				default:
 					break;
 			}
+
+            ClientScript.RegisterStartupScript(this.GetType(), "redirect", "<script language='javascript'>parent.navigatemf('" + className + "', '" + url + "', '" + className + "');</script>");
 		}
 
 		#region Web Form Designer generated code

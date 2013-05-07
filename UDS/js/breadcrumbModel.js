@@ -43,18 +43,18 @@ var breadcrumbCollection = Backbone.Collection.extend({
         }
         else {
             var lastItem = _.last(this.models);
-            if (lastItem.Title() == item.Title() && lastItem.Group() == item.Group() && lastItem.Url() == item.Url())
+            if (lastItem.Url() == item.Url())
                 return;
             if (1 == this.models.length)
                 this.add(item);
             else {
-                if (lastItem.Group() == item.Group()) {
+                //if (lastItem.Group() == item.Group()) {
+                //    this.add(item);
+                //}
+                //else {
+                //    this.remove(lastItem);
                     this.add(item);
-                }
-                else {
-                    this.remove(lastItem);
-                    this.add(item);
-                }
+                //}
             }
         }
     }
