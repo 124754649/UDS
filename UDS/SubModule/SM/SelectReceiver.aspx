@@ -1,15 +1,95 @@
 <%@ Page language="c#" Codebehind="SelectReceiver.aspx.cs" AutoEventWireup="false" Inherits="UDS.SubModule.SM.SelectReceiver" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>选择收信人 </title>
-    <meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
-    <meta content="C#" name="CODE_LANGUAGE">
-    <meta content="JavaScript" name="vs_defaultClientScript">
-    <meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-    <link href="../../css/BasicLayout.css" type="text/css" rel="stylesheet">
-    <base target="_self">
-    <script language="javascript">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="../../Css/bootstrap.min.css" />
+    <link type="text/css" rel="Stylesheet" href="../../Css/bootstrap-responsive.min.css" />
+    <link type="text/css" rel="Stylesheet" href="../../Css/font-awesome.min.css" />
+    <!--[if IE 7]>
+		<link rel="stylesheet" href="../../Css/font-awesome-ie7.min.css" />
+	<![endif]-->
+    <style type="text/css">
+        .container-fluid .sidebar
+        {
+            position: relative;
+            top: 0;
+            left: auto;
+            width: 150px;
+        }
+
+            .container-fluid .sidebar select
+            {
+                position: relative;
+                width: 150px;
+                left: auto;
+            }
+
+        .left
+        {
+            float: left;
+        }
+
+        .right
+        {
+            float: right;
+        }
+
+        .fixed-fixed
+        {
+            margin: 0 300px;
+        }
+    </style>
+</head>
+<body onload="PopulateData()">
+    <div class="container-fluid">
+        <div class="sidebar left">
+            <form id="Form1" class="well-small" method="post" runat="server">
+                <div class="controls-row">
+                    <asp:DropDownList ID="listDept" runat="server" OnSelectedIndexChanged="DeptListChange" AutoPostBack="True"></asp:DropDownList>
+                </div>
+                <div class="controls-row">
+                    <asp:DropDownList ID="listAccount" Height="316px" ondblclick="AddItem('btnReceSendToRight')" runat="server" multiple onchange="setStatusright()"></asp:DropDownList>
+                </div>
+            </form> <!-- form -->
+        </div><!-- siderbar left -->
+        <div class="sidebar right">
+            <form method="post" class="well-small">
+                <div class="row">
+                    <div class="span2">
+                        <label>站内短讯</label>
+                        <select id="listSendTo" style="HEIGHT: 161px" multiple size="10" name="listSendTo"></select>
+                    </div>
+                    <div class="span2">
+                        <label>手机短讯</label>
+                        <select id="listMobileSendTo" style="HEIGHT: 155px" multiple size="9" name="listMobileSendTo"></select>
+                    </div>
+                </div>
+            </form>
+        </div><!-- sidebar right -->
+        <div class="content fixed-fixed">
+            <form class="well-small" method="post">
+                <div class="row" style="height:161px;">
+                    <div class="span5" style="margin-top:60px">
+                        <a class="btn btn-small btn-add" onclick="AddItem(this.name)" data-target="listSendTo"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-small btn-remove" onclick="RemoveItem(this.name)" data-target="listSendTo"><i class="icon-double-angle-left icon-2x"></i></a>
+                    </div>
+                </div>
+                <div class="row" style="height:155px">
+                    <div class="span5" style="margin-top:60px">
+                        <a class="btn btn-small btn-add" onclick="AddItem(this.name)" data-target="listMobileSendTo"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-small btn-remove" onclick="RemoveItem(this.name)" data-nametarget="listMobileSendTo"><i class="icon-double-angle-left icon-2x"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div><!-- content -->
+    </div><!-- container-fluid -->
+    <footer style="text-align:center">
+        <input class="btn btn-primary" onclick="ReturnValue()" type="button" value="确定">
+        <input class="btn btn-warning" onclick="window.close()" type="button" value="取消">
+    </footer>
+    <script type="text/javascript">
         function RemoveItem(ControlName) {
             Control = null;
             switch (ControlName) {
@@ -163,22 +243,5 @@
         }
 
     </script>
-</head>
-<body onload="PopulateData()" ms_positioning="GridLayout" background="../../../Images/mailuserbg.gif">
-    <form id="SelectReceiver" method="post" runat="server">
-        <select id="listMobileSendTo" style="Z-INDEX: 107; LEFT: 371px; WIDTH: 181px; POSITION: absolute; TOP: 248px; HEIGHT: 155px" multiple size="9" name="listMobileSendTo">
-        </select>
-        <input class="buttoncss" style="Z-INDEX: 106; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 251px; HEIGHT: 24px" onclick="AddItem(this.name)" type="button" value=">>>>" name="btnMobileSendToRight">
-        <input class="buttoncss" style="Z-INDEX: 105; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 275px; HEIGHT: 24px" onclick="RemoveItem(this.name)" type="button" value="<<<<" name="btnMobileSendToLeft">
-        <select id="listSendTo" style="Z-INDEX: 104; LEFT: 374px; WIDTH: 182px; POSITION: absolute; TOP: 43px; HEIGHT: 161px" multiple size="10" name="listSendTo"></select>
-        <input class="buttoncss" style="Z-INDEX: 103; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 49px; HEIGHT: 24px" onclick="AddItem(this.name)" type="button" value=">>>>" name="btnReceSendToRight">
-        <input class="buttoncss" style="Z-INDEX: 102; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 73px; HEIGHT: 24px" onclick="RemoveItem(this.name)" type="button" value="<<<<" name="btnReceSendToLeft">
-        <asp:DropDownList ID="listAccount" ondblclick="AddItem('btnReceSendToRight')" Style="Z-INDEX: 101; LEFT: 73px; POSITION: absolute; TOP: 43px" runat="server" Width="148px" Height="356px" multiple onchange="setStatusright()"></asp:DropDownList>
-        <asp:Label ID="lblReceiver" Style="Z-INDEX: 111; LEFT: 375px; POSITION: absolute; TOP: 18px" runat="server" Font-Size="X-Small">站内短讯</asp:Label>
-        <asp:Label ID="lblMReceiver" Style="Z-INDEX: 112; LEFT: 374px; POSITION: absolute; TOP: 225px" runat="server" Font-Size="X-Small">手机短讯</asp:Label>
-        <input class="buttoncss" style="Z-INDEX: 116; LEFT: 221px; WIDTH: 61px; POSITION: absolute; TOP: 421px; HEIGHT: 24px" onclick="ReturnValue()" type="button" value="确定">
-        <input class="buttoncss" style="Z-INDEX: 117; LEFT: 356px; WIDTH: 61px; POSITION: absolute; TOP: 421px; HEIGHT: 24px" onclick="window.close()" type="button" value="取消">
-        <asp:DropDownList ID="listDept" Style="Z-INDEX: 118; LEFT: 76px; POSITION: absolute; TOP: 16px" runat="server" OnSelectedIndexChanged="DeptListChange" AutoPostBack="True"></asp:DropDownList>
-    </form>
 </body>
 </html>

@@ -24,6 +24,16 @@ namespace MaiSystem
         [DataMember]
         internal string StaffName;
     }
+
+    [DataContract]
+    internal class Position
+    {
+        [DataMember]
+        internal string PositionName;
+        [DataMember]
+        internal string PositionID;
+    }
+
 	/// <summary>
 	/// SelectReceiver 的摘要说明。
 	/// </summary>
@@ -36,102 +46,104 @@ namespace MaiSystem
 		protected System.Web.UI.WebControls.DropDownList listAddressBook;
 		//protected System.Web.UI.WebControls.DropDownList listAccount;
 		public string ClassID,DispType;
-		protected System.Web.UI.WebControls.DropDownList listDept;
+		//protected System.Web.UI.WebControls.DropDownList listDept;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			ClassID		= Request.QueryString["ClassID"].ToString();
 			DispType	= Request.QueryString["type"].ToString();
             string result = Request.QueryString["resulttype"];
+            string depid = Request.QueryString["dep"];
 
 			if(!Page.IsPostBack )
 			{
                 if (string.IsNullOrEmpty(result))
                 {
-                    PopulateData();
+                    
                 }
                 else
                 {
-                    ICollection retValue;
                     Staff staff = new Staff();
-                    
-                    if (DispType == "1")
-                        retValue = staff.GetStaffInTeam(Int32.Parse(ClassID));
-                    else
-                        retValue = staff.GetAllStaffs().ToDataTable(true).DefaultView;
-                    IList retList = new ArrayList();
-                    var em = retValue as DataView;
-                    foreach(DataRow dr in em.Table.Rows)
+                    switch (result)
                     {
-                        ListAccount la = new ListAccount();
-                        la.RealName = dr["RealName"].ToString();
-                        la.StaffName = dr["Staff_Name"].ToString();
-                        retList.Add(la);
+                        case "staff":
+                            ICollection retValue;
+
+                            if (DispType == "1")
+                            {
+                                if (string.IsNullOrEmpty(depid))
+                                {
+                                    retValue = staff.GetStaffInTeam(Int32.Parse(ClassID));
+                                }
+                                else
+                                {
+                                    retValue = staff.GetStaffInTeam(int.Parse(depid));
+                                }
+                            }
+                            else
+                            {
+                                retValue = staff.GetAllStaffs().ToDataTable(true).DefaultView;
+                            }
+                            IList retList = new ArrayList();
+                            var em = retValue as DataView;
+                            foreach (DataRow dr in em.Table.Rows)
+                            {
+                                ListAccount la = new ListAccount();
+                                la.RealName = dr["RealName"].ToString();
+                                la.StaffName = dr["Staff_Name"].ToString();
+                                retList.Add(la);
+                            }
+
+                            var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                            StringWriter sw = new StringWriter();
+                            using (JsonWriter jw = new JsonTextWriter(sw))
+                            {
+                                jw.Formatting = Formatting.Indented;
+
+                                jsonSer.Serialize(jw, retList);
+                            }
+
+                            Response.ContentType = "text/json";
+
+                            Response.Write(sw.ToString());
+                            sw.Close();
+                            Response.End();
+                            break;
+                        case "position":
+                            DataTable ds = staff.GetPositionList(1).ToDataTable(true);
+                            List<Position> retPoss = new List<Position>();
+                            foreach (DataRow dr in ds.Rows)
+                            {
+                                Position p = new Position();
+                                p.PositionID = dr["Position_ID"].ToString();
+                                p.PositionName = dr["Position_Name"].ToString();
+                                retPoss.Add(p);
+                            }
+
+                            Position fp = new Position();
+                            fp.PositionName = "公司所有部门";
+                            fp.PositionID = "0";
+                            retPoss.Insert(0, fp);
+
+                            var posSer = new Newtonsoft.Json.JsonSerializer();
+                            StringWriter possw = new StringWriter();
+                            using (JsonWriter jw = new JsonTextWriter(possw))
+                            {
+                                jw.Formatting = Formatting.Indented;
+
+                                posSer.Serialize(jw, retPoss);
+                            }
+
+                            Response.ContentType = "text/json";
+
+                            Response.Write(possw.ToString());
+                            possw.Close();
+                            Response.End();
+                            break;
                     }
-
-                    var jsonSer = new Newtonsoft.Json.JsonSerializer();
-                    //jsonSer.RegisterConverters(new JavaScriptConverter[] { 
-                    //    new ListItemCollectionConverter() });
-                    StringWriter sw = new StringWriter();
-                    using (JsonWriter jw = new JsonTextWriter(sw))
-                    {
-                        jw.Formatting = Formatting.Indented;
-
-                        jsonSer.Serialize(jw, retList);
-                    }
-
-                    Response.ContentType = "text/json";
-                    
-                    Response.Write(sw.ToString());
-                    sw.Close();
-                    Response.End();
                 }
 			}
 		}
-
-		#region 初始化下拉列表框
-		/// <summary>
-		/// 对数据进行初始化
-		/// </summary>
-		private void PopulateData() 
-		{
-			Staff staff = new Staff();
-			//listAccount.Items.Clear();
-			//if(DispType=="1")
-			//	listAccount.DataSource = staff.GetStaffInTeam(Int32.Parse(ClassID));
-			//else
-			//	listAccount.DataSource = staff.GetAllStaffs();
-            //listAccount.DataTextField = "RealName";
-            //listAccount.DataValueField = "Staff_Name";
-            //listAccount.DataBind ();
-            //listAccount.SelectedIndex = 0;
-			
-			listDept .DataSource = staff.GetPositionList(1);
-			listDept.DataTextField = "Position_Name";
-			listDept.DataValueField = "Position_ID";
-			listDept.DataBind();
-			listDept.Items.Insert(0,new ListItem("公司所有部门","0"));
-			listDept.SelectedIndex = 0;
-			listDept.Attributes["onclick"]="SaveValue()";
-			staff=null;
-		}
-		#endregion
-
-		#region 下拉列表事件
-		public void DeptListChange(object sender, System.EventArgs e)
-		{
-			Staff staff = new Staff();
-			//if(listDept.SelectedItem .Value=="0")
-			//	listAccount.DataSource = staff.GetStaffInTeam(Int32.Parse(ClassID));
-			//else
-			//	listAccount.DataSource = staff.GetStaffByPosition(Int32.Parse(listDept.SelectedItem.Value));
-			//listAccount.DataTextField = "RealName";
-			//listAccount.DataValueField = "Staff_Name";
-			//listAccount.DataBind ();
-			
-			staff = null;
-		}
-		#endregion
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)

@@ -37,12 +37,12 @@
         }
     </style>
 </head>
-<body onload="PopulateData()" background="../../../Images/mailuserbg.gif">
+<body>
     <div class="container-fluid">
         <div class="sidebar left">
             <form class="well-small" method="post" runat="server">
                 <div class="controls-row">
-				    <asp:DropDownList ID="listDept" runat="server" OnSelectedIndexChanged="DeptListChange" AutoPostBack="True"></asp:DropDownList>
+                    <select id="listDept"></select>
                 </div>
                 <div class="controls-row">
                     <asp:DropDownList ID="listAddressBook" runat="server" Visible="False"></asp:DropDownList>
@@ -81,173 +81,153 @@
             <form class="well-small" method="post">
                 <div class="row" style="height:90px;">
                     <div class="span5" style="margin-top:35px">
-                        <a class="btn btn-mini"
-                            onclick="AddItem(this.name)" 
-                            name="btnReceSendToRight"><i class="icon-double-angle-right icon-2x"></i></a>
-                        <a class="btn btn-mini"
-                            onclick="RemoveItem(this.name)" 
-                            name="btnReceSendToLeft"><i class="icon-double-angle-left icon-2x"></i></a>
+                        <a class="btn btn-mini btn-add" 
+                            data-target="listSendTo"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-mini btn-remove"
+                            data-target="listSendTo"><i class="icon-double-angle-left icon-2x"></i></a>
                     </div>
                 </div>
                 <div class="row" style="height:92px">
                     <div class="span2" style="margin-top:62px">
-                        <a class="btn btn-mini" 
-                            onclick="AddItem(this.name)" 
-                            name="btnCcSendToRight"><i class="icon-double-angle-right icon-2x"></i></a>
-                        <a class="btn btn-mini" 
-                            onclick="RemoveItem(this.name)" 
-                            name="btnCcSendToLeft"><i class="icon-double-angle-left icon-2x"></i></a>
+                        <a class="btn btn-mini btn-add" 
+                            data-target="listCcTo"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-mini btn-remove" 
+                            data-target="listCcTo"><i class="icon-double-angle-left icon-2x"></i></a>
                     </div>
                 </div>
                 <div class="row" style="height:105px">
                     <div class="span2" style="margin-top:80px">
-                        <a class="btn btn-mini" 
-                            onclick="AddItem(this.name)" 
-                            name="btnBccSendToRight"><i class="icon-double-angle-right icon-2x"></i></a>
-                        <a class="btn btn-mini" 
-                            onclick="RemoveItem(this.name)" 
-                            name="btnBccSendToLeft"><i class="icon-double-angle-left icon-2x"></i></a>
+                        <a class="btn btn-mini btn-add" 
+                            data-target="listBccTo"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-mini btn-remove" 
+                            data-target="listBccTo"><i class="icon-double-angle-left icon-2x"></i></a>
                     </div>
                 </div>
             </form>
         </div><!-- content -->
     </div><!--/.fluid-container#main-container-->
-    <script language="javascript" type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../../../js/underscore-min.js"></script>
-    <script language="javascript" type="text/javascript">
+    <footer style="text-align:center">
+        <input class="btn btn-primary" onclick="ReturnValue()" type="button" value="确定">
+        <input class="btn btn-warning" onclick="window.close()" type="button" value="取消">
+    </footer>
+    <script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../../js/underscore-min.js"></script>
+    <script type="text/javascript">
         var type = '<%= DispType %>';
         var classid = '<%= ClassID %>';
 
-        $(document).ready(function () {
-            $.ajax({
-                url: 'SelectReceiver.aspx?type=' + type + '&ClassID=' + classid + '&resulttype=json',
-                dataType: 'json',
-                type: 'GET',
-                cache: false,
-                success: function (data, textStatus, jqXHR) {
-                    _.each(data, function (d) {
-                        console.log(d);
-                        $("#listAccount").append($("<option></option>").attr("value", d.StaffName).text(d.RealName));
-                    });
-                },
-                error: function (jqXHR, textStatus, err) {
-                    alert("归档发生错误：" + jqXHR.responseText);
+        $(".btn-add").click(function () {
+            var targetControl = $("#" + $(this).data("target"));
+
+            $("#listAccount").find("option").each(function () {
+                if ($(this).is(":selected")) {
+                    targetControl.append($("<option></option>").attr("value", $(this).val()).text($(this).text()));
                 }
             });
         });
 
-        function RemoveItem(ControlName) {
-            Control = null;
-            switch (ControlName) {
-                case "btnReceSendToLeft":
-                    //Control = eval("document.SelectReceiver.listSendTo");
-                    Control = $("#listSendTo");
-                    break;
-                case "btnCcSendToLeft":
-                    //Control = eval("document.SelectReceiver.listCcTo");
-                    Control = $("#listCcTo");
-                    break;
-                case "btnBccSendToLeft":
-                    //Control = eval("document.SelectReceiver.listBccTo");
-                    Control = $("#listBccTo");
-                    break;
-            }
-
-            var j = Control.length;
-            if (j == 0) return;
-            for (j; j > 0; j--) {
-                if (Control.options[j - 1].selected == true) {
-                    Control.remove(j - 1);
-                }
-            }
-
-        }
-
-        function AddItem(ControlName) {
-            Control = null;
-            switch (ControlName) {
-                case "btnReceSendToRight":
-                    //Control = eval("document.SelectReceiver.listSendTo");
-                    Control = $("#listSendTo");
-                    break;
-                case "btnCcSendToRight":
-                    //Control = eval("document.SelectReceiver.listCcTo");
-                    Control = $("#listCcTo");
-                    break;
-                case "btnBccSendToRight":
-                    //Control = eval("document.SelectReceiver.listBccTo");
-                    Control = $("#listBccTo");
-                    break;
-            }
-
-            var i = 0;
-            //listAccount = eval("document.SelectReceiver.listAccount");
-            listAccount = $("#listAccount");
-            console.log(listAccount.find("option"));
-            listAccount.find("option").each(function () {
-                if ($(this).selected == true)
-                {
-                    console.log($(this).text());
-                    //Control.add(new Option($(this).text(), $(this).val()));
-                    Control.append($("<option></option>")).attr("value", $(this).val()).attr("text", $(this).text());
+        $(".btn-remove").click(function () {
+            var targetControl = $("#" + $(this).data("target"));
+            targetControl.find("option").each(function () {
+                if ($(this).is(":selected")) {
+                    $(this).remove();
                 }
             });
-            //var j = listAccount.length;
-            //for (i = 0; i < j; i++) {
-            //    if (listAccount.options[i].selected == true) {
-            //        Control.add(new Option(listAccount[i].text, listAccount.options[i].value));
-            //    }
-            //}
-        }
+        });
 
-        function setStatusright() {
-            $("#btnReceSendToRight").attr("disabled", false);
-            $("#btnCcSendToRight").attr("disabled", false);
-            $("#btnBccSendToRight").attr("disabled", false);
-            //document.SelectReceiver.btnReceSendToRight.disabled = false;
-            //document.SelectReceiver.btnCcSendToRight.disabled = false;
-            //document.SelectReceiver.btnBccSendToRight.disabled = false;
-        }
+        $("#listDept").change(function () {
+            $("#listAccount").empty();
+            $(this).find("option").each(function () {
+                if ($(this).is(":selected")) {
+                    $.ajax({
+                        url: 'SelectReceiver.aspx?type=' + type + '&ClassID=' + classid + '&resulttype=staff' + '&dep=' + $(this).val(),
+                        dataType: 'json',
+                        type: 'GET',
+                        cache: false,
+                        success: function (data, textStatus, jqXHR) {
+                            _.each(data, function (d, index) {
+                                if (0 == index)
+                                    $("#listAccount").append($("<option></option>").attr({ "value": d.StaffName, "selected": true }).text(d.RealName));
+                                else
+                                    $("#listAccount").append($("<option></option>").attr("value", d.StaffName).text(d.RealName));
+                            });
+                        },
+                        error: function (jqXHR, textStatus, err) {
+                            alert("获取收件人列表发生错误：" + jqXHR.responseText);
+                        }
+                    });
+                }
+            });
+        });
 
-        function setStatusleft() {
-            $("#btnReceSendToLeft").attr("disabled", false);
-            $("#btnCcSendToLeft").attr("disabled", false);
-            $("#btnBccSendToLeft").attr("disabled", false);
-            //document.SelectReceiver.btnReceSendToLeft.disabled = false;
-            //document.SelectReceiver.btnCcSendToLeft.disabled = false;
-            //document.SelectReceiver.btnBccSendToLeft.disabled = false;
-        }
+        $(document).ready(function () {
+            $.ajax({
+                url: 'SelectReceiver.aspx?type=' + type + '&ClassID=' + classid + '&resulttype=staff',
+                dataType: 'json',
+                type: 'GET',
+                cache: false,
+                success: function (data, textStatus, jqXHR) {
+                    _.each(data, function (d, index) {
+                        if (0 == index)
+                            $("#listAccount").append($("<option></option>").attr({ "value": d.StaffName, "selected": true }).text(d.RealName));
+                        else
+                            $("#listAccount").append($("<option></option>").attr("value", d.StaffName).text(d.RealName));
+                    });
+                },
+                error: function (jqXHR, textStatus, err) {
+                    alert("获取收件人列表发生错误：" + jqXHR.responseText);
+                }
+            });
+
+            $.ajax({
+                url: 'SelectReceiver.aspx?type=' + type + '&ClassID=' + classid + '&resulttype=position',
+                dataType: 'json',
+                type: 'GET',
+                cache: false,
+                success: function (data, textStatus, jqXHR) {
+                    _.each(data, function (d, index) {
+                        if (0 == index)
+                            $("#listDept").append($("<option></option>").attr({ "value": d.PositionID, "selected": true }).text(d.PositionName));
+                        else
+                            $("#listDept").append($("<option></option>").attr("value", d.PositionID).text(d.PositionName));
+                    });
+                },
+                error: function (jqXHR, textStatus, err) {
+                    alert("获取部门列表发生错误:" + jqXHR.responseText);
+                }
+            });
+
+            PopulateData();
+        });
 
         function PopulateData() {
             if (window.dialogArguments != null) {
                 var parwin = window.dialogArguments;
 
                 if (parwin.document.all.hdnTxtSendTo.value != "") {
-                    //Control = eval("document.SelectReceiver.listSendTo");
-                    Control = $("#listSendTo");
+                    var Control = $("#listSendTo");
                     var SendToValueArray = parwin.document.all.hdnTxtSendTo.value.split(",");
                     var SendToTxtArray = parwin.document.all.txtSendTo.value.split(",");
                     for (i = 0; i < SendToValueArray.length - 1; i++) {
-                        //Control.add(new Option(SendToTxtArray[i], SendToValueArray[i]));
-                        Control.append($("<option></option>").attr("text", SendToTxtArray[i]).attr("value", SendToValueArray[i]));
+                        Control.append($("<option></option>").attr("value", SendToValueArray[i]).text(SendToTxtArray[i]));
                     }
                 }
 
                 if (parwin.document.all.hdnTxtCcTo.value != "") {
-                    Control = eval("document.SelectReceiver.listCcTo");
+                    var Control = $("#listCcTo");
                     var CcToValueArray = parwin.document.all.hdnTxtCcTo.value.split(",");
                     var CcToTxtArray = parwin.document.all.txtCcTo.value.split(",");
                     for (i = 0; i < CcToValueArray.length - 1; i++) {
-                        Control.add(new Option(CcToTxtArray[i], CcToValueArray[i]));
+                        Control.append($("<option></option>").attr("value", CcToValueArray[i]).text(CcToTxtArray[i]));
                     }
                 }
 
                 if (parwin.document.all.hdnTxtSendTo.value != "") {
-                    Control = eval("document.SelectReceiver.listBccTo");
+                    var Control = $("#listBccTo");
                     var BccToValueArray = parwin.document.all.hdnTxtBccTo.value.split(",");
                     var BccToTxtArray = parwin.document.all.txtBccTo.value.split(",");
                     for (i = 0; i < BccToValueArray.length - 1; i++) {
-                        Control.add(new Option(BccToTxtArray[i], BccToValueArray[i]));
+                        Control.append($("<option></option>").attr("value", BccToValueArray[i]).text(BccToTxtArray[i]));
                     }
                 }
 
@@ -267,31 +247,30 @@
             var listBccToValueStr = "";
             var listSendToCompleteStr = "";
 
-            listSendTo = eval("document.SelectReceiver.listSendTo");
-            listCcTo = eval("document.SelectReceiver.listCcTo");
-            listBccTo = eval("document.SelectReceiver.listBccTo");
+            var listSendTo = $("#listSendTo");
+            var listCcTo = $("#listCcTo");
+            var listBccTo = $("#listBccTo");
 
 
-            for (i = 0; i < listSendTo.length; i++) {
-                listSendToTxtStr += listSendTo.options[i].text + ",";
-                listSendToValueStr += listSendTo.options[i].value + ",";
-            }
+            listSendTo.find("option").each(function () {
+                listSendToTxtStr += $(this).text() + ",";
+                listSendToValueStr += $(this).val() + ",";
+            });
             parwin.document.all.Compose.txtSendTo.value = listSendToTxtStr;
             parwin.document.all.Compose.hdnTxtSendTo.value = listSendToValueStr;
 
 
-            for (i = 0; i < listCcTo.length; i++) {
-                listCcToTxtStr += listCcTo.options[i].text + ",";
-                listCcToValueStr += listCcTo.options[i].value + ",";
-            }
+            listCcTo.find("option").each(function () {
+                listCcToTxtStr += $(this).text() + ",";
+                listCcToValueStr += $(this).val() + ",";
+            });
             parwin.document.all.Compose.txtCcTo.value = listCcToTxtStr;
             parwin.document.all.Compose.hdnTxtCcTo.value = listCcToValueStr;
 
-
-            for (i = 0; i < listBccTo.length; i++) {
-                listBccToTxtStr += listBccTo.options[i].text + ",";
-                listBccToValueStr += listBccTo.options[i].value + ",";
-            }
+            listBccTo.find("option").each(function () {
+                listBccToTxtStr += $(this).text() + ",";
+                listBccToValueStr += $(this).val() + ",";
+            });
             parwin.document.all.Compose.txtBccTo.value = listBccToTxtStr;
             parwin.document.all.Compose.hdnTxtBccTo.value = listBccToValueStr;
 
