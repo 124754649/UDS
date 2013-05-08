@@ -9,8 +9,21 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using UDS.Components;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Web.Script.Serialization;
+using System.IO;
+using Newtonsoft.Json;
 namespace MaiSystem
 {
+    [DataContract]
+    internal class ListAccount
+    {
+        [DataMember]
+        internal string RealName;
+        [DataMember]
+        internal string StaffName;
+    }
 	/// <summary>
 	/// SelectReceiver 的摘要说明。
 	/// </summary>
@@ -21,7 +34,7 @@ namespace MaiSystem
 		protected System.Web.UI.WebControls.Label lblBcc;
 		protected System.Web.UI.WebControls.Label lblAddressBook;
 		protected System.Web.UI.WebControls.DropDownList listAddressBook;
-		protected System.Web.UI.WebControls.DropDownList listAccount;
+		//protected System.Web.UI.WebControls.DropDownList listAccount;
 		public string ClassID,DispType;
 		protected System.Web.UI.WebControls.DropDownList listDept;
 	
@@ -29,9 +42,50 @@ namespace MaiSystem
 		{
 			ClassID		= Request.QueryString["ClassID"].ToString();
 			DispType	= Request.QueryString["type"].ToString();
+            string result = Request.QueryString["resulttype"];
+
 			if(!Page.IsPostBack )
 			{
-				PopulateData();
+                if (string.IsNullOrEmpty(result))
+                {
+                    PopulateData();
+                }
+                else
+                {
+                    ICollection retValue;
+                    Staff staff = new Staff();
+                    
+                    if (DispType == "1")
+                        retValue = staff.GetStaffInTeam(Int32.Parse(ClassID));
+                    else
+                        retValue = staff.GetAllStaffs().ToDataTable(true).DefaultView;
+                    IList retList = new ArrayList();
+                    var em = retValue as DataView;
+                    foreach(DataRow dr in em.Table.Rows)
+                    {
+                        ListAccount la = new ListAccount();
+                        la.RealName = dr["RealName"].ToString();
+                        la.StaffName = dr["Staff_Name"].ToString();
+                        retList.Add(la);
+                    }
+
+                    var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                    //jsonSer.RegisterConverters(new JavaScriptConverter[] { 
+                    //    new ListItemCollectionConverter() });
+                    StringWriter sw = new StringWriter();
+                    using (JsonWriter jw = new JsonTextWriter(sw))
+                    {
+                        jw.Formatting = Formatting.Indented;
+
+                        jsonSer.Serialize(jw, retList);
+                    }
+
+                    Response.ContentType = "text/json";
+                    
+                    Response.Write(sw.ToString());
+                    sw.Close();
+                    Response.End();
+                }
 			}
 		}
 
@@ -42,14 +96,15 @@ namespace MaiSystem
 		private void PopulateData() 
 		{
 			Staff staff = new Staff();
-			listAccount.Items.Clear();
-			if(DispType=="1")
-				listAccount.DataSource = staff.GetStaffInTeam(Int32.Parse(ClassID));
-			else
-				listAccount.DataSource = staff.GetAllStaffs();
-			listAccount.DataTextField = "RealName";
-			listAccount.DataValueField = "Staff_Name";
-			listAccount.DataBind ();
+			//listAccount.Items.Clear();
+			//if(DispType=="1")
+			//	listAccount.DataSource = staff.GetStaffInTeam(Int32.Parse(ClassID));
+			//else
+			//	listAccount.DataSource = staff.GetAllStaffs();
+            //listAccount.DataTextField = "RealName";
+            //listAccount.DataValueField = "Staff_Name";
+            //listAccount.DataBind ();
+            //listAccount.SelectedIndex = 0;
 			
 			listDept .DataSource = staff.GetPositionList(1);
 			listDept.DataTextField = "Position_Name";
@@ -66,13 +121,13 @@ namespace MaiSystem
 		public void DeptListChange(object sender, System.EventArgs e)
 		{
 			Staff staff = new Staff();
-			if(listDept.SelectedItem .Value=="0")
-				listAccount.DataSource = staff.GetStaffInTeam(Int32.Parse(ClassID));
-			else
-				listAccount.DataSource = staff.GetStaffByPosition(Int32.Parse(listDept.SelectedItem.Value));
-			listAccount.DataTextField = "RealName";
-			listAccount.DataValueField = "Staff_Name";
-			listAccount.DataBind ();
+			//if(listDept.SelectedItem .Value=="0")
+			//	listAccount.DataSource = staff.GetStaffInTeam(Int32.Parse(ClassID));
+			//else
+			//	listAccount.DataSource = staff.GetStaffByPosition(Int32.Parse(listDept.SelectedItem.Value));
+			//listAccount.DataTextField = "RealName";
+			//listAccount.DataValueField = "Staff_Name";
+			//listAccount.DataBind ();
 			
 			staff = null;
 		}

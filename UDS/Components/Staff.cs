@@ -683,7 +683,7 @@ namespace UDS.Components
 				// run the stored procedure
 				data.RunProc("sp_GetMemberInClass", prams,out dataReader);
 				data = null;
-				datatable = UDS.Components.Tools.ConvertDataReaderToDataTable (dataReader);
+                datatable = dataReader.ToDataTable(true);
 				return datatable.DefaultView ;
 			}
 			catch (Exception ex) 

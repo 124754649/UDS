@@ -1,39 +1,141 @@
 <%@ Page language="c#" Codebehind="SelectReceiver.aspx.cs" AutoEventWireup="false" Inherits="MaiSystem.SelectReceiver" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<!DOCTYPE HTML>
 <html>
-<head>
-    <title>选择收件人 </title>
-    <meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
-    <meta content="C#" name="CODE_LANGUAGE">
-    <meta content="JavaScript" name="vs_defaultClientScript">
-    <meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-    <link href="../../../css/BasicLayout.css" type="text/css" rel="stylesheet">
-    <base target="_self">
+<head runat="server">
+    <title>选择收件人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="Stylesheet" href="../../../Css/bootstrap.min.css" />
+    <link type="text/css" rel="Stylesheet" href="../../../Css/bootstrap-responsive.min.css" />
+    <link type="text/css" rel="Stylesheet" href="../../../Css/font-awesome.min.css" />
+     <!--[if IE 7]>
+		<link rel="stylesheet" href="../../../Css/font-awesome-ie7.min.css" />
+	<![endif]-->
+    <style type="text/css">
+        .container-fluid .sidebar {
+            position:relative;
+            top:0;
+            left:auto;
+            width:150px;
+        }
+
+        .container-fluid .sidebar select {
+            position:relative;
+            width: 150px;
+            left: auto;
+        }
+
+        .left {
+            float:left;
+        }
+
+        .right {
+            float:right;
+        }
+
+        .fixed-fixed {
+            margin: 0 300px;
+        }
+    </style>
 </head>
-<body onload="PopulateData()" ms_positioning="GridLayout" background="../../../Images/mailuserbg.gif">
-    <form id="SelectReceiver" method="post" runat="server">
-        <select id="listBccTo" style="Z-INDEX: 110; LEFT: 376px; WIDTH: 181px; POSITION: absolute; TOP: 293px; HEIGHT: 105px" multiple size="6" name="listBccTo">
-        </select>
-        <input class="buttoncss" style="Z-INDEX: 109; LEFT: 258px; WIDTH: 81px; POSITION: absolute; TOP: 300px; HEIGHT: 24px" onclick="AddItem(this.name)" type="button" value=">>>>" name="btnBccSendToRight">
-        <input class="buttoncss" style="Z-INDEX: 108; LEFT: 257px; WIDTH: 81px; POSITION: absolute; TOP: 324px; HEIGHT: 24px" onclick="RemoveItem(this.name)" type="button" value="<<<<" name="btnBccSendToLeft">
-        <select id="listCcTo" style="Z-INDEX: 107; LEFT: 375px; WIDTH: 181px; POSITION: absolute; TOP: 168px; HEIGHT: 92px" multiple size="5" name="listCcTo"></select>
-        <input class="buttoncss" style="Z-INDEX: 106; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 185px; HEIGHT: 24px" onclick="AddItem(this.name)" type="button" value=">>>>" name="btnCcSendToRight">
-        <input class="buttoncss" style="Z-INDEX: 105; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 209px; HEIGHT: 24px" onclick="RemoveItem(this.name)" type="button" value="<<<<" name="btnCcSendToLeft">
-        <select id="listSendTo" style="Z-INDEX: 104; LEFT: 374px; WIDTH: 182px; POSITION: absolute; TOP: 43px; HEIGHT: 90px;" multiple size="5" name="listSendTo"></select>
-        <input class="buttoncss" style="Z-INDEX: 103; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 59px; HEIGHT: 24px" onclick="AddItem(this.name)" type="button" value=">>>>" name="btnReceSendToRight">
-        <input class="buttoncss" style="Z-INDEX: 102; LEFT: 256px; WIDTH: 81px; POSITION: absolute; TOP: 83px; HEIGHT: 24px" onclick="RemoveItem(this.name)" type="button" value="<<<<" name="btnReceSendToLeft">
-        <asp:DropDownList ID="listAccount" ondblclick="AddItem('btnReceSendToRight')" Style="Z-INDEX: 101; LEFT: 73px; POSITION: absolute; TOP: 43px" runat="server" Width="148px" Height="356px" multiple onchange="setStatusright()"></asp:DropDownList>
-        <asp:Label ID="lblReceiver" Style="Z-INDEX: 111; LEFT: 375px; POSITION: absolute; TOP: 18px" runat="server" Font-Size="X-Small">收件人</asp:Label>
-        <asp:Label ID="lblCc" Style="Z-INDEX: 112; LEFT: 376px; POSITION: absolute; TOP: 143px" runat="server" Font-Size="X-Small">抄送人</asp:Label>
-        <asp:Label ID="lblBcc" Style="Z-INDEX: 113; LEFT: 380px; POSITION: absolute; TOP: 272px" runat="server" Font-Size="X-Small">秘抄人</asp:Label>
-        <asp:DropDownList ID="listAddressBook" Style="Z-INDEX: 114; LEFT: 93px; POSITION: absolute; TOP: 430px" runat="server" Visible="False"></asp:DropDownList>
-        <asp:Label ID="lblAddressBook" Style="Z-INDEX: 115; LEFT: 41px; POSITION: absolute; TOP: 434px" runat="server" Font-Size="X-Small" Visible="False">地址薄</asp:Label>
-        <input class="buttoncss" style="Z-INDEX: 116; LEFT: 221px; WIDTH: 61px; POSITION: absolute; TOP: 421px; HEIGHT: 24px" onclick="ReturnValue()" type="button" value="确定">
-        <input class="buttoncss" style="Z-INDEX: 117; LEFT: 356px; WIDTH: 61px; POSITION: absolute; TOP: 421px; HEIGHT: 24px" onclick="window.close()" type="button" value="取消">
-        <asp:DropDownList ID="listDept" Style="Z-INDEX: 118; LEFT: 76px; POSITION: absolute; TOP: 16px" runat="server" OnSelectedIndexChanged="DeptListChange" AutoPostBack="True"></asp:DropDownList>
-    </form>
+<body onload="PopulateData()" background="../../../Images/mailuserbg.gif">
+    <div class="container-fluid">
+        <div class="sidebar left">
+            <form class="well-small" method="post" runat="server">
+                <div class="controls-row">
+				    <asp:DropDownList ID="listDept" runat="server" OnSelectedIndexChanged="DeptListChange" AutoPostBack="True"></asp:DropDownList>
+                </div>
+                <div class="controls-row">
+                    <asp:DropDownList ID="listAddressBook" runat="server" Visible="False"></asp:DropDownList>
+                    <select multiple="multiple" id="listAccount" style="height:356px"></select>
+                </div>
+            </form>
+		</div><!--/#sidebar left-->
+        <div class="sidebar right">
+            <form method="post" class="well-small">
+                <div class="row">
+                    <div class="span2">
+                        <label>收件人</label>
+                        <select id="listSendTo" style="HEIGHT: 90px;" multiple="multiple" size="5" name="listSendTo"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <label>抄送人</label>
+                        <select id="listCcTo" style="HEIGHT: 92px" multiple="multiple" size="5" name="listCcTo"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <label>密送人</label>
+                        <select id="listBccTo" style="HEIGHT: 105px" multiple="multiple" size="6" name="listBccTo"></select>
+                    </div>
+                </div>
+            </form>
+            <!--
+            <div class="row-fluid">
+                <input class="buttoncss" onclick="ReturnValue()" type="button" value="确定">
+                <input class="buttoncss" onclick="window.close()" type="button" value="取消">
+            </div>-->
+        </div><!-- #sidebar right -->
+        <div class="content fixed-fixed">
+            <form class="well-small" method="post">
+                <div class="row" style="height:90px;">
+                    <div class="span5" style="margin-top:35px">
+                        <a class="btn btn-mini"
+                            onclick="AddItem(this.name)" 
+                            name="btnReceSendToRight"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-mini"
+                            onclick="RemoveItem(this.name)" 
+                            name="btnReceSendToLeft"><i class="icon-double-angle-left icon-2x"></i></a>
+                    </div>
+                </div>
+                <div class="row" style="height:92px">
+                    <div class="span2" style="margin-top:62px">
+                        <a class="btn btn-mini" 
+                            onclick="AddItem(this.name)" 
+                            name="btnCcSendToRight"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-mini" 
+                            onclick="RemoveItem(this.name)" 
+                            name="btnCcSendToLeft"><i class="icon-double-angle-left icon-2x"></i></a>
+                    </div>
+                </div>
+                <div class="row" style="height:105px">
+                    <div class="span2" style="margin-top:80px">
+                        <a class="btn btn-mini" 
+                            onclick="AddItem(this.name)" 
+                            name="btnBccSendToRight"><i class="icon-double-angle-right icon-2x"></i></a>
+                        <a class="btn btn-mini" 
+                            onclick="RemoveItem(this.name)" 
+                            name="btnBccSendToLeft"><i class="icon-double-angle-left icon-2x"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div><!-- content -->
+    </div><!--/.fluid-container#main-container-->
     <script language="javascript" type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../../js/underscore-min.js"></script>
     <script language="javascript" type="text/javascript">
+        var type = '<%= DispType %>';
+        var classid = '<%= ClassID %>';
+
+        $(document).ready(function () {
+            $.ajax({
+                url: 'SelectReceiver.aspx?type=' + type + '&ClassID=' + classid + '&resulttype=json',
+                dataType: 'json',
+                type: 'GET',
+                cache: false,
+                success: function (data, textStatus, jqXHR) {
+                    _.each(data, function (d) {
+                        console.log(d);
+                        $("#listAccount").append($("<option></option>").attr("value", d.StaffName).text(d.RealName));
+                    });
+                },
+                error: function (jqXHR, textStatus, err) {
+                    alert("归档发生错误：" + jqXHR.responseText);
+                }
+            });
+        });
+
         function RemoveItem(ControlName) {
             Control = null;
             switch (ControlName) {
@@ -78,15 +180,16 @@
                     break;
             }
 
-            console.log(Control);
-
             var i = 0;
             //listAccount = eval("document.SelectReceiver.listAccount");
             listAccount = $("#listAccount");
+            console.log(listAccount.find("option"));
             listAccount.find("option").each(function () {
                 if ($(this).selected == true)
                 {
-                    Control.add(new Option($(this).text(), $(this).val()));
+                    console.log($(this).text());
+                    //Control.add(new Option($(this).text(), $(this).val()));
+                    Control.append($("<option></option>")).attr("value", $(this).val()).attr("text", $(this).text());
                 }
             });
             //var j = listAccount.length;
@@ -120,11 +223,13 @@
                 var parwin = window.dialogArguments;
 
                 if (parwin.document.all.hdnTxtSendTo.value != "") {
-                    Control = eval("document.SelectReceiver.listSendTo");
+                    //Control = eval("document.SelectReceiver.listSendTo");
+                    Control = $("#listSendTo");
                     var SendToValueArray = parwin.document.all.hdnTxtSendTo.value.split(",");
                     var SendToTxtArray = parwin.document.all.txtSendTo.value.split(",");
                     for (i = 0; i < SendToValueArray.length - 1; i++) {
-                        Control.add(new Option(SendToTxtArray[i], SendToValueArray[i]));
+                        //Control.add(new Option(SendToTxtArray[i], SendToValueArray[i]));
+                        Control.append($("<option></option>").attr("text", SendToTxtArray[i]).attr("value", SendToValueArray[i]));
                     }
                 }
 
