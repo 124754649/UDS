@@ -124,30 +124,33 @@ namespace UDS.SubModule.CM
 
 		private void btn_OK_Click(object sender, System.EventArgs e)
 		{
-			Session["tmpchief"] = rbl_LinkmanList.SelectedItem.Value;
-			UDS.Components.CM cm = new UDS.Components.CM();
-			SqlDataReader dr = cm.GetLinkmanByID(rbl_LinkmanList.SelectedItem.Value);
-			
-			while(dr.Read())
-			{
-				//使用正则表达式分析 <a ....>....</a>得到各个属性值
-				string href = "";
-				string name = "";
-				string linkstring = @rbl_LinkmanList.SelectedItem.Text;
-				string pattern = "href\\s*=\\s*((?<begin>('|\"))(?<href>.*?)\\k<begin>|(?<href>\\S+))(.*?)>(?<name>.*?)</a>";
-				Match match;
-				Regex thereg = new Regex(pattern,RegexOptions.IgnoreCase|RegexOptions.Compiled);
-				for(match=thereg.Match(linkstring);match.Success;match=match.NextMatch())
-				{
-					href = match.Groups["href"].Value;
-					name = match.Groups["name"].Value;
-				}
+            if (null != rbl_LinkmanList.SelectedItem && null != rbl_LinkmanList.SelectedItem.Value)
+            {
+                Session["tmpchief"] = rbl_LinkmanList.SelectedItem.Value;
+                UDS.Components.CM cm = new UDS.Components.CM();
+                SqlDataReader dr = cm.GetLinkmanByID(rbl_LinkmanList.SelectedItem.Value);
+
+                while (dr.Read())
+                {
+                    //使用正则表达式分析 <a ....>....</a>得到各个属性值
+                    string href = "";
+                    string name = "";
+                    string linkstring = @rbl_LinkmanList.SelectedItem.Text;
+                    string pattern = "href\\s*=\\s*((?<begin>('|\"))(?<href>.*?)\\k<begin>|(?<href>\\S+))(.*?)>(?<name>.*?)</a>";
+                    Match match;
+                    Regex thereg = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                    for (match = thereg.Match(linkstring); match.Success; match = match.NextMatch())
+                    {
+                        href = match.Groups["href"].Value;
+                        name = match.Groups["name"].Value;
+                    }
 
 
-				Response.Write("<script>opener.document.getElementById('hlk_Chiefman').href=\"" + href + "\";opener.document.getElementById('hlk_Chiefman').innerText = \"" + name + "\"</script>");
-				Response.Write("<script>opener.document.getElementById('lbl_position').innerText='" + dr["position"] + "';opener.document.getElementById('lbl_chieftel').innerText='" + dr["telephone"] + "';</script>");
-			}
-			dr.Close();
+                    Response.Write("<script>opener.document.getElementById('hlk_Chiefman').href=\"" + href + "\";opener.document.getElementById('hlk_Chiefman').innerText = \"" + name + "\"</script>");
+                    Response.Write("<script>opener.document.getElementById('lbl_position').innerText='" + dr["position"] + "';opener.document.getElementById('lbl_chieftel').innerText='" + dr["telephone"] + "';</script>");
+                }
+                dr.Close();
+            }
 			Response.Write("<script>window.close();</script>");
 		}
 	}

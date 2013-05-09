@@ -21,7 +21,7 @@ namespace UDS.SubModule.Schedule
 		protected System.Web.UI.WebControls.Label lblTaskDetailTitle;
 		protected System.Web.UI.WebControls.Label lblArrangedBy;
 		protected System.Web.UI.WebControls.DataGrid dgList;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl TaskCommentFrm;
+		protected System.Web.UI.HtmlControls.HtmlIframe TaskCommentFrm;
 		protected static string TaskID,Username,Date;
 		private void Page_Load(object sender, System.EventArgs e)
 		{

@@ -35,7 +35,7 @@ namespace UDS.SubModule.Schedule
 		protected static string TaskID,Username,Date;
 		protected System.Web.UI.WebControls.TextBox txtComment;
 		protected System.Web.UI.WebControls.Button btnAddCom;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl TaskCommentFrm;
+		protected System.Web.UI.HtmlControls.HtmlIframe TaskCommentFrm;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{

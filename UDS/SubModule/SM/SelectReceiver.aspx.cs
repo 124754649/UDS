@@ -9,6 +9,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using UDS.Components;
+using MaiSystem;
+using System.IO;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace UDS.SubModule.SM
 {
@@ -17,65 +21,100 @@ namespace UDS.SubModule.SM
 	/// </summary>
 	public class SelectReceiver : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.DropDownList listAccount;
-		protected System.Web.UI.WebControls.Label lblReceiver;
-		protected System.Web.UI.WebControls.Label lblMReceiver;
-		protected System.Web.UI.WebControls.DropDownList listDept;
-		
-		private void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!Page.IsPostBack )
-			{
-				PopulateData();
-			}
-		}
+		//protected System.Web.UI.WebControls.DropDownList listAccount;
+		//protected System.Web.UI.WebControls.Label lblReceiver;
+		//protected System.Web.UI.WebControls.Label lblMReceiver;
+		//protected System.Web.UI.WebControls.DropDownList listDept;
 
-		#region 初始化下拉列表框
-		/// <summary>
-		/// 对数据进行初始化
-		/// </summary>
-		private void PopulateData() 
-		{
-		
-			UDS.Components.Staff staff	= new UDS.Components.Staff();
-			listAccount.Items.Clear();
-			listAccount.DataSource = staff.GetAllStaffs();
-			listAccount.DataTextField = "RealName";
-			listAccount.DataValueField = "Staff_Name";
-			listAccount.DataBind ();
-			
-			listDept .DataSource = staff.GetPositionList(1);
-			listDept.DataTextField = "Position_Name";
-			listDept.DataValueField = "Position_ID";
-			listDept.DataBind();
-			listDept.Items.Insert(0,new ListItem("公司所有部门","0"));
-			listDept.SelectedIndex = 0;
-			listDept.Attributes["onclick"]="SaveValue()";
-			staff=null;
-		}
-		#endregion
+        private void Page_Load(object sender, System.EventArgs e)
+        {
+            string resulttyep = Request.Params["result"];
+            string depid = Request.Params["dep"];
 
-		#region 下拉列表事件
-		public void DeptListChange(object sender, System.EventArgs e)
-		{
-		
-			UDS.Components.Staff staff	= new UDS.Components.Staff();
-			if(listDept.SelectedItem.Value!="0")
-			{
-				
-				listAccount.DataSource = staff.GetStaffByPosition(Int32.Parse(listDept.SelectedItem.Value));
-			}
-			else
-			{
-				listAccount.DataSource = staff.GetAllStaffs();
-			}			
-			listAccount.DataTextField = "RealName";
-			listAccount.DataValueField = "Staff_Name";
-			listAccount.DataBind ();
-			staff = null;
-		}
-		#endregion
+            if (!Page.IsPostBack)
+            {
+                if (string.IsNullOrEmpty(resulttyep))
+                {
+                    
+                }
+                else
+                {
+                    UDS.Components.Staff staff = new UDS.Components.Staff();
 
+                    switch (resulttyep)
+                    {
+                        case "staff":
+                            ICollection retValue;
+
+                            if (string.IsNullOrEmpty(depid) || "0" == depid)
+                            {
+                                retValue = staff.GetAllStaffs().ToDataTable(true).DefaultView;
+                            }
+                            else
+                            {
+                                retValue = staff.GetStaffByPosition(Int32.Parse(depid));
+                            }
+
+                            IList retList = new ArrayList();
+                            var em = retValue as DataView;
+                            foreach (DataRow dr in em.Table.Rows)
+                            {
+                                ListAccount la = new ListAccount();
+                                la.RealName = dr["RealName"].ToString();
+                                la.StaffName = dr["Staff_Name"].ToString();
+                                retList.Add(la);
+                            }
+
+                            var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                            StringWriter sw = new StringWriter();
+                            using (JsonWriter jw = new JsonTextWriter(sw))
+                            {
+                                jw.Formatting = Formatting.Indented;
+
+                                jsonSer.Serialize(jw, retList);
+                            }
+
+                            Response.ContentType = "text/json";
+
+                            Response.Write(sw.ToString());
+                            sw.Close();
+                            Response.End();
+                            break;
+                        case "position":
+                            DataTable ds = staff.GetPositionList(1).ToDataTable(true);
+                            List<MaiSystem.Position> retPoss = new List<MaiSystem.Position>();
+                            foreach (DataRow dr in ds.Rows)
+                            {
+                                MaiSystem.Position p = new MaiSystem.Position();
+                                p.PositionID = dr["Position_ID"].ToString();
+                                p.PositionName = dr["Position_Name"].ToString();
+                                retPoss.Add(p);
+                            }
+
+                            MaiSystem.Position fp = new MaiSystem.Position();
+                            fp.PositionName = "公司所有部门";
+                            fp.PositionID = "0";
+                            retPoss.Insert(0, fp);
+
+                            var posSer = new Newtonsoft.Json.JsonSerializer();
+                            StringWriter possw = new StringWriter();
+                            using (JsonWriter jw = new JsonTextWriter(possw))
+                            {
+                                jw.Formatting = Formatting.Indented;
+
+                                posSer.Serialize(jw, retPoss);
+                            }
+
+                            Response.ContentType = "text/json";
+
+                            Response.Write(possw.ToString());
+                            possw.Close();
+                            Response.End();
+                            break;
+                    }
+                }
+            }
+        }
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)

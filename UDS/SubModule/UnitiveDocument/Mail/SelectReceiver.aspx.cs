@@ -71,7 +71,7 @@ namespace MaiSystem
 
                             if (DispType == "1")
                             {
-                                if (string.IsNullOrEmpty(depid))
+                                if (string.IsNullOrEmpty(depid) || "0" == depid)
                                 {
                                     retValue = staff.GetStaffInTeam(Int32.Parse(ClassID));
                                 }

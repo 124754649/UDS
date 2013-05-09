@@ -202,7 +202,7 @@ function hiddenSelect(e){for(var i=e.options.length; i>-1; i--)e.options.remove(
 function getObjectById(id){ if(document.all) return(eval("document.all."+ id)); return(eval(id)); }
 function hiddenCalendar(){getObjectById("meizzCalendarLayer").style.display = "none";};
 function appendZero(n){return(("00"+ n).substr(("00"+ n).length-2));}//日期自动补零程序
-function String.prototype.trim(){return this.replace(/(^\s*)|(\s*$)/g,"");}
+String.prototype.trim=function(){return this.replace(/(^\s*)|(\s*$)/g,"");};
 function dayMouseOver()
 {
     this.className = "over";
@@ -296,8 +296,8 @@ function returnDate() //根据日期格式等返回用户选定的日期
         catch(e){}
     }
 }
-function document.onclick()
+document.onclick = function()
 {
     if(WebCalendar.eventSrc != window.event.srcElement) hiddenCalendar();
-}
+};
 //-->

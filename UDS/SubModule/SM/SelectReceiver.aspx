@@ -42,15 +42,15 @@
         }
     </style>
 </head>
-<body onload="PopulateData()">
+<body>
     <div class="container-fluid">
         <div class="sidebar left">
             <form id="Form1" class="well-small" method="post" runat="server">
                 <div class="controls-row">
-                    <asp:DropDownList ID="listDept" runat="server" OnSelectedIndexChanged="DeptListChange" AutoPostBack="True"></asp:DropDownList>
+                    <select id="listDept"></select>
                 </div>
                 <div class="controls-row">
-                    <asp:DropDownList ID="listAccount" Height="316px" ondblclick="AddItem('btnReceSendToRight')" runat="server" multiple onchange="setStatusright()"></asp:DropDownList>
+                    <select id="listAccount" style="height:316px" multiple="multiple"></select>
                 </div>
             </form> <!-- form -->
         </div><!-- siderbar left -->
@@ -89,86 +89,116 @@
         <input class="btn btn-primary" onclick="ReturnValue()" type="button" value="确定">
         <input class="btn btn-warning" onclick="window.close()" type="button" value="取消">
     </footer>
+    <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../js/underscore-min.js"></script>
     <script type="text/javascript">
-        function RemoveItem(ControlName) {
-            Control = null;
-            switch (ControlName) {
-                case "btnReceSendToLeft":
-                    Control = eval("document.SelectReceiver.listSendTo");
-                    break;
-                case "btnMobileSendToLeft":
-                    Control = eval("document.SelectReceiver.listMobileSendTo");
-                    break;
-            }
+        $(".btn-add").click(function () {
+            var targetControl = $("#" + $(this).data("target"));
 
-            var j = Control.length;
-            if (j == 0) return;
-            for (j; j > 0; j--) {
-                if (Control.options[j - 1].selected == true) {
-                    Control.remove(j - 1);
+            $("#listAccount").find("option").each(function () {
+                if ($(this).is(":selected")) {
+                    targetControl.append($("<option></option>").attr("value", $(this).val()).text($(this).text()));
                 }
-            }
+            });
+        });
 
-        }
-
-        function AddItem(ControlName) {
-            Control = null;
-            switch (ControlName) {
-                case "btnReceSendToRight":
-                    Control = eval("document.SelectReceiver.listSendTo");
-                    break;
-                case "btnMobileSendToRight":
-                    Control = eval("document.SelectReceiver.listMobileSendTo");
-                    break;
-            }
-
-            var i = 0;
-            listAccount = eval("document.SelectReceiver.listAccount");
-            var j = listAccount.length;
-            for (i = 0; i < j; i++) {
-                if (listAccount.options[i].selected == true) {
-
-                    Control.add(new Option(listAccount[i].text, listAccount.options[i].value));
+        $(".btn-remove").click(function () {
+            var targetControl = $("#" + $(this).data("target"));
+            targetControl.find("option").each(function () {
+                if ($(this).is(":selected")) {
+                    $(this).remove();
                 }
-            }
+            });
+        });
 
-        }
+        $("#listDept").change(function () {
+            $("#listAccount").empty();
+            $(this).find("option").each(function () {
+                if ($(this).is(":selected")) {
+                    $.ajax({
+                        url: 'SelectReceiver.aspx?result=staff' + '&dep=' + $(this).val(),
+                        dataType: 'json',
+                        type: 'GET',
+                        cache: false,
+                        success: function (data, textStatus, jqXHR) {
+                            _.each(data, function (d, index) {
+                                if (0 == index)
+                                    $("#listAccount").append($("<option></option>").attr({ "value": d.StaffName, "selected": true }).text(d.RealName));
+                                else
+                                    $("#listAccount").append($("<option></option>").attr("value", d.StaffName).text(d.RealName));
+                            });
+                        },
+                        error: function (jqXHR, textStatus, err) {
+                            alert("获取收件人列表发生错误：" + jqXHR.responseText);
+                        }
+                    });
+                }
+            });
+        });
 
-        function setStatusright() {
-            document.SelectReceiver.btnReceSendToRight.disabled = false;
-            document.SelectReceiver.btnMobileSendToRight.disabled = false;
-        }
+        $(document).ready(function () {
+            $.ajax({
+                url: 'SelectReceiver.aspx?result=staff',
+                dataType: 'json',
+                type: 'GET',
+                cache: false,
+                success: function (data, textStatus, jqXHR) {
+                    _.each(data, function (d, index) {
+                        if (0 == index)
+                            $("#listAccount").append($("<option></option>").attr({ "value": d.StaffName, "selected": true }).text(d.RealName));
+                        else
+                            $("#listAccount").append($("<option></option>").attr("value", d.StaffName).text(d.RealName));
+                    });
+                },
+                error: function (jqXHR, textStatus, err) {
+                    alert("获取收件人列表发生错误：" + jqXHR.responseText);
+                }
+            });
 
-        function setStatusleft() {
-            document.SelectReceiver.btnReceSendToLeft.disabled = false;
-            document.SelectReceiver.btnMobileSendToRight.disabled = false;
-        }
+            $.ajax({
+                url: 'SelectReceiver.aspx?result=position',
+                dataType: 'json',
+                type: 'GET',
+                cache: false,
+                success: function (data, textStatus, jqXHR) {
+                    _.each(data, function (d, index) {
+                        if (0 == index)
+                            $("#listDept").append($("<option></option>").attr({ "value": d.PositionID, "selected": true }).text(d.PositionName));
+                        else
+                            $("#listDept").append($("<option></option>").attr("value", d.PositionID).text(d.PositionName));
+                    });
+                },
+                error: function (jqXHR, textStatus, err) {
+                    alert("获取部门列表发生错误:" + jqXHR.responseText);
+                }
+            });
+
+            PopulateData();
+        });
 
         function PopulateData() {
             if (window.dialogArguments != null) {
                 var parwin = window.dialogArguments;
                 if (parwin.document.all.hdnTxtSendTo.value != "") {
-                    Control = eval("document.SelectReceiver.listSendTo");
+                    var Control = $("#listSendTo");
                     var SendToValueArray = parwin.document.all.hdnTxtSendTo.value.split(",");
                     var SendToTxtArray = parwin.document.all.txtSendTo.value.split(",");
                     for (i = 0; i < SendToValueArray.length - 1; i++) {
-                        Control.add(new Option(SendToTxtArray[i], SendToValueArray[i]));
+                        Control.append($("<option></option>").attr("value", SendToValueArray[i]).text(SendToTxtArray[i]));
                     }
                 }
 
                 if (parwin.document.all.hdnTxtMobileSendTo.value != "") {
-                    Control = eval("document.SelectReceiver.listMobileSendTo");
+                    var Control = $("#listMobileSendTo");
                     var MobileSendToValueArray = parwin.document.all.hdnTxtMobileSendTo.value.split(",");
                     var MobileSendToTxtArray = parwin.document.all.txtMobileSendTo.value.split(",");
                     for (i = 0; i < MobileSendToValueArray.length - 1; i++) {
-                        Control.add(new Option(MobileSendToTxtArray[i], MobileSendToValueArray[i]));
+                        Control.append($("<option></option>").attr("value", MobileSendToValueArray[i]).text(MobileSendToTxtArray[i]));
                     }
                 }
-
-
-
             }
         }
+
         function ReturnValue() {
             if (window.dialogArguments != null) {
                 var parwin = window.dialogArguments;
@@ -180,22 +210,23 @@
             var listMobileSendToValueStr = "";
             var listSendToCompleteStr = "";
 
-            listSendTo = eval("document.SelectReceiver.listSendTo");
-            listMobileSendTo = eval("document.SelectReceiver.listMobileSendTo");
+            var listSendTo = $("#listSendTo");
+            var listMobileSendTo = $("#listMobileSendTo");
 
 
-            for (i = 0; i < listSendTo.length; i++) {
-                listSendToTxtStr += listSendTo.options[i].text + ",";
-                listSendToValueStr += listSendTo.options[i].value + ",";
-            }
+            listSendTo.find("option").each(function () {
+                listSendToTxtStr += $(this).text() + ",";
+                listSendToValueStr += $(this).val() + ",";
+            });
+
             parwin.document.all.MsgSend.txtSendTo.value = listSendToTxtStr;
             parwin.document.all.MsgSend.hdnTxtSendTo.value = listSendToValueStr;
 
+            listMobileSendTo.find("option").each(function () {
+                listMobileSendToTxtStr += $(this).text() + ",";
+                listMobileSendToValueStr += $(this).val() + ",";
+            });
 
-            for (i = 0; i < listMobileSendTo.length; i++) {
-                listMobileSendToTxtStr += listMobileSendTo.options[i].text + ",";
-                listMobileSendToValueStr += listMobileSendTo.options[i].value + ",";
-            }
             parwin.document.all.MsgSend.txtMobileSendTo.value = listMobileSendToTxtStr;
             parwin.document.all.MsgSend.hdnTxtMobileSendTo.value = listMobileSendToValueStr;
 
@@ -204,44 +235,6 @@
 
             window.close();
         }
-
-        function SaveValue() {
-            if (window.dialogArguments != null) {
-                var parwin = window.dialogArguments;
-            }
-
-            var listSendToTxtStr = "";
-            var listSendToValueStr = "";
-            var listMobileSendToTxtStr = "";
-            var listMobileSendToValueStr = "";
-            var listSendToCompleteStr = "";
-
-            listSendTo = eval("document.SelectReceiver.listSendTo");
-            listMobileSendTo = eval("document.SelectReceiver.listMobileSendTo");
-
-
-
-            for (i = 0; i < listSendTo.length; i++) {
-                listSendToTxtStr += listSendTo.options[i].text + ",";
-                listSendToValueStr += listSendTo.options[i].value + ",";
-            }
-            parwin.document.all.MsgSend.txtSendTo.value = listSendToTxtStr;
-            parwin.document.all.MsgSend.hdnTxtSendTo.value = listSendToValueStr;
-
-
-            for (i = 0; i < listMobileSendTo.length; i++) {
-                listMobileSendToTxtStr += listMobileSendTo.options[i].text + ",";
-                listMobileSendToValueStr += listMobileSendTo.options[i].value + ",";
-            }
-            parwin.document.all.MsgSend.txtMobileSendTo.value = listMobileSendToTxtStr;
-            parwin.document.all.MsgSend.hdnTxtMobileSendTo.value = listMobileSendToValueStr;
-
-
-
-
-
-        }
-
     </script>
 </body>
 </html>
