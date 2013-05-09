@@ -35,64 +35,7 @@
 		   <div class="container-fluid">
 			  <a class="brand" href="#"><img src='<%= Page.ResolveUrl("~/Images/logo.png") %>' alt='<%= ConfigurationManager.AppSettings["productName"] %>'> <%= ConfigurationManager.AppSettings["productName"] %></a>
 			  <ul class="nav ace-nav pull-right">
-					<li class="grey">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-tasks"></i>
-							<span class="badge">4</span>
-						</a>
-						<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-							<li class="nav-header">
-								<i class="icon-ok"></i> 4 Tasks to complete
-							</li>
-							
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left">Software Update</span>
-										<span class="pull-right">65%</span>
-									</div>
-									<div class="progress progress-mini"><div class="bar" style="width:65%"></div></div>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left">Hardware Upgrade</span>
-										<span class="pull-right">35%</span>
-									</div>
-									<div class="progress progress-mini progress-danger"><div class="bar" style="width:35%"></div></div>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left">Unit Testing</span>
-										<span class="pull-right">15%</span>
-									</div>
-									<div class="progress progress-mini progress-warning"><div class="bar" style="width:15%"></div></div>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left">Bug Fixes</span>
-										<span class="pull-right">90%</span>
-									</div>
-									<div class="progress progress-mini progress-success progress-striped active"><div class="bar" style="width:90%"></div></div>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									See tasks with details
-									<i class="icon-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
+					<li class="grey" id="taskShort"></li>
 					<li class="purple">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="icon-bell-alt icon-animated-bell icon-only"></i>
@@ -284,10 +227,13 @@
         <script type="text/javascript" src="../js/json2.js"></script>
         <script type="text/javascript" src="../js/backbone-min.js"></script>
         <script type="text/javascript" src="../js/breadcrumbModel.js"></script>
+        <script type="text/javascript" src="../js/udsTask.js"></script>
         <script type="text/javascript">            
             var bcItems = null;
 
             var bcControl = null;
+
+            var taskCon = null;
 
             $(function () {
                 $("#btnMyDesktop").click(function () {
@@ -311,14 +257,24 @@
                 }
 
                 //if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {
-                    bcItems = new breadcrumbCollection();
-                    bcControl = new breadcrumbView({
-                        el: $(".breadcrumb"),
-                        model: bcItems
-                    });
+                bcItems = new breadcrumbCollection();
+                bcControl = new breadcrumbView({
+                    el: $(".breadcrumb"),
+                    model: bcItems
+                });
 
-                    bcControl.render();
+                bcControl.render();
                 //}
+
+                taskCon = new udsShortView({
+                    el: $("#taskShort"),
+                    model: new udsTasks({"baseUrl": '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>',
+                        "type": 1
+                    }),
+                    targetUrl: 'javascript:navigatemf("我的任务", "<%= Page.ResolveUrl("~/SubModule/Schedule/TaskList.aspx") %>", "我的任务")'
+                });
+
+                taskCon.render();
 
                 navigatemf('我的桌面', '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>', 'desktop');
             });

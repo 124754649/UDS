@@ -10,6 +10,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using UDS.Components;
 using System.Data.SqlClient;
+using System.Collections.Generic;
+using UDS.Entity;
+using System.IO;
+using Newtonsoft.Json;
 namespace UDS.SubModule.UnitiveDocument
 {
 	/// <summary>
@@ -31,18 +35,57 @@ namespace UDS.SubModule.UnitiveDocument
 		{
 			HttpCookie UserCookie = Request.Cookies["Username"];
 
-            if (null != UserCookie)
-            {
-                Username = UserCookie.Value.ToString();
-            }
-			
+			if (null != UserCookie)
+			{
+				Username = UserCookie.Value.ToString();
+			}
+
+			string result = Request.QueryString["result"];
 			
 			if(!Page.IsPostBack)
 			{
-				//考勤操作
-				DutyOperation();
-				Bangding();
-				bindtaskgrid();
+				if (string.IsNullOrEmpty(result))
+				{
+					//考勤操作
+					DutyOperation();
+					Bangding();
+					bindtaskgrid();
+				}
+				else
+				{
+					switch(result)
+					{
+						case "task":
+                            UDS.Components.Task task = new UDS.Components.Task();
+                            DataTable mydb = Tools.ConvertDataReaderToDataTable(task.GetAllTaskBySomeone(DateTime.Today.ToShortDateString(), Username, 1));
+                            List<UDSTask> retTasks = new List<UDSTask>();
+                            foreach (DataRow dr in mydb.Rows)
+                            {
+                                UDSTask t = new UDSTask();
+                                t.ID = int.Parse(dr["ID"].ToString());
+                                t.Subject = dr["Subject"].ToString();
+                                t.BeginPeriodID = int.Parse(dr["beginPeriodID"].ToString());
+                                t.EndPeriodID = int.Parse(dr["endPeriodID"].ToString());
+                                t.EndTime = dr.IsNull("EndTime") ? "" : DateTime.Parse(dr["EndTime"].ToString()).ToShortDateString();
+                                retTasks.Add(t);
+                            }
+                            var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                            StringWriter sw = new StringWriter();
+                            using (JsonWriter jw = new JsonTextWriter(sw))
+                            {
+                                jw.Formatting = Formatting.Indented;
+
+                                jsonSer.Serialize(jw, retTasks);
+                            }
+
+                            Response.ContentType = "text/json";
+
+                            Response.Write(sw.ToString());
+                            sw.Close();
+                            Response.End();
+							break;
+					}
+				}
 			}
 		}
 
@@ -81,18 +124,18 @@ namespace UDS.SubModule.UnitiveDocument
 			UDS.Components.Task task = new UDS.Components.Task();
 			DataTable mydb = Tools.ConvertDataReaderToDataTable(task.GetAllTaskBySomeone(DateTime.Today.ToShortDateString(),Username,1));
 
-            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
-            //if(mydb.Rows.Count<5)
-            //{
-            //    int tmp = 5-mydb.Rows.Count;
-            //    for(int i=0;i<tmp;i++)
-            //    {
-            //        DataRow myDataRow = mydb.NewRow();
-            //        myDataRow[0] = "-";
-            //        mydb.Rows.Add(myDataRow);
+			//TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+			//if(mydb.Rows.Count<5)
+			//{
+			//    int tmp = 5-mydb.Rows.Count;
+			//    for(int i=0;i<tmp;i++)
+			//    {
+			//        DataRow myDataRow = mydb.NewRow();
+			//        myDataRow[0] = "-";
+			//        mydb.Rows.Add(myDataRow);
 					
-            //    }
-            //}
+			//    }
+			//}
 			this.dgList .DataSource = mydb.DefaultView;
 			this.dgList.DataBind();
 			// setgrid();
@@ -240,37 +283,37 @@ namespace UDS.SubModule.UnitiveDocument
 
 			dr = myDesktop.GetMyDocument(UserName,10);
 			DataTable dt =Tools.ConvertDataReaderToDataTable(dr);
-            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
-            //if(dt.Rows.Count<5)
-            //{
-            //    int tmp = 5-dt.Rows.Count;
-            //    for(int i=0;i<tmp;i++)
-            //    {
-            //        DataRow myDataRow = dt.NewRow();
-            //        myDataRow[0] = "-";
-            //        dt.Rows.Add(myDataRow);
+			//TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+			//if(dt.Rows.Count<5)
+			//{
+			//    int tmp = 5-dt.Rows.Count;
+			//    for(int i=0;i<tmp;i++)
+			//    {
+			//        DataRow myDataRow = dt.NewRow();
+			//        myDataRow[0] = "-";
+			//        dt.Rows.Add(myDataRow);
 					
-            //    }
-            //}
+			//    }
+			//}
 			dgDocList.DataSource = dt.DefaultView;
 			dgDocList.DataBind();
 
 			dr = myDesktop.GetMyMail(UserName,1);
 			dt =Tools.ConvertDataReaderToDataTable(dr);
-            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
-            //if(dt.Rows.Count<5)
-            //{
-            //    int tmp = 5-dt.Rows.Count;
-            //    for(int i=0;i<tmp;i++)
-            //    {
-            //        DataRow myDataRow = dt.NewRow();
-            //        myDataRow[0] = "-";
-            //    //	myDataRow[4] = "";
-            //        myDataRow[7] = "";
-            //        dt.Rows.Add(myDataRow);
+			//TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+			//if(dt.Rows.Count<5)
+			//{
+			//    int tmp = 5-dt.Rows.Count;
+			//    for(int i=0;i<tmp;i++)
+			//    {
+			//        DataRow myDataRow = dt.NewRow();
+			//        myDataRow[0] = "-";
+			//    //	myDataRow[4] = "";
+			//        myDataRow[7] = "";
+			//        dt.Rows.Add(myDataRow);
 					
-            //    }
-            //}
+			//    }
+			//}
 //			DataView dv = dt.DefaultView;
 //			dv.Sort = "MailSendDate Desc";
 			dgMailList.DataSource = dt.DefaultView ;
@@ -278,18 +321,18 @@ namespace UDS.SubModule.UnitiveDocument
 
 			dr = myDesktop.GetMyApprove(UserName,2);
 			dt =Tools.ConvertDataReaderToDataTable(dr);
-            //TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
-            //if(dt.Rows.Count<5)
-            //{
-            //    int tmp = 5-dt.Rows.Count;
-            //    for(int i=0;i<tmp;i++)
-            //    {
-            //        DataRow myDataRow = dt.NewRow();
-            //        myDataRow[0] = "-";
-            //        dt.Rows.Add(myDataRow);
+			//TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
+			//if(dt.Rows.Count<5)
+			//{
+			//    int tmp = 5-dt.Rows.Count;
+			//    for(int i=0;i<tmp;i++)
+			//    {
+			//        DataRow myDataRow = dt.NewRow();
+			//        myDataRow[0] = "-";
+			//        dt.Rows.Add(myDataRow);
 					
-            //    }
-            //}
+			//    }
+			//}
 			dgAppDocList.DataSource = dt.DefaultView;
 			dgAppDocList.DataBind();
 			dr.Close();

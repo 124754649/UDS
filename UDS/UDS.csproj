@@ -1187,6 +1187,7 @@
     <Content Include="js\json2.js" />
     <Content Include="js\quantumcode-elements.js" />
     <Content Include="js\quantumcode.js" />
+    <Content Include="js\udsTask.js" />
     <Content Include="js\underscore-min.js" />
     <Content Include="SubModule\AssignRule\ClassTree.aspx" />
     <Content Include="SubModule\AssignRule\RightList.aspx" />
@@ -1432,6 +1433,7 @@
     <Compile Include="Components\Tool.cs" />
     <Compile Include="Components\UBB.cs" />
     <Compile Include="Components\WA.cs" />
+    <Compile Include="Entity\UDSTask.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

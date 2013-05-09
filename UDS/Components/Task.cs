@@ -169,7 +169,7 @@ namespace UDS.Components
 			catch(Exception ex)
 			{
 				Error.Log(ex.ToString());
-                throw new Exception("É¾³ýÄ³ÈÎÎñ¶©ÔÄ³ö´í!",ex);
+				throw new Exception("É¾³ýÄ³ÈÎÎñ¶©ÔÄ³ö´í!",ex);
 			}
 			finally
 			{
@@ -192,7 +192,7 @@ namespace UDS.Components
 									   data.MakeInParam("@Username",  SqlDbType.VarChar, 20, Username),
 									   data.MakeInParam("@Date",  SqlDbType.VarChar,30, Date),
 									   data.MakeInParam("@IsConfirm",  SqlDbType.Bit , 1, IsConfirm)
-							 	   };
+								   };
 
 			try 
 			{
@@ -283,7 +283,7 @@ namespace UDS.Components
 			SqlParameter[] prams = {
 									   data.MakeInParam("@Username",  SqlDbType.VarChar, 20, Username),
 									   data.MakeInParam("@Date",  SqlDbType.VarChar,30, Date)
-								    };
+									};
 
 			try 
 			{
