@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace UDS.Components
 {
@@ -55,6 +57,81 @@ namespace UDS.Components
                 throw new Exception("转换出错出错!", ex);
             }
 
+        }
+
+        /// <summary>
+        /// 把列表转换为JSON字符串
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static string ToJson(this object list)
+        {
+            var jsonSer = new Newtonsoft.Json.JsonSerializer();
+
+            string retValue = "";
+
+            StringWriter sw = new StringWriter();
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Formatting.Indented;
+                jsonSer.Serialize(jw, list);
+                retValue = sw.ToString();
+                //sw.Close();
+            }
+
+            return retValue;
+        }
+
+        /// <summary>
+        /// 把列表转换为JSON字符串
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static void ToJsonWriter<T>(this IList<T> list, Action<StringWriter> writeAction)
+        {
+            var jsonSer = new Newtonsoft.Json.JsonSerializer();
+
+            StringWriter sw = new StringWriter();
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Formatting.Indented;
+                jsonSer.Serialize(jw, list);
+                writeAction(sw);
+                sw.Close();
+            }
+        }
+
+        /// <summary>
+        /// 把列表转换为Response输出
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="response"></param>
+        public static void ToResponseContent<T>(this IList<T> list, HttpResponse  response, Action<StringWriter> writeAction)
+        {
+            response.ContentType = "text/json";
+
+            list.ToJsonWriter<T>(sw =>
+            {
+                response.Write(sw.ToString());
+            });
+
+            response.End();
+        }
+
+        /// <summary>
+        /// 把字符串输出为400的Response
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="response"></param>
+        public static void To400ResponseContent(this string msg, HttpResponse response)
+        {
+            response.StatusCode = 400;
+            response.ContentType = "text/html";
+            response.Write(msg);
+            response.End();
         }
     }
 }

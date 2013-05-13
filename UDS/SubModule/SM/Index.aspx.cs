@@ -10,6 +10,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using UDS.Components;
+using UDS.Entity;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace UDS.SubModule.SM
 {
@@ -26,11 +30,81 @@ namespace UDS.SubModule.SM
 		{
 			string Username		 = (Request.QueryString["Username"]!=null)?Request.QueryString["Username"].ToString():Request.Cookies["Username"].Value.ToString();
 			string DispType		 = (Request.QueryString["DispType"]!=null)?Request.QueryString["DispType"].ToString():"1";
+
+            string result = Request.Params["result"];
+
 			if(!Page.IsPostBack)
 			{
-				BindGrid(Username,DispType);
-				Session["MsgDispType"] = DispType;
-				this.btnDelete.Attributes ["onclick"]="javascript:return confirm('您确认要删除吗?');";
+                if (string.IsNullOrEmpty(result))
+                {
+                    BindGrid(Username, DispType);
+                    Session["MsgDispType"] = DispType;
+                    this.btnDelete.Attributes["onclick"] = "javascript:return confirm('您确认要删除吗?');";
+                }
+                else
+                {
+                    SMS sm = new SMS();
+                    SqlDataReader dreader = null;
+                    try
+                    {
+                        dreader = sm.GetMyReceive(Username);
+
+                        DataTable dt = dreader.ToDataTable(true);
+
+                        List<UDSSMS> retList = new List<UDSSMS>();
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            if (dr.IsNull("isread") || !bool.Parse(dr["isread"].ToString()))
+                            {
+                                UDSSMS sms = new UDSSMS()
+                                {
+                                    Id = dr["ID"].ToString(),
+                                    Content = dr["content"].ToString(),
+                                    IsRead = dr.IsNull("isread") ? false : bool.Parse(dr["isread"].ToString()),
+                                    ReceiverRealName = dr["ReceiverRealName"].ToString(),
+                                    Sender = dr["sender"].ToString(),
+                                    SenderRealName = dr["senderrealname"].ToString(),
+                                    SendTime = DateTime.Parse(dr["sendtime"].ToString()).ToString(),
+                                    Type = dr["type"].ToString()
+                                };
+
+                                retList.Add(sms);
+                            }
+                        }
+
+                        var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                        StringWriter sw = new StringWriter();
+                        using (JsonWriter jw = new JsonTextWriter(sw))
+                        {
+                            jw.Formatting = Formatting.Indented;
+
+                            jsonSer.Serialize(jw, retList);
+                        }
+
+                        Response.ContentType = "text/json";
+
+                        Response.Write(sw.ToString());
+                        sw.Close();
+                        Response.Flush();
+                        Response.End();
+                    }
+                    catch (Exception eX)
+                    {
+                        if (null != dreader)
+                        {
+                            if (!dreader.IsClosed)
+                            {
+                                dreader.Close();
+                            }
+                        }
+
+                        Response.StatusCode = 400;
+                        Response.ContentType = "text/html";
+                        Response.Write(eX.Message);
+                        Response.End();
+                    }
+                }
 			}
 		}
 

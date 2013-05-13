@@ -1433,6 +1433,7 @@
     <Compile Include="Components\Tool.cs" />
     <Compile Include="Components\UBB.cs" />
     <Compile Include="Components\WA.cs" />
+    <Compile Include="Entity\UDSSMS.cs" />
     <Compile Include="Entity\UDSTask.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

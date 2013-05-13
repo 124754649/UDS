@@ -36,57 +36,7 @@
 			  <a class="brand" href="#"><img src='<%= Page.ResolveUrl("~/Images/logo.png") %>' alt='<%= ConfigurationManager.AppSettings["productName"] %>'> <%= ConfigurationManager.AppSettings["productName"] %></a>
 			  <ul class="nav ace-nav pull-right">
 					<li class="grey" id="taskShort"></li>
-					<li class="purple">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-bell-alt icon-animated-bell icon-only"></i>
-							<span class="badge badge-important">8</span>
-						</a>
-						<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
-							<li class="nav-header">
-								<i class="icon-warning-sign"></i> 8 Notifications
-							</li>
-							
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left"><i class="icon-comment btn btn-mini btn-pink"></i> New comments</span>
-										<span class="pull-right badge badge-info">+12</span>
-									</div>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<i class="icon-user btn btn-mini btn-primary"></i> Bob just signed up as an editor ...
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left"><i class="icon-shopping-cart btn btn-mini btn-success"></i> New orders</span>
-										<span class="pull-right badge badge-success">+8</span>
-									</div>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<div class="clearfix">
-										<span class="pull-left"><i class="icon-twitter btn btn-mini btn-info"></i> Followers</span>
-										<span class="pull-right badge badge-info">+4</span>
-									</div>
-								</a>
-							</li>
-																
-							<li>
-								<a href="#">
-									See all notifications
-									<i class="icon-arrow-right"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
+					<li class="purple" id="smsShort"></li>
 					<li class="green">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="icon-envelope-alt icon-animated-vertical icon-only"></i>
@@ -234,6 +184,7 @@
             var bcControl = null;
 
             var taskCon = null;
+            var smsCon = null;
 
             $(function () {
                 $("#btnMyDesktop").click(function () {
@@ -271,10 +222,26 @@
                     model: new udsTasks({"baseUrl": '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>',
                         "type": 1
                     }),
-                    targetUrl: 'javascript:navigatemf("我的任务", "<%= Page.ResolveUrl("~/SubModule/Schedule/TaskList.aspx") %>", "我的任务")'
+                    targetUrl: 'javascript:navigatemf("我的任务", "<%= Page.ResolveUrl("~/SubModule/Schedule/TaskList.aspx") %>", "我的任务")',
+                    iClass: 'icon-tasks',
+                    numberTitle: '个任务需要完成',
+                    moreTitle: '查看更多任务',
+                    columns:['subject', 'period']
                 });
 
                 taskCon.render();
+
+                smsCon = new udsShortView({
+                    el: $("#smsShort"),
+                    model: new udsSMS({ "baseUrl": '<%=Page.ResolveUrl("~/SubModule/SM/index.aspx") %>' }),
+                    targetUrl: 'javascript:navigatemf("短讯管理", "<%= Page.ResolveUrl("~/SubModule/SM/index.aspx?DispType=1") %>", "短讯管理")',
+                    iClass: 'icon-bell-alt', //icon-animated-bell icon-only
+                    numberTitle: '条短消息未查看',
+                    moreTitle: '查看更多短消息',
+                    columns:['content', 'senderRealName']
+                });
+
+                smsCon.render();
 
                 navigatemf('我的桌面', '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>', 'desktop');
             });
