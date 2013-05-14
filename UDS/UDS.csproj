@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Css\BasicLayout.css" />
+    <Content Include="Css\boostrap-ie6.min.css" />
     <Content Include="Css\bootstrap-responsive.css" />
     <Content Include="Css\bootstrap-responsive.min.css" />
     <Content Include="Css\bootstrap.css" />
@@ -76,6 +77,8 @@
     <Content Include="Css\font-awesome-ie7.min.css" />
     <Content Include="Css\font-awesome.css" />
     <Content Include="Css\font-awesome.min.css" />
+    <Content Include="Css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Css\jquery.fileupload-ui.css" />
     <Content Include="Css\logincss.css" />
     <Content Include="Css\meizzDate.js" />
     <Content Include="Css\mycss.css" />
@@ -103,6 +106,7 @@
     <Content Include="Css\redmond\jquery-ui-1.10.3.custom.css" />
     <Content Include="Css\redmond\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Css\Search.css" />
+    <Content Include="Css\style.css" />
     <Content Include="Css\tr.js" />
     <Content Include="Css\TreeView.Css" />
     <Content Include="DataImages\ada.gif" />
@@ -1182,7 +1186,14 @@
     <Content Include="js\jquery-ui-1.10.3.custom.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.backstretch.min.js" />
+    <Content Include="js\jquery.fileupload-angular.js" />
+    <Content Include="js\jquery.fileupload-process.js" />
+    <Content Include="js\jquery.fileupload-resize.js" />
+    <Content Include="js\jquery.fileupload-ui.js" />
+    <Content Include="js\jquery.fileupload-validate.js" />
+    <Content Include="js\jquery.fileupload.js" />
     <Content Include="js\jquery.iframe-auto-height.plugin.1.9.1.min.js" />
+    <Content Include="js\jquery.iframe-transport.js" />
     <Content Include="js\jquery.ui.datepicker-zh-CN.js" />
     <Content Include="js\json2.js" />
     <Content Include="js\quantumcode-elements.js" />
@@ -1193,6 +1204,7 @@
     <Content Include="SubModule\AssignRule\RightList.aspx" />
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
     <Content Include="SubModule\AssignRule\TreeView.aspx" />
+    <Content Include="SubModule\bulletin\uploadtest.aspx" />
     <Content Include="SubModule\CM\Attachment\1.htm" />
     <Content Include="SubModule\CM\Attachment\41.txt" />
     <Content Include="SubModule\CM\Client.aspx" />
@@ -1352,6 +1364,7 @@
     <Content Include="SubModule\UnitiveDocument\Subscription\Listview.aspx" />
     <Content Include="SubModule\UnitiveDocument\Switch.aspx" />
     <Content Include="SubModule\UnitiveDocument\Task\Listview.aspx" />
+    <Content Include="SubModule\Upload\default.aspx" />
     <Content Include="SubModule\USBKey\USBKey_setup.aspx" />
     <Content Include="SubModule\WorkAttendance\checksucessful.aspx" />
     <Content Include="SubModule\WorkAttendance\Default.aspx" />
@@ -1494,6 +1507,13 @@
     <Compile Include="SubModule\AssignRule\TreeView.aspx.cs">
       <DependentUpon>TreeView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\bulletin\uploadtest.aspx.cs">
+      <DependentUpon>uploadtest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\bulletin\uploadtest.aspx.designer.cs">
+      <DependentUpon>uploadtest.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubModule\CM\Client.aspx.cs">
       <DependentUpon>Client.aspx</DependentUpon>
@@ -2032,6 +2052,14 @@
       <DependentUpon>Listview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="SubModule\Upload\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\Upload\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\Upload\UploadHandler.cs" />
     <Compile Include="SubModule\USBKey\USBKey_setup.aspx.cs">
       <DependentUpon>USBKey_setup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2608,6 +2636,8 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Browsers\" />
+    <Folder Include="App_Data\" />
     <Folder Include="Log\" />
     <Folder Include="SubModule\Department\" />
     <Folder Include="SubModule\Staff\Report\ReportExportFile\" />
