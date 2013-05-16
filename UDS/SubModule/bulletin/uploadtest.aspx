@@ -10,18 +10,25 @@
     <link type="text/css" rel="stylesheet" href="../../Css/bootstrap-responsive.min.css" />
     <!-- Bootstrap CSS fixes for IE6 -->
     <!--[if lt IE 7]><link rel="stylesheet" href="../../Css/bootstrap-ie6.min.css"><![endif]-->
-    <link type="text/css" rel="stylesheet" href="../../Css/jquery.fileupload-ui.css" />
+    <link type="text/css" rel="stylesheet" href="../../Css/fineuploader-3.5.0.css" />
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
+    <div id="fine-uploader"></div>
     <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../../js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.fileupload.js"></script>
-    <script type="text/javascript" src="../../js/jquery.fileupload-process.js"></script>
-    <script type="text/javascript" src="../../js/jquery.fileupload-validate.js"></script>
+    <script type="text/javascript" src="../../js/jquery.fineuploader-3.5.0.min.js"></script>
+    <script type="text/javascript" src="../../js/iframe.xss.response-3.5.0.js"></script>
+    <script type="text/javascript">
+        function createUploader() {
+            var uploader = new qq.FineUploader({
+                element: document.getElementById('fine-uploader'),
+                request: {
+                    endpoint: 'server/handleUploads'
+                }
+            });
+        }
+
+        window.onload = createUploader;
+    </script>
 </body>
 </html>

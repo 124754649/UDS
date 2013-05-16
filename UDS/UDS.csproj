@@ -74,11 +74,10 @@
     <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\Calendar.css" />
     <Content Include="Css\calendar.js" />
+    <Content Include="Css\fineuploader-3.5.0.css" />
     <Content Include="Css\font-awesome-ie7.min.css" />
     <Content Include="Css\font-awesome.css" />
     <Content Include="Css\font-awesome.min.css" />
-    <Content Include="Css\jquery.fileupload-ui-noscript.css" />
-    <Content Include="Css\jquery.fileupload-ui.css" />
     <Content Include="Css\logincss.css" />
     <Content Include="Css\meizzDate.js" />
     <Content Include="Css\mycss.css" />
@@ -106,7 +105,6 @@
     <Content Include="Css\redmond\jquery-ui-1.10.3.custom.css" />
     <Content Include="Css\redmond\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Css\Search.css" />
-    <Content Include="Css\style.css" />
     <Content Include="Css\tr.js" />
     <Content Include="Css\TreeView.Css" />
     <Content Include="DataImages\ada.gif" />
@@ -1166,6 +1164,8 @@
     <Content Include="Images\副本 quxiao.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\processing.gif" />
     <Content Include="Inc\ControlClientContactHistory.ascx" />
     <Content Include="Inc\ControlClientContactHistory_thisWeek.ascx" />
     <Content Include="Inc\ControlCustomProjectTreeView.ascx" />
@@ -1180,18 +1180,15 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\breadcrumbModel.js" />
+    <Content Include="js\iframe.xss.response-3.5.0.js" />
     <Content Include="js\jqBrowser.js" />
     <Content Include="js\jquery-1.9.1.js" />
     <Content Include="js\jquery-1.9.1.min.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.backstretch.min.js" />
-    <Content Include="js\jquery.fileupload-angular.js" />
-    <Content Include="js\jquery.fileupload-process.js" />
-    <Content Include="js\jquery.fileupload-resize.js" />
-    <Content Include="js\jquery.fileupload-ui.js" />
-    <Content Include="js\jquery.fileupload-validate.js" />
-    <Content Include="js\jquery.fileupload.js" />
+    <Content Include="js\jquery.fineuploader-3.5.0.js" />
+    <Content Include="js\jquery.fineuploader-3.5.0.min.js" />
     <Content Include="js\jquery.iframe-auto-height.plugin.1.9.1.min.js" />
     <Content Include="js\jquery.iframe-transport.js" />
     <Content Include="js\jquery.ui.datepicker-zh-CN.js" />
@@ -1364,7 +1361,7 @@
     <Content Include="SubModule\UnitiveDocument\Subscription\Listview.aspx" />
     <Content Include="SubModule\UnitiveDocument\Switch.aspx" />
     <Content Include="SubModule\UnitiveDocument\Task\Listview.aspx" />
-    <Content Include="SubModule\Upload\default.aspx" />
+    <Content Include="SubModule\Upload\doUpload.aspx" />
     <Content Include="SubModule\USBKey\USBKey_setup.aspx" />
     <Content Include="SubModule\WorkAttendance\checksucessful.aspx" />
     <Content Include="SubModule\WorkAttendance\Default.aspx" />
@@ -2052,14 +2049,13 @@
       <DependentUpon>Listview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SubModule\Upload\default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="SubModule\Upload\doUpload.aspx.cs">
+      <DependentUpon>doUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SubModule\Upload\default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="SubModule\Upload\doUpload.aspx.designer.cs">
+      <DependentUpon>doUpload.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SubModule\Upload\UploadHandler.cs" />
     <Compile Include="SubModule\USBKey\USBKey_setup.aspx.cs">
       <DependentUpon>USBKey_setup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
