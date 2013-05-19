@@ -12,36 +12,49 @@ namespace UDS.SubModule.Upload
     {
         const int ChunkSize = 1024 * 1024;
 
-        const string saveFullPath = HttpContext.Current.Server.MapPath("~/App_Browsers");
+        string saveFullPath = HttpContext.Current.Server.MapPath("~/App_Browsers");
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string fileName = Request["fileName"]; //name of file I pass in
-            byte[] rawFile;
-
-            if (Request.Browser.Browser == "IE")
+            try
             {
-                using (var binaryReader = new BinaryReader(Request.Files[0].InputStream))
-                {
-                    rawFile = binaryReader.ReadBytes(Request.Files[0].ContentLength);
-                }
-            }
-            else
-            {
-                using (var binaryReader = new BinaryReader(Request.InputStream))
-                {
-                    rawFile = binaryReader.ReadBytes((int)Request.InputStream.Length);
+                string fileName = Request.Files[0].FileName;
+                byte[] rawFile;
 
+                if (Request.Browser.Browser == "IE")
+                {
+                    using (var binaryReader = new BinaryReader(Request.Files[0].InputStream))
+                    {
+                        rawFile = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+                    }
                 }
+                else
+                {
+                    using (var binaryReader = new BinaryReader(Request.InputStream))
+                    {
+                        rawFile = binaryReader.ReadBytes((int)Request.InputStream.Length);
+
+                    }
+                }
+
+                using (var fs = new FileStream(Path.Combine(saveFullPath, fileName), FileMode.Create))
+                {
+                    using (var bw = new BinaryWriter(fs))
+                    {
+                        bw.Write(rawFile);
+                    }
+                }
+
+                Response.ContentType = "text/html";
+                Response.Write("{\"success\":true}");
+            }
+            catch (Exception eX)
+            {
+                Response.ContentType = "text/html";
+                Response.Write("{\"failed\":\"" + eX.Message + "\"}");
             }
 
-            using (var fs = new FileStream(Path.Combine(saveFullPath, fileName), FileMode.Create))
-            {
-                using (var bw = new BinaryWriter(fs))
-                {
-                    bw.Write(rawFile);
-                }
-            }
+            Response.End();
         }
 
         private void WriteStream(BinaryReader br, string fileName)

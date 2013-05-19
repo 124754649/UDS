@@ -23,7 +23,7 @@
             var uploader = new qq.FineUploader({
                 element: document.getElementById('fine-uploader'),
                 request: {
-                    endpoint: 'server/handleUploads'
+                    endpoint: '../upload/doUpload.aspx'
                 }
             });
         }

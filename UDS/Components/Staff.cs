@@ -245,7 +245,7 @@ namespace UDS.Components
 			SqlDataReader dataReader = null;
 			Database data = new Database();
 			SqlParameter[] prams = {
-									    data.MakeInParam("@StaffName",    SqlDbType.NVarChar , 30, Username),
+										data.MakeInParam("@StaffName",    SqlDbType.NVarChar , 30, Username),
 										data.MakeInParam("@Inherit",    SqlDbType.Int , 4, postiondepth),
 										data.MakeInParam("@Upsides",    SqlDbType.Int , 4, positionwidth),
 									   
@@ -292,7 +292,7 @@ namespace UDS.Components
 									   data.MakeInParam("@ACT_ID",SqlDbType.Int,4,actid),
 									   data.MakeInParam("@Inherit",SqlDbType.Int,4,intInherit)
 								   };
-            data.RunProc("sp_GetRightInPositionToHandleClass",prams,out dr);
+			data.RunProc("sp_GetRightInPositionToHandleClass",prams,out dr);
 			return  dr.Read();
 		}
 		#endregion
@@ -683,7 +683,7 @@ namespace UDS.Components
 				// run the stored procedure
 				data.RunProc("sp_GetMemberInClass", prams,out dataReader);
 				data = null;
-                datatable = dataReader.ToDataTable(true);
+				datatable = dataReader.ToDataTable(true);
 				return datatable.DefaultView ;
 			}
 			catch (Exception ex) 

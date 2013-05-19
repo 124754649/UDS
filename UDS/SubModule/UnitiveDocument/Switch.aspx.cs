@@ -27,20 +27,20 @@ namespace UDS.SubModule.UnitiveDocument
 			string action		= Request.QueryString["Action"].ToString();
 			string classID		= Request.QueryString["classID"].ToString();
 			string classtype    = newClass.GetClassType(Int32.Parse(classID));
-            string className = newClass.GetClassName(int.Parse(classID));
-            string url = "";
+			string className = newClass.GetClassName(int.Parse(classID));
+			string url = "";
 			Response.Cookies["ActiveNodeID"].Value = classID.ToString();
 
 			switch (action)
 			{
 				case "0":
-                    url = Page.ResolveUrl("Document/DeliverDocument.aspx?ClassID=" + classID);
+					url = Page.ResolveUrl("Document/DeliverDocument.aspx?ClassID=" + classID);
 					break;
 				case "1":
 					switch (classtype)
 					{
 						case "0":
-                            url = Page.ResolveUrl("Project.aspx?classID=" + classID);
+							url = Page.ResolveUrl("Project.aspx?classID=" + classID);
 							break;
 						case "1":
 							url = Page.ResolveUrl("Document/ListView.aspx?classID="+classID);
@@ -96,7 +96,10 @@ namespace UDS.SubModule.UnitiveDocument
 							url = Page.ResolveUrl("../USBKey/USBKey_setup.aspx");
 							break;
 						case "100":
-                            url = Page.ResolveUrl("ManageQuery/ManageQuery.aspx");	
+							url = Page.ResolveUrl("ManageQuery/ManageQuery.aspx");	
+							break;
+						case "18":
+							url = Page.ResolveUrl("~/SubModule/Bulletin/Index.aspx");
 							break;
 						default:
 							break;
@@ -106,7 +109,7 @@ namespace UDS.SubModule.UnitiveDocument
 					break;
 			}
 
-            ClientScript.RegisterStartupScript(this.GetType(), "redirect", "<script language='javascript'>parent.navigatemf('" + className + "', '" + url + "', '" + className + "');</script>");
+			ClientScript.RegisterStartupScript(this.GetType(), "redirect", "<script language='javascript'>parent.navigatemf('" + className + "', '" + url + "', '" + className + "');</script>");
 		}
 
 		#region Web Form Designer generated code
