@@ -1390,6 +1390,7 @@
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
     <Content Include="SubModule\AssignRule\TreeView.aspx" />
     <Content Include="SubModule\bulletin\index.aspx" />
+    <Content Include="SubModule\bulletin\index.html" />
     <Content Include="SubModule\bulletin\uploadtest.aspx" />
     <Content Include="SubModule\CM\Attachment\1.htm" />
     <Content Include="SubModule\CM\Attachment\41.txt" />

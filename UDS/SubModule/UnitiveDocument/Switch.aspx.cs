@@ -99,7 +99,7 @@ namespace UDS.SubModule.UnitiveDocument
 							url = Page.ResolveUrl("ManageQuery/ManageQuery.aspx");	
 							break;
 						case "18":
-							url = Page.ResolveUrl("~/SubModule/Bulletin/Index.aspx");
+							url = Page.ResolveUrl("~/SubModule/Bulletin/Index.html");
 							break;
 						default:
 							break;
