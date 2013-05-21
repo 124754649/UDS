@@ -1389,6 +1389,7 @@
     <Content Include="SubModule\AssignRule\RightList.aspx" />
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
     <Content Include="SubModule\AssignRule\TreeView.aspx" />
+    <Content Include="SubModule\bulletin\bulletinAction.aspx" />
     <Content Include="SubModule\bulletin\index.aspx" />
     <Content Include="SubModule\bulletin\index.html" />
     <Content Include="SubModule\bulletin\uploadtest.aspx" />
@@ -1633,6 +1634,8 @@
     <Compile Include="Components\Tool.cs" />
     <Compile Include="Components\UBB.cs" />
     <Compile Include="Components\WA.cs" />
+    <Compile Include="Entity\Records.cs" />
+    <Compile Include="Entity\UDSBulletin.cs" />
     <Compile Include="Entity\UDSSMS.cs" />
     <Compile Include="Entity\UDSTask.cs" />
     <Compile Include="Global.asax.cs">
@@ -1694,6 +1697,13 @@
     <Compile Include="SubModule\AssignRule\TreeView.aspx.cs">
       <DependentUpon>TreeView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\bulletin\bulletinAction.aspx.cs">
+      <DependentUpon>bulletinAction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\bulletin\bulletinAction.aspx.designer.cs">
+      <DependentUpon>bulletinAction.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubModule\bulletin\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
