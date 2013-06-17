@@ -55,7 +55,8 @@ namespace UDS.SubModule.bulletin
                             //获取当前用户的全部未读公告
                             sql = string.Format(sqlTemplate, rowstart, rowend,
                                 "and t.staffid = '" + UserID + "'", " and readcount = 0");
-                            countsql = string.Format(countTemplate, "where (bulletinid not in (select bulletinid from uds_bulletinreadlist where staffid = '" + UserID + "'))");
+                            countsql = string.Format(countTemplate, 
+                                "where (bulletinid not in (select bulletinid from uds_bulletinreadlist where staffid = '" + UserID + "'))");
                             break;
                         case "3":
                             sql = string.Format(sqlTemplate, rowstart, rowend,

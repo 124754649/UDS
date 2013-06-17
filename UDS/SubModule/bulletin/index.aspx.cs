@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +12,36 @@ namespace UDS.SubModule.bulletin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string method = Request.Params["m"];
 
+            switch(method)
+            {
+                case "uuid":
+                    string uuid = Guid.NewGuid().ToString();
+                    string dir = Path.Combine(Server.MapPath("~/App_Browsers"), uuid);
+                    if(!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
+
+                    if (null != Session["CUploadUUID"])
+                    {
+                        if (null != Session[Session["CUploadUUID"].ToString()])
+                        {
+                            Session[Session["CUploadUUID"].ToString()] = null;
+                        }
+                    }
+
+                    Session["CUploadUUID"] = uuid;
+                    Session[uuid] = new List<string>();
+
+                    Response.Write(uuid);
+                    Response.End();
+                    break;
+                default:
+                    Response.StatusCode = 400;
+                    Response.Write("错误的请求");
+                    Response.End();
+                    break;
+            }
         }
     }
 }
