@@ -9,6 +9,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using UDS.Entity;
+using System.Data.Common;
+using System.Data;
 
 namespace UDS.SubModule.bulletin
 {
@@ -55,7 +57,8 @@ namespace UDS.SubModule.bulletin
                             //获取当前用户的全部未读公告
                             sql = string.Format(sqlTemplate, rowstart, rowend,
                                 "and t.staffid = '" + UserID + "'", " and readcount = 0");
-                            countsql = string.Format(countTemplate, "where (bulletinid not in (select bulletinid from uds_bulletinreadlist where staffid = '" + UserID + "'))");
+                            countsql = string.Format(countTemplate, 
+                                "where (bulletinid not in (select bulletinid from uds_bulletinreadlist where staffid = '" + UserID + "'))");
                             break;
                         case "3":
                             sql = string.Format(sqlTemplate, rowstart, rowend,
@@ -133,6 +136,91 @@ namespace UDS.SubModule.bulletin
 
                     break;
                 case "POST":
+                    string insertBulleting = "insert into UDS_Bulletin(subject, content, createtime, sendtime) values('{0}', '', getDate(), getDate());SELECT SCOPE_IDENTITY();";
+                    string insertAttache = "insert into UDS_BulletinAttachment(bulletinid, attachmentname, attachmentpath) values('{0}', '{1}', '{2}')";
+
+                    string title = Request.Params["t"];
+                    string uuid = Request.Params["uuid"];
+
+                    if (string.IsNullOrWhiteSpace(uuid))
+                    {
+                        Response.StatusCode = 400;
+                        Response.Write("错误的公告发布，请刷新页面后重新尝试");
+                        Response.End();
+                    }
+                    else
+                    {
+                        if (null == Session["CUploadUUID"])
+                        {
+                            Response.StatusCode = 400;
+                            Response.Write("找不到匹配的公告发布通道");
+                            Response.End();
+                        }
+                        else
+                        {
+                            if(uuid != Session["CUploadUUID"].ToString())
+                            {
+                                Response.StatusCode = 400;
+                                Response.Write("公告发布上下文不一致，请刷新页面后重试");
+                                Response.End();
+                            }
+                            else
+                            {
+                                if (null == Session[uuid])
+                                {
+                                    Response.StatusCode = 400;
+                                    Response.Write("找不到匹配的公告发布内容");
+                                    Response.End();
+                                }
+                                else
+                                {
+                                    List<string> attaches = Session[uuid] as List<string>;
+
+                                    string exeSql = string.Format(insertBulleting, title);
+
+                                    SqlTransaction trans = null;
+
+                                    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString))
+                                    {
+                                        try
+                                        {
+                                            con.Open();
+                                            trans = con.BeginTransaction();
+                                            SqlCommand comm = con.CreateCommand();
+                                            comm.CommandText = exeSql;
+                                            comm.Transaction = trans;
+
+                                            int id = int.Parse(comm.ExecuteScalar().ToString());
+
+                                            foreach (string s in attaches)
+                                            {
+                                                exeSql = string.Format(insertAttache, id, s, uuid);
+                                                comm.CommandText = exeSql;
+                                                comm.ExecuteNonQuery();
+                                            }
+
+                                            trans.Commit();
+                                            con.Close();
+
+                                            Response.Write("公告发布成功");
+                                            Response.End();
+                                        }
+                                        catch (Exception eX)
+                                        {
+                                            if (null != trans)
+                                                trans.Rollback();
+
+                                            con.Close();
+
+                                            Response.StatusCode = 400;
+                                            Response.Write(eX.Message);
+                                            Response.End();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
                 case "PUT":
                     break;
