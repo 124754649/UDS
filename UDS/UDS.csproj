@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_ViewTemplate\bulletin_template.html" />
     <Content Include="ckeditor\build-config.js" />
     <Content Include="ckeditor\ckeditor.js" />
     <Content Include="ckeditor\config.js" />
@@ -1383,6 +1384,8 @@
     <Content Include="js\json2.js" />
     <Content Include="js\quantumcode-elements.js" />
     <Content Include="js\quantumcode.js" />
+    <Content Include="js\records.js" />
+    <Content Include="js\udsBulletin.js" />
     <Content Include="js\udsTask.js" />
     <Content Include="js\underscore-min.js" />
     <Content Include="SubModule\AssignRule\ClassTree.aspx" />
@@ -1390,6 +1393,7 @@
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
     <Content Include="SubModule\AssignRule\TreeView.aspx" />
     <Content Include="SubModule\bulletin\bulletinAction.aspx" />
+    <Content Include="SubModule\bulletin\editbulletin.aspx" />
     <Content Include="SubModule\bulletin\editbulletin.html" />
     <Content Include="SubModule\bulletin\index.aspx" />
     <Content Include="SubModule\bulletin\index.html" />
@@ -1705,6 +1709,13 @@
     </Compile>
     <Compile Include="SubModule\bulletin\bulletinAction.aspx.designer.cs">
       <DependentUpon>bulletinAction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\bulletin\editbulletin.aspx.cs">
+      <DependentUpon>editbulletin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\bulletin\editbulletin.aspx.designer.cs">
+      <DependentUpon>editbulletin.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubModule\bulletin\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

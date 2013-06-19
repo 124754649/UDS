@@ -7,17 +7,8 @@ using System.Web;
 namespace UDS.Entity
 {
     [DataContract]
-    public class Records
+    public class PageRecords
     {
-        [DataMember]
-        private int page;
-
-        public int Page
-        {
-            get { return page; }
-            set { page = value; }
-        }
-
         [DataMember]
         private int rows;
 
@@ -28,12 +19,54 @@ namespace UDS.Entity
         }
 
         [DataMember]
-        private object datas;
+        private string orderby;
 
-        public object Datas
+        public string Orderby
         {
-            get { return datas; }
-            set { datas = value; }
+            get { return orderby; }
+            set { orderby = value; }
+        }
+
+        [DataMember]
+        private string order;
+
+        public string Order
+        {
+            get { return order; }
+            set { order = value; }
+        }
+
+        [DataMember]
+        private object records;
+
+        public object Records
+        {
+            get { return records; }
+            set { records = value; }
+        }
+
+        [DataMember]
+        private int totalRows;
+
+        public int TotalRows
+        {
+            get { return totalRows; }
+            set { totalRows = value; }
+        }
+
+        [DataMember(Name = "pages")]
+        public int Pages
+        {
+            get
+            {
+                int ps = totalRows / rows;
+                int psm = totalRows % rows;
+
+                if (0 != psm)
+                    ps += 1;
+
+                return ps;
+            }
         }
     }
 }

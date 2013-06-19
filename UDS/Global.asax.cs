@@ -40,10 +40,10 @@ namespace UDS
 
 		}
 
-		protected void Application_EndRequest(Object sender, EventArgs e)
-		{
+        //protected void Application_EndRequest(Object sender, EventArgs e)
+        //{
 
-		}
+        //}
 
 		protected void Application_AuthenticateRequest(Object sender, EventArgs e)
 		{

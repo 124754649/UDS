@@ -82,12 +82,12 @@ namespace UDS.SubModule.SM
                             jsonSer.Serialize(jw, retList);
                         }
 
-                        Response.ContentType = "text/json";
-
-                        Response.Write(sw.ToString());
+                        string content = sw.ToString();
+                        Response.Clear();
+                        Response.ContentType = "application/json";
                         sw.Close();
-                        Response.Flush();
-                        Response.End();
+                        Response.Write(content);
+                        //HttpContext.Current.ApplicationInstance.CompleteRequest();
                     }
                     catch (Exception eX)
                     {
@@ -102,6 +102,11 @@ namespace UDS.SubModule.SM
                         Response.StatusCode = 400;
                         Response.ContentType = "text/html";
                         Response.Write(eX.Message);
+                        //HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        
+                    }
+                    finally
+                    {
                         Response.End();
                     }
                 }

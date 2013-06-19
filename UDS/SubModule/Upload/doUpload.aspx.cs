@@ -21,7 +21,9 @@ namespace UDS.SubModule.Upload
                 string fileName = Request.Files[0].FileName;
                 byte[] rawFile;
 
-                saveFullPath = Path.Combine(saveFullPath, Session["CUploadUUID"].ToString());
+                string uuid = Request.Params["uuid"];
+
+                saveFullPath = Path.Combine(saveFullPath, uuid);
 
                 if (Request.Browser.Browser == "IE")
                 {
@@ -46,8 +48,6 @@ namespace UDS.SubModule.Upload
                         bw.Write(rawFile);
                     }
                 }
-
-                (Session[Session["CUploadUUID"].ToString()] as List<string>).Add(fileName);
 
                 Response.ContentType = "text/html";
                 Response.Write("{\"success\":true}");

@@ -87,10 +87,9 @@
 				<div class="span6">
 					<div class="widget-box">
 						<div class="widget-header header-color-blue">
-							<h5><i class="icon-envelope icon-2x"></i>我的邮箱</h5>
+							<h5><i class="icon-bullhorn icon-2x"></i>公告板</h5>
 							<div class="widget-toolbar">
-								<a href='javascript:parent.navigatemf("我的邮件", "<%= Page.ResolveUrl("Mail/Index.aspx") %>", "mail")' data-action="more"><i class="icon-reorder"></i>更多</a>
-								<a href='javascript:parent.navigatemf("撰写新邮件", "<%= Page.ResolveUrl("Mail/Compose.aspx?ClassID=0") %>", "mail")' data-action="new"><i class="icon-edit"></i>新建</a>
+								<a href='javascript:parent.navigatemf("公告板", "<%= Page.ResolveUrl("Mail/Index.aspx") %>", "mail")' data-action="more"><i class="icon-reorder"></i>更多</a>
 							</div>
 						</div>
 						<div class="widget-body">

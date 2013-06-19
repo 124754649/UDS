@@ -22,17 +22,6 @@ namespace UDS.SubModule.bulletin
                     if(!Directory.Exists(dir))
                         Directory.CreateDirectory(dir);
 
-                    if (null != Session["CUploadUUID"])
-                    {
-                        if (null != Session[Session["CUploadUUID"].ToString()])
-                        {
-                            Session[Session["CUploadUUID"].ToString()] = null;
-                        }
-                    }
-
-                    Session["CUploadUUID"] = uuid;
-                    Session[uuid] = new List<string>();
-
                     Response.Write(uuid);
                     Response.End();
                     break;

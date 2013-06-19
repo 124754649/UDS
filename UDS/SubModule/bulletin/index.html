@@ -36,7 +36,7 @@
                         <div class="widget-header header-color-blue">
                             <h5><i class="icon-bullhorn icon-2x"></i>公告</h5>
                             <div class="widget-toolbar">
-                                <a href="editbulletin.html?isNew="><i class="icon-edit"></i>新建公告</a>
+                                <a href="editbulletin.aspx?isNew="><i class="icon-edit"></i>新建公告</a>
                                 <a href="#"><i class="icon-remove"></i>删除</a>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                                 </td>
                                             </tr>    
                                         </thead>
-                                        <tbody>
+                                        <tbody id="bulletinList">
                                             <script type="text/html" id="bulletinTableTemplate">
                                                 <% _.each(bulletins, function(b, index){ %>
                                                     <tr>
@@ -78,7 +78,7 @@
                                                             <%= b.subject %>
                                                         </td>
                                                         <td>
-                                                            <%= b.creattime %>
+                                                            <%= b.createtime %>
                                                         </td>
                                                         <td>
                                                             <%= b.sendtime %>
@@ -93,7 +93,7 @@
                                                             </label>
                                                         </td>
                                                     </tr>
-                                                <% } %>
+                                                <% }) %>
                                             </script>
                                         </tbody>
                                     </table>
@@ -109,10 +109,33 @@
     <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="../../js/underscore-min.js"></script>
     <script type="text/javascript" src="../../js/backbone-min.js"></script>
+    <script type="text/javascript" src="../../js/records.js"></script>
+    <script type="text/javascript" src="../../js/udsBulletin.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            //CKEDITOR.replace("toolbar", "Basic");
-            //CKEDITOR.replace("bulletinContent", { "toolbar": "Basic" });
+            var bulletins = new bulletinCollection();
+            bulletins.type = 2;
+
+            var r = new records(
+                {
+                    records: bulletins,
+                    target: bulletins,
+                    orderby: "",
+                    order: "desc",
+                    rows: 10
+                });
+
+            r.fetch({
+                success: function () {
+                    var bview = new bulletinListView(
+                    {
+                        model: r,
+                        el: $("#bulletinList")
+                    });
+
+                    bview.render();
+                }
+            });
         });
     </script>
 </body>

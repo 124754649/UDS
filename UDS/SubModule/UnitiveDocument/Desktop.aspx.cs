@@ -78,10 +78,12 @@ namespace UDS.SubModule.UnitiveDocument
                                 jsonSer.Serialize(jw, retTasks);
                             }
 
-                            Response.ContentType = "text/json";
+                            Response.Clear();
+                            Response.ContentType = "application/json";
 
                             Response.Write(sw.ToString());
                             sw.Close();
+                            //HttpContext.Current.ApplicationInstance.CompleteRequest();
                             Response.End();
 							break;
 					}
