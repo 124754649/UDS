@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_ViewTemplate\bulletin_item.html" />
     <Content Include="App_ViewTemplate\bulletin_template.html" />
     <Content Include="App_ViewTemplate\bulletin_widget.html" />
     <Content Include="ckeditor\build-config.js" />
@@ -1642,6 +1643,7 @@
     <Compile Include="Components\WA.cs" />
     <Compile Include="Entity\Records.cs" />
     <Compile Include="Entity\UDSBulletin.cs" />
+    <Compile Include="Entity\UDSBulletinAttaches.cs" />
     <Compile Include="Entity\UDSSMS.cs" />
     <Compile Include="Entity\UDSTask.cs" />
     <Compile Include="Global.asax.cs">

@@ -91,5 +91,14 @@ namespace UDS.Entity
             get { return isRead; }
             set { isRead = value; }
         }
+
+        [DataMember]
+        private IList<UDSBulletinAttaches> attaches;
+
+        public IList<UDSBulletinAttaches> Attaches
+        {
+            get { return attaches; }
+            set { attaches = value; }
+        }
     }
 }

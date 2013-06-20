@@ -1,0 +1,8 @@
+﻿<p><%= bulletin.subject</p>
+<p>
+    <ul>
+        <% _.each(bulletin.attaches, function(data, index){ %>
+        <li><a href="download.aspx?id=<%= data.bulletinid %>&aid=<%= data.attachmentid"><%= data.attachmentname %></a></li>
+        <% }) %>
+    </ul>
+</p>

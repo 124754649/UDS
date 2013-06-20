@@ -227,6 +227,7 @@
 	            success: function () {
 	                var bview = new bulletinListView(
                     {
+                        templateUri: '/App_ViewTemplate/bulletin_widget.html',
                         model: r,
                         el: $("#bulletinlist")
                     });
