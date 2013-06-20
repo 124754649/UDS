@@ -94,8 +94,33 @@
 						</div>
 						<div class="widget-body">
 							<div class="widget-body-inner" style="display: block">
-								<div class="widget-main no-padding" id="bulletinlist">
-									
+								<div class="widget-main no-padding">
+									<asp:DataGrid ID="dgMailList" runat="server" AllowPaging="True" BorderColor="#E8F4FF" GridLines="Horizontal"
+										PageSize="5" DataKeyField="MailID" Width="100%" PagerStyle-HorizontalAlign="right" PagerStyle-Mode="NumericPages"
+										AutoGenerateColumns="False" CellPadding="2" BorderWidth="1px" Font-Names="Arial" AllowSorting="True">
+										<ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"></ItemStyle>
+										<HeaderStyle Font-Size="X-Small" Font-Bold="True" HorizontalAlign="Center" Height="20px" ForeColor="#006699"
+											VerticalAlign="Middle" BackColor="#E8F4FF"></HeaderStyle>
+										<FooterStyle Font-Size="XX-Small" HorizontalAlign="Center" Height="10px" VerticalAlign="Bottom"></FooterStyle>
+										<Columns>
+											<asp:TemplateColumn HeaderText="邮件主题">
+												<HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+												<ItemStyle Font-Size="X-Small" HorizontalAlign="Left" VerticalAlign="Middle"></ItemStyle>
+												<ItemTemplate>
+													<a href='javascript:gotoMail("<%# DataBinder.Eval(Container.DataItem,"MailID") %>")'>
+														<%# (DataBinder.Eval(Container.DataItem,"MailSubject").ToString().Length>30)?DataBinder.Eval(Container.DataItem,"MailSubject").ToString().Substring(0,30)+"...":DataBinder.Eval(Container.DataItem,"MailSubject").ToString() %>
+													</a>
+													<%# DataBinder.Eval(Container.DataItem,"attnumber").ToString()==""?"":(DataBinder.Eval(Container.DataItem,"attnumber").ToString()=="0"?"":"<img src='../../DataImages/attach.gif' border='0'>") %>
+												</ItemTemplate>
+											</asp:TemplateColumn>
+											<asp:BoundColumn DataField="MailSender" HeaderText="发送者">
+												<HeaderStyle HorizontalAlign="Center" Width="80px"></HeaderStyle>
+												<ItemStyle Font-Size="X-Small" HorizontalAlign="Center"></ItemStyle>
+											</asp:BoundColumn>
+										</Columns>
+										<PagerStyle Visible="False" Font-Size="12px" BorderColor="#E0E0E0" BorderStyle="Dotted" HorizontalAlign="Right"
+											PageButtonCount="5" Mode="NumericPages"></PagerStyle>
+									</asp:DataGrid>
 								</div>
 							</div>
 						</div>
@@ -198,43 +223,11 @@
 			</div>
 		</div>
 	</form>
-    <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="../../js/underscore-min.js"></script>
-    <script type="text/javascript" src="../../js/backbone-min.js"></script>
-    <script type="text/javascript" src="../../js/records.js"></script>
-    <script type="text/javascript" src="../../js/udsBulletin.js"></script>
 	<script language="javascript">
 		function gotoMail(mailid) {
 			var url = '<%= ResolveUrl("Mail/ReadMail.aspx?FolderType=1&MailId=") %>' + mailid;
 				parent.navigatemf('阅读邮件', url, 'mail');
-		}
-
-	    $(document).ready(function () {
-	        var bulletins = new bulletinCollection();
-	        bulletins.type = 2;
-
-	        var r = new records(
-                {
-                    records: bulletins,
-                    target: bulletins,
-                    orderby: "",
-                    order: "desc",
-                    rows: 10
-                });
-
-	        r.fetch({
-	            success: function () {
-	                var bview = new bulletinListView(
-                    {
-                        model: r,
-                        el: $("#bulletinlist")
-                    });
-
-	                bview.render();
-	            }
-	        });
-	    });
+			}
 	</script>
 </body>
 </html>

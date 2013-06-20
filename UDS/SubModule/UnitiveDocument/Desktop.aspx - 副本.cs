@@ -300,8 +300,8 @@ namespace UDS.SubModule.UnitiveDocument
 			dgDocList.DataSource = dt.DefaultView;
 			dgDocList.DataBind();
 
-			//dr = myDesktop.GetMyMail(UserName,1);
-			//dt =Tools.ConvertDataReaderToDataTable(dr);
+			dr = myDesktop.GetMyMail(UserName,1);
+			dt =Tools.ConvertDataReaderToDataTable(dr);
 			//TODO:这里不知道为什么不满5条，要补充空白记录到5条，但是这里明显有错误，第一列不一定是字符串
 			//if(dt.Rows.Count<5)
 			//{
@@ -318,8 +318,8 @@ namespace UDS.SubModule.UnitiveDocument
 			//}
 //			DataView dv = dt.DefaultView;
 //			dv.Sort = "MailSendDate Desc";
-			//dgMailList.DataSource = dt.DefaultView ;
-			//dgMailList.DataBind();
+			dgMailList.DataSource = dt.DefaultView ;
+			dgMailList.DataBind();
 
 			dr = myDesktop.GetMyApprove(UserName,2);
 			dt =Tools.ConvertDataReaderToDataTable(dr);
