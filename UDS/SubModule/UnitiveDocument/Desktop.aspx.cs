@@ -93,8 +93,8 @@ namespace UDS.SubModule.UnitiveDocument
 
 		private void DutyOperation()
 		{
-			try
-			{
+            //try
+            //{
 				WA_Duty wd = new WA_Duty(Int32.Parse(Request.Cookies["UserID"].Value.Trim()));
 				int Duty = wd.HaveCompletedDuty(DateTime.Now);
 				//检查当天是否已经完成上班考勤
@@ -113,12 +113,12 @@ namespace UDS.SubModule.UnitiveDocument
 					}	
 
 				}
-			}
-			catch(Exception ex)
-			{
-				UDS.Components.Error.Log(ex.Message);
-				Server.Transfer("../Error.aspx");
-			}
+            //}
+            //catch(Exception ex)
+            //{
+            //    //UDS.Components.Error.Log(ex.Message);
+            //    //Server.Transfer("../Error.aspx");
+            //}
 		}
 
 		public void bindtaskgrid()

@@ -9,8 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "数据库脚本", "数据库脚本", "{B950E3E7-1D2A-4C6F-BEAD-5E0C5CF0412A}"
 	ProjectSection(SolutionItems) = preProject
-		data.sql = data.sql
-		modify.sql = modify.sql
+		数据库脚本\data.sql = 数据库脚本\data.sql
+		数据库脚本\modify.sql = 数据库脚本\modify.sql
 		数据库脚本\UDS_Bulletin.sql = 数据库脚本\UDS_Bulletin.sql
 		数据库脚本\UDS_BulletinAttachment.sql = 数据库脚本\UDS_BulletinAttachment.sql
 		数据库脚本\UDS_BulletingReadList.sql = 数据库脚本\UDS_BulletingReadList.sql

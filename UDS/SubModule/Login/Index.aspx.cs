@@ -225,6 +225,7 @@ namespace UDS.SubModule.Login
 				}						
 				else 
 				{
+                    FormsAuthentication.SetAuthCookie(UserID, false);
 					FormsAuthentication.RedirectFromLoginPage(UserID, false);
 				}										
 
