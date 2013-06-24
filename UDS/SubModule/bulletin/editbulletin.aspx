@@ -40,11 +40,8 @@
                         <div class="widget-header header-color-blue">
                             <h5><i class="icon-bullhorn icon-2x"></i>公告</h5>
                             <div class="widget-toolbar">
-<<<<<<< HEAD
                                 <!--<a href='javascript:'><i class="icon-edit"></i>新建公告</a>-->
                                 <!--<a href="#"><i class="icon-remove"></i>删除</a>-->
-=======
->>>>>>> 0aca9f3ebff2fec71cf43866a948c8bd7f98bebc
                             </div>
                         </div>
                         <div class="widget-body">
@@ -114,11 +111,7 @@
                 $("#pageheader").text("新建公告");
             }
 
-<<<<<<< HEAD
-            $.get("index.aspx?m=uuid",
-=======
             $.get("bulletinAction.aspx?m=uuid",
->>>>>>> 0aca9f3ebff2fec71cf43866a948c8bd7f98bebc
                 null,
                 function (data, textStatus, jqXHR) {
                     uuid = data;

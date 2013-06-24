@@ -321,7 +321,7 @@ namespace UDS.SubModule.CM
 			Response.Write("<script>javascript:window.open('Client.aspx','_blank');</script>");
 		}
 
-		private void btn_Del_Click(object sender, System.EventArgs e)
+		protected void btn_Del_Click(object sender, System.EventArgs e)
 		{
 			string selectedstring = "";
 			foreach(DataGridItem dgi in dgd_Client.Items)
@@ -416,6 +416,5 @@ namespace UDS.SubModule.CM
 				
 			}
 		}
-
 	}
 }

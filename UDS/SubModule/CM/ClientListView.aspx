@@ -119,17 +119,15 @@
 											<asp:DropDownList ID="ddl_MySubordinate" runat="server" AutoPostBack="True"></asp:DropDownList>&nbsp;</font></td>
                                 <td class="GbText" align="right" background="../../Images/treetopbg.jpg" bgcolor="#e8f4ff"><font face="宋体">
                                     <asp:Panel ID="pnl" runat="server" Height="8px" Width="499px" Visible="true">
-                                        <input class="redbuttoncss" id="Button2" onclick="window.open('Stat/Contact_Client.aspx', '_blank')"
-                                            type="button" value=" 汇 总" name="Button1">&nbsp;<input class="redbuttoncss" id="Button1" onclick="window.open('Search/ClientInfo.aspx', '_blank')"
-                                                type="button" value=" 查 询" name="Button1">&nbsp;<input class="redbuttoncss" onclick="selectAll()" type="button" value="全 选">
-                                        <asp:Button ID="btn_Del" runat="server" CssClass="redbuttoncss" Text="删 除"></asp:Button>
-                                        <asp:Button ID="btn_AddClient" runat="server" CssClass="redbuttoncss" Text="添加客户"></asp:Button>
+                                        <input id="Button2" class="redbuttoncss" name="Button1" onclick="window.open('Stat/Contact_Client.aspx', '_blank')" type="button" value=" 汇 总">&nbsp;<input id="Button1" class="redbuttoncss" name="Button1" onclick="window.open('Search/ClientInfo.aspx', '_blank')" type="button" value=" 查 询">&nbsp;<input class="redbuttoncss" onclick="selectAll()" type="button" value="全 选">
+                                        <asp:Button ID="btn_Del" runat="server" CssClass="redbuttoncss" Text="删 除" OnClick="btn_Del_Click" />
+                                        <asp:Button ID="btn_AddClient" runat="server" CssClass="redbuttoncss" Text="添加客户" />
                                         <input type="button" class="redButtonCss" onclick='parent.navigatemf("添加客户", "<%= Page.ResolveUrl("Client.aspx") %>", "CM")' value="添加客户" />
-                                        <asp:Button ID="btn_AddLinkman" runat="server" CssClass="redbuttoncss" Text="添加联络人"></asp:Button>
+                                        <asp:Button ID="btn_AddLinkman" runat="server" CssClass="redbuttoncss" Text="添加联络人" />
                                         <input type="button" class="redButtonCss" onclick="getSelectedIDs(1)" value="添加联络人" />
-                                        <asp:Button ID="btn_AddContact" runat="server" CssClass="redbuttoncss" Text="添加接触"></asp:Button>
+                                        <asp:Button ID="btn_AddContact" runat="server" CssClass="redbuttoncss" Text="添加接触" />
                                         <input type="button" class="redButtonCss" onclick="getSelectedIDs(2)" value="添加接触" />
-                                    </asp:Panel>
+                                        </input></input></input></asp:Panel>
                                 </font></td>
                             </tr>
                         </table>

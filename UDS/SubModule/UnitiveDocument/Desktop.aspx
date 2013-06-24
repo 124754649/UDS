@@ -235,12 +235,23 @@
 
 	        r.fetch({
 	            success: function () {
+	                var bi = new bulletinItemModel({
+	                    urlRoot: '<%= Page.ResolveClientUrl("~/SubModule/bulletin/bulletinAction.aspx") %>'
+	                });
+
 	                var bview = new bulletinListView(
                     {
                         templateUri: '<%= Page.ResolveUrl("~/App_ViewTemplate/bulletin_widget.html") %>',
                         model: r,
                         el: $("#bulletinlist"),
-                        itemDialog: $("#bulletinDialog")
+                        itemDialog: $("#bulletinDialog"),
+                        selectedItem: bi,
+                        itemView: new bulletinItemView({
+                            templateUri: '<%= Page.ResolveClientUrl("~/App_ViewTemplate/bulletin_item.html") %>',
+                            updateUri: '<%= Page.ResolveClientUrl("~/SubModule/bulletin/updatebulletin.aspx") %>',
+                            downloadUri: '<%= Page.ResolveClientUrl("~/SubModule/bulletin/download.aspx") %>',
+                            model: bi
+                        })
                     });
 
 	                bview.render();

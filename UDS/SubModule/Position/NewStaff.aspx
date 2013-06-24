@@ -3,23 +3,11 @@
 <HTML>
 	<HEAD>
 		<title>NewStaff</title>
-		<meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
-		<meta content="C#" name="CODE_LANGUAGE">
-		<meta content="JavaScript" name="vs_defaultClientScript">
-		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-		<LINK href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
-		<script language="JavaScript" src="../../Css/meizzDate.js"></script>
-		<style>.td { FONT-SIZE: 14px; COLOR: #0000ff }
+        <link href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet" />
+        <link href="../../Css/redmond/jquery-ui-1.10.3.custom.min.css" type="text/css" rel="Stylesheet" />
+		<style type="text/css">
+            .td { FONT-SIZE: 14px; COLOR: #0000ff }
 		</style>
-		<script language="javascript">
-		function ReturnBack(ReturnType)
-		{			
-			if(ReturnType==0)
-				location.href ="ListView.aspx?Position_ID=<%=PositionID%>";	
-			else
-				location.href ="../Staff/ManageStaff.aspx";			
-		}
-		</script>
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<form id="NewStaff" method="post" runat="server">
@@ -50,7 +38,7 @@
 					</tr>
 					<tr>
 						<td align="right" width="20%" height="30">出生日期:</td>
-						<td height="30">&nbsp;<asp:textbox id="txtBirthday" onfocus="setday(this)" CssClass="InputCss" Runat="server" Columns="70"
+						<td height="30">&nbsp;<asp:textbox ClientIDMode="Static" id="txtBirthday" CssClass="InputCss" Runat="server" Columns="70"
 								Width="383" ReadOnly="True"></asp:textbox></td>
 					</tr>
 					<tr bgColor="#e8f4ff">
@@ -102,5 +90,24 @@
 				</table>
 			</CENTER>
 		</form>
+        <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="../../js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script type="text/javascript" src="../../js/jquery.ui.datepicker-zh-CN.js"></script>
+        <script type="text/javascript" language="javascript">
+            $(document).ready(function(){
+                $("#txtBirthday").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+            });
+
+            function ReturnBack(ReturnType)
+            {			
+                if(ReturnType==0)
+                    location.href ="ListView.aspx?Position_ID=<%=PositionID%>";	
+			    else
+			        location.href ="../Staff/ManageStaff.aspx";			
+            }
+		</script>
 	</body>
 </HTML>
