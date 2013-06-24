@@ -5,18 +5,18 @@
 	<head runat="server">
 		<TITLE><%= ConfigurationManager.AppSettings["productName"] %></TITLE>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../Css/bootstrap.css" />
-        <link rel="stylesheet" href="../Css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" href="../Css/font-awesome.min.css" />
+        <link rel="stylesheet" href='~/CSS/bootstrap.css' />
+        <link rel="stylesheet" href='~/CSS/bootstrap-responsive.min.css' />
+        <link rel="stylesheet" href='~/CSS/font-awesome.min.css' />
         <!--[if IE 7]>
-		  <link rel="stylesheet" href="../Css/font-awesome-ie7.min.css" />
+		  <link rel="stylesheet" href='~/CSS/font-awesome-ie7.min.css' />
 		<![endif]-->
-        <link rel="stylesheet" href="../Css/quantumcode.css" />
-        <link rel="stylesheet" href="../Css/quantumcode-resposive.css" />
-        <link rel="stylesheet" href="../Css/quantumcode-skins.css" />
+        <link rel="stylesheet" href='~/CSS/quantumcode.css' />
+        <link rel="stylesheet" href='~/CSS/quantumcode-resposive.css' />
+        <link rel="stylesheet" href='~/CSS/quantumcode-skins.css' />
 
         <!--[if lt IE 9]>
-		  <link rel="stylesheet" href="../Css/quantumcode-ie.css" />
+		  <link rel="stylesheet" href='~/CSS/quantumcode-ie.css' />
 		<![endif]-->
 
         <style>
@@ -37,73 +37,10 @@
 			  <ul class="nav ace-nav pull-right">
 					<li class="grey" id="taskShort"></li>
 					<li class="purple" id="smsShort"></li>
-					<li class="green">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-envelope-alt icon-animated-vertical icon-only"></i>
-							<span class="badge badge-success">5</span>
-						</a>
-						<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
-							<li class="nav-header">
-								<i class="icon-envelope"></i> 5 Messages
-							</li>
-							
-							<li>
-								<a href="#">
-									<img alt="Alex's Avatar" class="msg-photo" src="assets/avatars/avatar.png" />
-									<span class="msg-body">
-										<span class="msg-title">
-											<span class="blue">Alex:</span>
-											Ciao sociis natoque penatibus et auctor ...
-										</span>
-										<span class="msg-time">
-											<i class="icon-time"></i> <span>a moment ago</span>
-										</span>
-									</span>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img alt="Susan's Avatar" class="msg-photo" src="assets/avatars/avatar3.png" />
-									<span class="msg-body">
-										<span class="msg-title">
-											<span class="blue">Susan:</span>
-											Vestibulum id ligula porta felis euismod ...
-										</span>
-										<span class="msg-time">
-											<i class="icon-time"></i> <span>20 minutes ago</span>
-										</span>
-									</span>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img alt="Bob's Avatar" class="msg-photo" src="assets/avatars/avatar4.png" />
-									<span class="msg-body">
-										<span class="msg-title">
-											<span class="blue">Bob:</span>
-											Nullam quis risus eget urna mollis ornare ...
-										</span>
-										<span class="msg-time">
-											<i class="icon-time"></i> <span>3:15 pm</span>
-										</span>
-									</span>
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									See all messages
-									<i class="icon-arrow-right"></i>
-								</a>
-							</li>									
-	
-						</ul>
-					</li>
+					<li class="green" id="bulletinShort"></li>
 					<li class="light-blue user-profile">
 						<a class="user-menu dropdown-toggle" href="#" data-toggle="dropdown">
-							<img style="display:none" alt="Jason's Photo" src="assets/avatars/user.jpg" class="nav-user-photo" />
+							<!--<img style="display:none" alt="Jason's Photo" src="assets/avatars/user.jpg" class="nav-user-photo" />-->
 							<span id="user_info">
 								<small>欢迎,</small> <%= UserName %>
 							</span>
@@ -168,16 +105,17 @@
                 </div><!--/#page-content-->
             </div><!-- #main-content -->
         </div><!--/.fluid-container#main-container-->
-        <script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
-        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../js/quantumcode-elements.js"></script>
-        <script type="text/javascript" src="../js/quantumcode.js"></script>
-        <script type="text/javascript" src="../js/jquery.iframe-auto-height.plugin.1.9.1.min.js"></script>
-        <script type="text/javascript" src="../js/underscore-min.js"></script>
-        <script type="text/javascript" src="../js/json2.js"></script>
-        <script type="text/javascript" src="../js/backbone-min.js"></script>
-        <script type="text/javascript" src="../js/breadcrumbModel.js"></script>
-        <script type="text/javascript" src="../js/udsTask.js"></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/jquery-1.9.1.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/bootstrap.min.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/quantumcode-elements.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/quantumcode.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/jquery.iframe-auto-height.plugin.1.9.1.min.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/underscore-min.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/json2.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/backbone-min.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/breadcrumbModel.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/udsTask.js") %>'></script>
+        <script type="text/javascript" src='<%= Page.ResolveClientUrl("~/js/udsBulletin.js") %>'></script>
         <script type="text/javascript">            
             var bcItems = null;
 
@@ -185,6 +123,7 @@
 
             var taskCon = null;
             var smsCon = null;
+            var bulletinCon = null;
 
             $(function () {
                 $("#btnMyDesktop").click(function () {
@@ -242,6 +181,18 @@
                 });
 
                 smsCon.render();
+
+                bulletinCon = new udsShortView({
+                    el: $("#bulletinShort"),
+                    model: new bulletinCollection({ urlRoot: '<%= Page.ResolveUrl("~/SubModule/bulletin/bulletinAction.aspx") %>', type: 5 }),
+                    targetUrl: 'javascript:navigatemf("公告板", "<%= Page.ResolveUrl("~/SubModule/bulletin/index.aspx") %>", "公告板")',
+                    iClass: 'icon-bullhorn',
+                    numberTitle: '条公告未查看',
+                    moreTitle: '查看更多公告',
+                    columns:['subject', 'sendtime']
+                });
+
+                bulletinCon.render();
 
                 navigatemf('我的桌面', '<%=Page.ResolveClientUrl("~/SubModule/UnitiveDocument/Desktop.aspx") %>', 'desktop');
             });

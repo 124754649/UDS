@@ -28,12 +28,12 @@ namespace UDS.SubModule.Login
 			staff.Logout(Request.Cookies["Username"].Value.ToString());
 			staff = null;
 			FormsAuthentication.SignOut();
-			Request.Cookies.Clear();
-			HttpCookie UserCookie     = new HttpCookie("UserID", string.Empty);
-			HttpCookie UserNameCookie = new HttpCookie("Username", string.Empty);
+			//Request.Cookies.Clear();
+			//HttpCookie UserCookie     = new HttpCookie("UserID", string.Empty);
+			//HttpCookie UserNameCookie = new HttpCookie("Username", string.Empty);
 
-			Response.Cookies.Add(UserCookie);
-			Response.Cookies.Add(UserNameCookie);
+			//Response.Cookies.Add(UserCookie);
+			//Response.Cookies.Add(UserNameCookie);
 			Session.Clear();
 			//Server.Transfer("Index.aspx");
 			if(Action=="1")

@@ -17,6 +17,8 @@
 	<!--[if lt IE 9]>
 		  <link rel="stylesheet" href="../../Css/quantumcode-ie.css" />
 		<![endif]-->
+    <link rel="stylesheet" href="../../Css/redmond/jquery-ui-1.10.3.custom.min.css" />
+
 	<script language="javascript">
 		function dialwinprocess(CurrDate, CurrTime, whichPg, TaskID) {
 			if (whichPg == 1)
@@ -35,6 +37,9 @@
 	</style>
 </head>
 <body>
+    <div id="bulletinDialog">
+
+    </div>
 	<form id="WorkArea" method="post" runat="server">
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -89,7 +94,7 @@
 						<div class="widget-header header-color-blue">
 							<h5><i class="icon-bullhorn icon-2x"></i>公告板</h5>
 							<div class="widget-toolbar">
-								<a href='javascript:parent.navigatemf("公告板", "<%= Page.ResolveUrl("Mail/Index.aspx") %>", "mail")' data-action="more"><i class="icon-reorder"></i>更多</a>
+								<a href='javascript:parent.navigatemf("公告板", "<%= Page.ResolveUrl("~/SubModule/bulletin/Index.aspx") %>", "mail")' data-action="more"><i class="icon-reorder"></i>更多</a>
 							</div>
 						</div>
 						<div class="widget-body">
@@ -199,9 +204,11 @@
 		</div>
 	</form>
     <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="../../js/underscore-min.js"></script>
     <script type="text/javascript" src="../../js/backbone-min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.fileDownload.js"></script>
     <script type="text/javascript" src="../../js/records.js"></script>
     <script type="text/javascript" src="../../js/udsBulletin.js"></script>
 	<script language="javascript">
@@ -211,8 +218,11 @@
 		}
 
 	    $(document).ready(function () {
-	        var bulletins = new bulletinCollection();
-	        bulletins.type = 2;
+	        var bulletins = new bulletinCollection({
+	            urlRoot: '<%= Page.ResolveUrl("~/SubModule/bulletin/bulletinAction.aspx") %>',
+                type: 2
+	        });
+	        //bulletins.type = 2;
 
 	        var r = new records(
                 {
@@ -227,8 +237,10 @@
 	            success: function () {
 	                var bview = new bulletinListView(
                     {
+                        templateUri: '<%= Page.ResolveUrl("~/App_ViewTemplate/bulletin_widget.html") %>',
                         model: r,
-                        el: $("#bulletinlist")
+                        el: $("#bulletinlist"),
+                        itemDialog: $("#bulletinDialog")
                     });
 
 	                bview.render();

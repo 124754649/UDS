@@ -66,6 +66,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="about\you.aspx" />
+    <Content Include="App_ViewTemplate\bulletin_item.html" />
+    <Content Include="App_ViewTemplate\bulletin_normal.html" />
     <Content Include="App_ViewTemplate\bulletin_template.html" />
     <Content Include="App_ViewTemplate\bulletin_widget.html" />
     <Content Include="ckeditor\build-config.js" />
@@ -1377,6 +1380,7 @@
     <Content Include="js\jquery-ui-1.10.3.custom.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="js\jquery.backstretch.min.js" />
+    <Content Include="js\jquery.fileDownload.js" />
     <Content Include="js\jquery.fineuploader-3.5.0.js" />
     <Content Include="js\jquery.fineuploader-3.5.0.min.js" />
     <Content Include="js\jquery.iframe-auto-height.plugin.1.9.1.min.js" />
@@ -1394,10 +1398,12 @@
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
     <Content Include="SubModule\AssignRule\TreeView.aspx" />
     <Content Include="SubModule\bulletin\bulletinAction.aspx" />
+    <Content Include="SubModule\bulletin\download.aspx" />
     <Content Include="SubModule\bulletin\editbulletin.aspx" />
     <Content Include="SubModule\bulletin\editbulletin.html" />
     <Content Include="SubModule\bulletin\index.aspx" />
     <Content Include="SubModule\bulletin\index.html" />
+    <Content Include="SubModule\bulletin\updatebulletin.aspx" />
     <Content Include="SubModule\bulletin\uploadtest.aspx" />
     <Content Include="SubModule\CM\Attachment\1.htm" />
     <Content Include="SubModule\CM\Attachment\41.txt" />
@@ -1616,8 +1622,16 @@
     <Content Include="webctrl_client\1_0\webserviced.htc" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="about\you.aspx.cs">
+      <DependentUpon>you.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="about\you.aspx.designer.cs">
+      <DependentUpon>you.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Components\AssignRights.cs" />
     <Compile Include="Components\BBS.cs" />
+    <Compile Include="Components\BrowserInfos.cs" />
     <Compile Include="Components\Class.cs" />
     <Compile Include="Components\CM.cs" />
     <Compile Include="Components\Database.cs" />
@@ -1642,6 +1656,7 @@
     <Compile Include="Components\WA.cs" />
     <Compile Include="Entity\Records.cs" />
     <Compile Include="Entity\UDSBulletin.cs" />
+    <Compile Include="Entity\UDSBulletinAttaches.cs" />
     <Compile Include="Entity\UDSSMS.cs" />
     <Compile Include="Entity\UDSTask.cs" />
     <Compile Include="Global.asax.cs">
@@ -1711,6 +1726,13 @@
     <Compile Include="SubModule\bulletin\bulletinAction.aspx.designer.cs">
       <DependentUpon>bulletinAction.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SubModule\bulletin\download.aspx.cs">
+      <DependentUpon>download.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\bulletin\download.aspx.designer.cs">
+      <DependentUpon>download.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SubModule\bulletin\editbulletin.aspx.cs">
       <DependentUpon>editbulletin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1724,6 +1746,13 @@
     </Compile>
     <Compile Include="SubModule\bulletin\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\bulletin\updatebulletin.aspx.cs">
+      <DependentUpon>updatebulletin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\bulletin\updatebulletin.aspx.designer.cs">
+      <DependentUpon>updatebulletin.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubModule\bulletin\uploadtest.aspx.cs">
       <DependentUpon>uploadtest.aspx</DependentUpon>
@@ -2384,6 +2413,9 @@
     <Content Include="SubModule\WorkAttendance\Report\TotalDuty.xss">
       <DependentUpon>TotalDuty.xsd</DependentUpon>
     </Content>
+    <None Include="Web.Debug-C.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2874,6 +2906,15 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-C|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

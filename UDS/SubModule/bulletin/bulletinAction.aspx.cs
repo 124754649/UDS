@@ -18,7 +18,7 @@ namespace UDS.SubModule.bulletin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string UserID = null == Response.Cookies["UserID"] ? "" : Response.Cookies["UserID"].Value;
+            string UserID = null == Request.Cookies["UserID"] ? "" : Request.Cookies["UserID"].Value;
 
             switch (Request.HttpMethod)
             {
@@ -27,22 +27,32 @@ namespace UDS.SubModule.bulletin
 
                     if (!string.IsNullOrWhiteSpace(method))
                     {
-                        switch (method)
+                        try
                         {
-                            case "uuid":
-                                string newuuid = Guid.NewGuid().ToString();
-                                string dir = Path.Combine(Server.MapPath("~/App_Browsers"), newuuid);
-                                if (!Directory.Exists(dir))
-                                    Directory.CreateDirectory(dir);
+                            switch (method)
+                            {
+                                case "uuid":
+                                    string newuuid = Guid.NewGuid().ToString();
+                                    string dir = Path.Combine(Server.MapPath("~/App_Browsers"), newuuid);
+                                    if (!Directory.Exists(dir))
+                                        Directory.CreateDirectory(dir);
 
-                                Response.Write(newuuid);
-                                Response.End();
-                                break;
-                            default:
-                                Response.StatusCode = 400;
-                                Response.Write("错误的请求");
-                                Response.End();
-                                break;
+                                    Response.Write(newuuid);
+                                    break;
+                                default:
+                                    Response.StatusCode = 400;
+                                    Response.Write("错误的请求");
+                                    break;
+                            }
+                        }
+                        catch (Exception eX)
+                        {
+                            Response.StatusCode = 400;
+                            Response.Write(eX.Message);
+                        }
+                        finally
+                        {
+                            Response.End();
                         }
                     }
                     else
@@ -63,9 +73,9 @@ namespace UDS.SubModule.bulletin
 
                         string sqlTemplate = "select * from " +
                             "(select bulletinid, subject, contents, createtime, sendtime, " +
-                                "(select count(*) from uds_bulletinreadlist t where t.bulletinid = bulletinid {2}) as readcount," +
+                                "(select count(*) from uds_bulletinreadlist t where t.bulletinid = b.bulletinid {2}) as readcount," +
                                 "ROW_NUMBER() over (order by bulletinid) as rowno " +
-                                "from uds_bulletin) as A where rowno >= {0} and rowno <= {1} {3}";
+                                "from uds_bulletin b) as A where rowno >= {0} and rowno <= {1} {3} order by sendtime desc";
 
                         string countTemplate = "select count(*) from uds_bulletin {0}";
 
@@ -92,76 +102,244 @@ namespace UDS.SubModule.bulletin
                                 //获取当前用户的全部公告
                                 countsql = string.Format(countTemplate, "");
                                 break;
+                            case "5":
+                                sql = "select bulletinid, subject, contents, createtime, sendtime, " +
+                                "(select count(*) from uds_bulletinreadlist t where t.bulletinid = b.bulletinid) as readcount " +
+                                "from uds_bulletin b where (bulletinid not in (select bulletinid from uds_bulletinreadlist where staffid = '" + UserID + "')) " +
+                                "order by sendtime desc";
+                                break;
                         }
 
-                        using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString))
+                        switch (type)
                         {
-                            SqlCommand comm = new SqlCommand(string.Format(sql, rowstart, rowend), con);
-                            SqlDataReader reader = null;
-                            try
-                            {
-                                con.Open();
-                                reader = comm.ExecuteReader();
-                                IList<UDSBulletin> bulletins = new List<UDSBulletin>();
-                                while (reader.Read())
+                            case "1":
+                            case "2":
+                            case "3":
+                                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString))
                                 {
-                                    UDSBulletin buletting = new UDSBulletin()
+                                    SqlCommand comm = new SqlCommand(string.Format(sql, rowstart, rowend), con);
+                                    SqlDataReader reader = null;
+                                    try
                                     {
-                                        Bulletinid = reader.GetInt32(0),
-                                        Subject = reader.GetString(1),
-                                        Contents = reader.GetString(2),
-                                        Createtime = reader.GetDateTime(3).ToString(),
-                                        Sendtime = reader.GetDateTime(4).ToString(),
-                                        Readcount = reader.GetInt32(5)
-                                    };
+                                        con.Open();
+                                        reader = comm.ExecuteReader();
+                                        IList<UDSBulletin> bulletins = new List<UDSBulletin>();
+                                        while (reader.Read())
+                                        {
+                                            UDSBulletin buletting = new UDSBulletin()
+                                            {
+                                                Bulletinid = reader.GetInt32(0),
+                                                Subject = reader.GetString(1),
+                                                Contents = reader.GetString(2),
+                                                Createtime = reader.GetDateTime(3).ToString(),
+                                                Sendtime = reader.GetDateTime(4).ToString(),
+                                                Readcount = reader.GetInt32(5)
+                                            };
 
-                                    bulletins.Add(buletting);
+                                            bulletins.Add(buletting);
+                                        }
+
+                                        reader.Close();
+                                        comm.CommandText = countsql;
+
+                                        int totalCount = int.Parse(comm.ExecuteScalar().ToString());
+
+                                        con.Close();
+
+                                        PageRecords r = new PageRecords();
+                                        r.Order = order;
+                                        r.Orderby = orderby;
+                                        r.Rows = int.Parse(rows);
+                                        r.TotalRows = totalCount;
+                                        r.Records = bulletins;
+
+                                        var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                                        StringWriter sw = new StringWriter();
+                                        using (JsonWriter jw = new JsonTextWriter(sw))
+                                        {
+                                            jw.Formatting = Formatting.Indented;
+
+                                            jsonSer.Serialize(jw, r);
+                                        }
+
+                                        Response.ContentType = "application/json";
+
+                                        Response.Write(sw.ToString());
+                                        sw.Close();
+                                    }
+                                    catch (Exception eX)
+                                    {
+                                        if (null != reader && !reader.IsClosed)
+                                            reader.Close();
+
+                                        if (System.Data.ConnectionState.Open == con.State)
+                                            con.Close();
+
+                                        Response.StatusCode = 400;
+                                        Response.ContentType = "text/html";
+                                        Response.Write(eX.Message);
+                                    }
+                                    finally
+                                    {
+                                        Response.End();
+                                    }
                                 }
-
-                                reader.Close();
-                                comm.CommandText = countsql;
-
-                                int totalCount = int.Parse(comm.ExecuteScalar().ToString());
-
-                                con.Close();
-
-                                PageRecords r = new PageRecords();
-                                r.Order = order;
-                                r.Orderby = orderby;
-                                r.Rows = int.Parse(rows);
-                                r.TotalRows = totalCount;
-                                r.Records = bulletins;
-
-                                var jsonSer = new Newtonsoft.Json.JsonSerializer();
-                                StringWriter sw = new StringWriter();
-                                using (JsonWriter jw = new JsonTextWriter(sw))
+                                break;
+                            case "4":
+                                //获取指定ID的记录
+                                string id = Request.Params["id"];
+                                sql = string.Format("select bulletinid, subject, contents, createtime, sendtime from uds_bulletin where bulletinid = {0}", id);
+                                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString))
                                 {
-                                    jw.Formatting = Formatting.Indented;
+                                    SqlCommand comm = new SqlCommand(sql, con);
+                                    SqlDataReader reader = null;
+                                    SqlDataReader attachReader = null;
 
-                                    jsonSer.Serialize(jw, r);
+                                    try
+                                    {
+                                        con.Open();
+
+                                        reader = comm.ExecuteReader();
+
+                                        UDSBulletin buletting = new UDSBulletin();
+
+                                        if (reader.Read())
+                                        {
+                                            buletting.Bulletinid = reader.GetInt32(0);
+                                            buletting.Subject = reader.GetString(1);
+                                            buletting.Contents = reader.GetString(2);
+                                            buletting.Createtime = reader.GetDateTime(3).ToString();
+                                            buletting.Sendtime = reader.GetDateTime(4).ToString();
+
+                                            reader.Close();
+
+                                            sql = string.Format(
+                                                "select bulletinid, attachmentid, attachmentname, attachmentpath from UDS_BulletinAttachment where bulletinid = {0}",
+                                                id);
+
+                                            comm.CommandText = sql;
+                                            attachReader = comm.ExecuteReader();
+
+                                            buletting.Attaches = new List<UDSBulletinAttaches>();
+
+                                            while (attachReader.Read())
+                                            {
+                                                UDSBulletinAttaches a = new UDSBulletinAttaches()
+                                                {
+                                                    Bulletinid = attachReader.GetInt32(0),
+                                                    Attachmentid = attachReader.GetInt32(1),
+                                                    Attachmentname = attachReader.GetString(2),
+                                                    Attachmentpath = attachReader.GetString(3)
+                                                };
+
+                                                buletting.Attaches.Add(a);
+                                            }
+
+                                            attachReader.Close();
+                                        }
+                                        else
+                                        {
+                                            reader.Close();
+                                            con.Close();
+
+                                            buletting = new UDSBulletin();
+                                            buletting.Attaches = new List<UDSBulletinAttaches>();
+                                        }
+
+                                        var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                                        StringWriter sw = new StringWriter();
+                                        using (JsonWriter jw = new JsonTextWriter(sw))
+                                        {
+                                            jw.Formatting = Formatting.Indented;
+
+                                            jsonSer.Serialize(jw, buletting);
+                                        }
+
+                                        Response.ContentType = "application/json";
+
+                                        Response.Write(sw.ToString());
+                                        sw.Close();
+                                    }
+                                    catch (Exception eX)
+                                    {
+                                        if (null != reader)
+                                            reader.Close();
+
+                                        if (null != attachReader)
+                                            attachReader.Close();
+
+                                        Response.StatusCode = 400;
+                                        Response.ContentType = "text/html";
+                                        Response.Write(eX.Message);
+                                    }
+                                    finally
+                                    {
+                                        if (ConnectionState.Open == con.State)
+                                            con.Close();
+
+                                        Response.End();
+                                    }
                                 }
+                                break;
+                            case "5":
+                                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString))
+                                {
+                                    SqlCommand comm = new SqlCommand(sql, con);
+                                    SqlDataReader reader = null;
 
-                                Response.ContentType = "application/json";
+                                    try
+                                    {
+                                        con.Open();
+                                        reader = comm.ExecuteReader();
+                                        IList<UDSBulletin> bulletins = new List<UDSBulletin>();
+                                        while (reader.Read())
+                                        {
+                                            UDSBulletin buletting = new UDSBulletin()
+                                            {
+                                                Bulletinid = reader.GetInt32(0),
+                                                Subject = reader.GetString(1),
+                                                Contents = reader.GetString(2),
+                                                Createtime = reader.GetDateTime(3).ToString(),
+                                                Sendtime = reader.GetDateTime(4).ToString(),
+                                                Readcount = reader.GetInt32(5)
+                                            };
 
-                                Response.Write(sw.ToString());
-                                sw.Close();
-                            }
-                            catch (Exception eX)
-                            {
-                                if (null != reader && !reader.IsClosed)
-                                    reader.Close();
+                                            bulletins.Add(buletting);
+                                        }
 
-                                if (System.Data.ConnectionState.Open == con.State)
-                                    con.Close();
+                                        reader.Close();
+                                        con.Close();
+                                        var jsonSer = new Newtonsoft.Json.JsonSerializer();
+                                        StringWriter sw = new StringWriter();
+                                        using (JsonWriter jw = new JsonTextWriter(sw))
+                                        {
+                                            jw.Formatting = Formatting.Indented;
 
-                                Response.StatusCode = 400;
-                                Response.ContentType = "text/html";
-                                Response.Write(eX.Message);
-                            }
-                            finally
-                            {
-                                Response.End();
-                            }
+                                            jsonSer.Serialize(jw, bulletins);
+                                        }
+
+                                        Response.ContentType = "application/json";
+
+                                        Response.Write(sw.ToString());
+                                        sw.Close();
+                                    }
+                                    catch (Exception eX)
+                                    {
+                                        if (null != reader)
+                                            reader.Close();
+
+                                        Response.StatusCode = 400;
+                                        Response.Write(eX.Message);
+                                    }
+                                    finally
+                                    {
+                                        if (ConnectionState.Open == con.State)
+                                            con.Close();
+
+                                        Response.End();
+                                    }
+                                }
+                                break;
                         }
                     }
 
@@ -230,6 +408,7 @@ namespace UDS.SubModule.bulletin
                     }
                     break;
                 case "PUT":
+                    
                     break;
                 case "HEAD":
                     break;
