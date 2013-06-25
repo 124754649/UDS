@@ -1655,6 +1655,7 @@
     <Compile Include="Components\UBB.cs" />
     <Compile Include="Components\WA.cs" />
     <Compile Include="Entity\Records.cs" />
+    <Compile Include="Entity\UDSAssetManagement.cs" />
     <Compile Include="Entity\UDSBulletin.cs" />
     <Compile Include="Entity\UDSBulletinAttaches.cs" />
     <Compile Include="Entity\UDSSMS.cs" />
