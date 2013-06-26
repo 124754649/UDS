@@ -74,7 +74,7 @@ namespace UDS.SubModule.bulletin
                         string sqlTemplate = "select * from " +
                             "(select bulletinid, subject, contents, createtime, sendtime, " +
                                 "(select count(*) from uds_bulletinreadlist t where t.bulletinid = b.bulletinid {2}) as readcount," +
-                                "ROW_NUMBER() over (order by bulletinid) as rowno " +
+                                "ROW_NUMBER() over (order by sendtime desc) as rowno " +
                                 "from uds_bulletin b) as A where rowno >= {0} and rowno <= {1} {3} order by sendtime desc";
 
                         string countTemplate = "select count(*) from uds_bulletin {0}";

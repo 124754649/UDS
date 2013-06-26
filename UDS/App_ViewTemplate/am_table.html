@@ -1,0 +1,42 @@
+﻿<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th data-orderfield="name">资产名称</th>
+            <th data-orderfield="code">资产编码</th>
+            <th data-orderfield="specification">规格型号</th>
+            <th data-orderfield="number">数量</th>
+            <th data-orderfield="totalprice">总价格</th>
+            <th data-orderfield="taxrate">税率</th>
+            <th data-orderfield="location">存放地点</th>
+            <th data-orderfield="startusingtime">启用时间</th>
+            <th data-orderfield="buyingtime">购买时间</th>
+            <th data-orderfield="status">使用状态</th>
+            <th data-orderfield="usingman">使用人</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input data-searchfield="name"/></td>
+            <td><input data-searchfield="code"/></td>
+            <td><input data-searchfield="specification"/></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input data-searchfield="location" /></td>
+            <td></td>
+            <td></td>
+            <td>
+                <select>
+                    <% _.each(['使用', '停用', '待修', '报废', '全部'], function(s,index){ %>
+                        <% if(index == 4) { %>
+                            <option selected><%= s %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+             </td>
+            <td><input data-searchfield="usingman"/></td>
+        </tr>
+    </tbody>
+</table>
