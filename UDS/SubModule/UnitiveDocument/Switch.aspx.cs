@@ -101,6 +101,9 @@ namespace UDS.SubModule.UnitiveDocument
 						case "18":
 							url = Page.ResolveUrl("~/SubModule/Bulletin/Index.html");
 							break;
+                        case "19":
+                            url = Page.ResolveUrl("~/SubModule/AM/index.aspx");
+                            break;
 						default:
 							break;
 					}

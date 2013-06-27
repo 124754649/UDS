@@ -103,12 +103,12 @@ namespace UDS.Entity
         private int status;
 
         [DataMember]
-        private string usingman;
+        private string usingMan;
 
-        public string Usingman
+        public string UsingMan
         {
-            get { return usingman; }
-            set { usingman = value; }
+            get { return usingMan; }
+            set { usingMan = value; }
         }
 
         [DataMember]

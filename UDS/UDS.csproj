@@ -1392,10 +1392,12 @@
     <Content Include="js\quantumcode-elements.js" />
     <Content Include="js\quantumcode.js" />
     <Content Include="js\records.js" />
+    <Content Include="js\udsAM.js" />
     <Content Include="js\udsBulletin.js" />
     <Content Include="js\udsTask.js" />
     <Content Include="js\underscore-min.js" />
     <Content Include="SubModule\AM\action.aspx" />
+    <Content Include="SubModule\AM\index.aspx" />
     <Content Include="SubModule\AssignRule\ClassTree.aspx" />
     <Content Include="SubModule\AssignRule\RightList.aspx" />
     <Content Include="SubModule\AssignRule\RightListView.aspx" />
@@ -1713,6 +1715,13 @@
     </Compile>
     <Compile Include="SubModule\AM\action.aspx.designer.cs">
       <DependentUpon>action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubModule\AM\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubModule\AM\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="SubModule\AssignRule\ClassTree.aspx.cs">
       <DependentUpon>ClassTree.aspx</DependentUpon>
