@@ -29,24 +29,27 @@
 	</style>
 </head>
 <body>
+    <div id="editAMDialog">
+
+    </div>
     <div class="container-fluid">
         <div id="page-content">
 		    <div class="page-header">
-			    <h1>公告管理</h1>
+			    <h1>资产管理</h1>
 		    </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="widget-box">
                         <div class="widget-header header-color-blue">
-                            <h5><i class="icon-bullhorn icon-2x"></i>公告</h5>
+                            <h5><i class="icon-barcode icon-2x"></i>资产列表</h5>
                             <div class="widget-toolbar">
-                                <a href="editbulletin.aspx?isNew=" id="newlink"><i class="icon-edit"></i>新建公告</a>
-                                <a href="javascript:deleteBulletin()"><i class="icon-remove"></i>删除</a>
+                                <a href="editbulletin.aspx?isNew=" id="newlink"><i class="icon-edit"></i>添加资产</a>
+                                <!--<a href="javascript:deleteBulletin()"><i class="icon-remove"></i>删除</a>-->
                             </div>
                         </div>
                         <div class="widget-body">
 							<div class="widget-body-inner" style="display: block">
-								<div class="widget-main no-padding" id="bulletinList">
+								<div class="widget-main no-padding" id="amList">
                                     
                                 </div>
                             </div>
@@ -65,7 +68,14 @@
     <script type="text/javascript" src="../../js/udsAM.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            var amEditDlg = new udsAMEditView({
+                templateUri: '<%= Page.ResolveUrl("~/App_ViewTemplate/am_editor.html") %>',
+                el: $("#editAMDialog")
+            });
+
             var amtable = new udsAMTableView({
+                el: $("#amList"),
+                editorDlg: amEditDlg,
                 templateUri: '<%= Page.ResolveUrl("~/App_ViewTemplate/am_table.html") %>',
                 queryUrl: '<%= Page.ResolveUrl("~/SubModule/AM/action.aspx") %>'
             });

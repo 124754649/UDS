@@ -35,8 +35,8 @@ namespace UDS.SubModule.AM
                         string type = Request.Params["type"];
 
                         dynamic queryStyle = JValue.Parse(HttpUtility.UrlDecode(Request.Params["qs"]));
-                        string[] fields = (queryStyle.fields as JArray);
-                        string[] values = queryStyle.values;
+                        string[] fields = (queryStyle.fields as JArray).Select(x => (string)x).ToArray();
+                        string[] values = (queryStyle.values as JArray).Select(x => (string)x).ToArray();
 
                         List<UDSAssetManagement> retValue = new List<UDSAssetManagement>();
 

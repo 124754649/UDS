@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="about\you.aspx" />
+    <Content Include="App_ViewTemplate\am_editor.html" />
     <Content Include="App_ViewTemplate\am_row.html" />
     <Content Include="App_ViewTemplate\am_table.html" />
     <Content Include="App_ViewTemplate\bulletin_item.html" />

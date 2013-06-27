@@ -40,38 +40,55 @@ var udsAMCollection = Backbone.Collection.extend({
 });
 
 var udsAMRowView = Backbone.View.extend({
+    editorDlg: null,
     template:_.template([
-        '<tr data-id="<%= id %>">',
-            '<td><%= name %></td>',
-            '<td><%= code %></td>',
-            '<td><%= specification %></td>',
-            '<td><%= number %></td>',
-            '<td><%= totalprice %></td>',
-            '<td><%= taxrate %></td>',
-            '<td><%= location %></td>',
-            '<td><%= startusingtime %></td>',
-            '<td><%= buyingtime %></td>',
+        //'<tr data-id="<%= data.id %>">',
+            '<td><%= data.name %></td>',
+            '<td><%= data.code %></td>',
+            '<td><%= data.specification %></td>',
+            '<td><%= data.number %></td>',
+            '<td><%= data.totalprice %></td>',
+            '<td><%= data.taxrate %></td>',
+            '<td><%= data.location %></td>',
+            '<td><%= data.startusingtime %></td>',
+            '<td><%= data.buyingtime %></td>',
             '<% _.each(["使用", "停用", "待修", "报废"], function(s,index){ %>',
-                '<% if(index == status) { %>',
+                '<% if(index == data.status) { %>',
                     '<td><%= s %></td>',
                 '<% } %>',
             '<% }) %>',
-            '<td><%= usingman %></td>',
-            '<td><%= remark %></td>',
+            '<td><%= data.usingman %></td>',
+            '<td><%= data.remark %></td>',
             '<td>',
-                '<div style="cursor:pointer;display:inline" class="editBtn"><i class="icon_edit"></i></div>',
-                '<div style="cursor:pointer;display:inline" class="removeBtn"><i class="icon_remove"></i></div>',
-            '</td>',
-        '</tr>'
+                '<div class="btn-toolbar">',
+                    '<div class="btn-group">',
+                        '<button class="btn btn-mini editBtn"><i class="icon-edit"></i></button>',
+                        '<button class="btn btn-mini removeBtn"><i class="icon-remove"></i></button>',
+                    '</div>',
+                '</div>',
+            '</td>'
+        //'</tr>'
     ].join('')),
+    tagName: "tr",
+    events:{
+        'click button.editBtn': 'editAM'
+    },
     initialize: function (options) {
+        $.extend(this, options);
     },
     render: function () {
         this.$el.html(this.template({
-            data: this.model.toJSON()
+            data: this.model
         }));
 
+        $(this.el).attr("data-id", this.model.id);
+
         return this;
+    },
+    editAM: function (evt) {
+        if (null != this.editorDlg) {
+            this.editorDlg.showAM(this.model);
+        }
     }
 });
 
@@ -81,6 +98,7 @@ var udsAMTableView = Backbone.View.extend({
     template: null,
     records: null,
     amList: null,
+    editorDlg: null,
     initialize: function (options) {
         if (null == options || null == options.templateUri) {
             alert("初始化udsAMTableView必须指定templateUri");
@@ -119,9 +137,10 @@ var udsAMTableView = Backbone.View.extend({
 
                 context.records.fetch({
                     success: function (datas) {
-                        _.each(datas.get("records"), function (index, data) {
+                        _.each(datas.get("records"), function (data, index) {
                             var row = new udsAMRowView({
-                                model: data
+                                model: data,
+                                editorDlg: context.editorDlg
                             });
                             $("#assetlist").append(row.render().el);
                         });
@@ -129,5 +148,56 @@ var udsAMTableView = Backbone.View.extend({
                 });
             }
         });
+    }
+});
+
+var udsAMEditView = Backbone.View.extend({
+    template: null,
+    templateUri: '',
+    initialize: function (options) {
+        if (null == arguments[0] || null == options.templateUri) {
+            alert("初始化udsAMEditView必须指定templateUri");
+        }
+
+        $.extend(this, options);
+
+        if (null == this.model) {
+            this.model = new udsAMModel();
+        }
+
+        this.model.bind('change', this.render, this);
+
+        _.bind(this.showAM, this);
+
+        $(this.el).dialog({
+            autoOpen: false,
+            modal: true
+        });
+    },
+    render: function () {
+        var context = this;
+        if (null == this.template) {
+            $.ajax({
+                url: this.templateUri,
+                type: "get",
+                dataType: "text",
+                cache: false,
+                global: false,
+                async: false,
+                success: function (contents) {
+                    context.template = _.template(contents);
+                }
+            });
+        }
+
+        $(this.el).html(this.template({
+            data: this.model
+        }));
+
+        $(this.el).dialog("open");
+    },
+    showAM: function (data) {
+        this.model = data;
+        this.render();
     }
 });

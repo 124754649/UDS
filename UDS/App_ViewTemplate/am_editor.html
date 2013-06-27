@@ -1,0 +1,85 @@
+﻿<form class="form-horizontal">
+    <fieldset>
+        <legend></legend>
+        <div class="control-group">
+            <label class="control-label" for="input-name">资产名称</label>
+            <div class="controls">
+                <input type="text" id="input-name" data-field="name" value="<%= data.name %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-code">资产编码</label>
+            <div class="controls">
+                <input type="text" id="input-code" data-field="code" value="<%= data.code %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-specification">规格型号</label>
+            <div class="controls">
+                <input type="text" id="input-specification" data-field="specification" value="<%= data.specification %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-number">数量</label>
+            <div class="controls">
+                <input type="text" id="input-number" data-field="number" value="<%= data.number %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-totalprice">总价格</label>
+            <div class="controls">
+                <input type="text" id="input-totalprice" data-field="totalprice" value="<%= data.totalprice %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-taxrate">税率</label>
+            <div class="controls">
+                <input type="text" id="input-taxrate" data-field="taxrate" value="<%= data.taxrate %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-location">存放地点</label>
+            <div class="controls">
+                <input type="text" id="input-location" data-field="location" value="<%= data.location %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-startusingtime">启用时间</label>
+            <div class="controls">
+                <input type="text" id="input-startusingtime" data-field="startusingtime" value="<%= data.startusingtime %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-buyingtime">购买时间</label>
+            <div class="controls">
+                <input type="text" id="input-buyingtime" data-field="buyingtime" value="<%= data.buyingtime %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-status">使用状态</label>
+            <div class="controls">
+                <select id="input-status">
+                    <% _.each(['使用', '停用', '待修', '报废'], function(s,index){ %>
+                        <% if(index == data.status) { %>
+                            <option value="<%= index %>" selected><%= s %></option>
+                        <% } else { %>
+                            <option value="<%= index %>"><%= s %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-usingman">使用人</label>
+            <div class="controls">
+                <input type="text" id="input-usingman" data-field="usingman" value="<%= data.usingman %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-remark">备注</label>
+            <div class="controls">
+                <input type="text" id="input-remark" data-field="remark" value="<%= data.remark %>" />
+            </div>
+        </div>
+    </fieldset>
+</form>
