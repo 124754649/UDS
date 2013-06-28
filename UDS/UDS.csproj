@@ -2392,6 +2392,7 @@
     <Content Include="ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="ckeditor\plugins\wsc\README.md" />
     <Content Include="ckeditor\skins\kama\readme.md" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />
     <None Include="SubModule\Staff\Report\StaffDataSet.xsd">

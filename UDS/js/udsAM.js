@@ -87,7 +87,7 @@ var udsAMRowView = Backbone.View.extend({
     },
     editAM: function (evt) {
         if (null != this.editorDlg) {
-            this.editorDlg.showAM(this.model);
+            this.editorDlg.showAM(this.model, this);
         }
     }
 });
@@ -154,6 +154,7 @@ var udsAMTableView = Backbone.View.extend({
 var udsAMEditView = Backbone.View.extend({
     template: null,
     templateUri: '',
+    rowView: null,
     initialize: function (options) {
         if (null == arguments[0] || null == options.templateUri) {
             alert("初始化udsAMEditView必须指定templateUri");
@@ -168,10 +169,22 @@ var udsAMEditView = Backbone.View.extend({
         this.model.bind('change', this.render, this);
 
         _.bind(this.showAM, this);
+        _.bind(this.save, this);
+
+        var context = this;
 
         $(this.el).dialog({
             autoOpen: false,
-            modal: true
+            modal: true,
+            width: 470,
+            buttons: {
+                "保存": function () {
+                    context.save();
+                },
+                "取消": function () {
+                    $(context.el).dialog("close");
+                }
+            }
         });
     },
     render: function () {
@@ -194,10 +207,23 @@ var udsAMEditView = Backbone.View.extend({
             data: this.model
         }));
 
+        $("input[data-type='datetime']").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+
         $(this.el).dialog("open");
     },
-    showAM: function (data) {
+    showAM: function (data, rowView) {
         this.model = data;
+        this.rowView = rowView;
         this.render();
+    },
+    save: function () {
+        var context = this;
+        $.each($("[data-field]"), function (index, c) {
+            context.model[$(c).data("field")] = $(c).val();
+        });
+        this.rowView.render();
     }
 });
