@@ -64,6 +64,8 @@ namespace UDS.SubModule.AM
                         pr.Orderby = orderby;
                         pr.Rows = int.Parse(rows);
                         pr.TotalRows = 2;
+                        pr.Fields = fields;
+                        pr.Values = values;
 
                         retValue.Add(uam1);
                         retValue.Add(uam2);
@@ -83,6 +85,23 @@ namespace UDS.SubModule.AM
 
                         Response.Write(sw.ToString());
                         sw.Close();
+                    }
+                    catch (Exception eX)
+                    {
+                        Response.StatusCode = 400;
+                        Response.Write(eX.Message);
+                    }
+                    finally
+                    {
+                        Response.End();
+                    }
+                    break;
+                case "s":
+                    try
+                    {
+                        UDSAssetManagement asset = JsonConvert.DeserializeObject<UDSAssetManagement>(Request.Params["target"]);
+
+                        Response.Write("1");
                     }
                     catch (Exception eX)
                     {

@@ -68,5 +68,23 @@ namespace UDS.Entity
                 return ps;
             }
         }
+
+        [DataMember]
+        private string[] fields;
+
+        public string[] Fields
+        {
+            get { return fields; }
+            set { fields = value; }
+        }
+
+        [DataMember]
+        private string[] values;
+
+        public string[] Values
+        {
+            get { return values; }
+            set { values = value; }
+        }
     }
 }

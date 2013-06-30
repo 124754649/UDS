@@ -6,6 +6,8 @@
         pages: 1,
         orderby: "",
         order: "desc",
+        fields: [],
+        values: [],
         target: null,
         records: null
     },
@@ -23,6 +25,40 @@
             urlRoot = this.get("target").url();
         else
             urlRoot = this.get("target").url;
-        return urlRoot + "&startIndex=" + startIndex + "&rows=" + this.get("rows") + "&orderby=" + this.get("orderby") + "&order=" + this.get("order");
+
+        var queryData = { fields: this.get("fields"), values: this.get("values") };
+
+        var queryParam = encodeURIComponent(JSON.stringify(queryData));
+
+        return urlRoot +
+            "&startIndex=" + startIndex +
+            "&rows=" + this.get("rows") +
+            "&orderby=" + this.get("orderby") +
+            "&order=" + this.get("order") +
+            "&qs=" + queryParam;
+    },
+    pageInfo: function () {
+        return {
+            page: this.get("page"),
+            rows: this.get("rows"),
+            totalRows: this.get("totalRows"),
+            pages: this.get("pages"),
+            orderby: this.get("orderby"),
+            order: this.get("order"),
+            fields: this.get("fields"),
+            values: this.get("values"),
+            value: function (field) {
+                var context = this;
+                var retValue = "";
+                _.each(this.fields, function (f, index) {
+                    if (f == field) {
+                        retValue = context.values[index];
+                        return;
+                    }
+                });
+
+                return retValue;
+            }
+        };
     }
 });

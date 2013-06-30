@@ -71,6 +71,7 @@
         $(document).ready(function () {
             var amEditDlg = new udsAMEditView({
                 templateUri: '<%= Page.ResolveUrl("~/App_ViewTemplate/am_editor.html") %>',
+                editUri: '<%= Page.ResolveUrl("~/SubModule/AM/action.aspx") %>',
                 el: $("#editAMDialog")
             });
 

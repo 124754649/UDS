@@ -35,7 +35,7 @@ var udsAMCollection = Backbone.Collection.extend({
 
         var qsdata = encodeURIComponent(JSON.stringify(this.queryData));
 
-        return this.queryUrl + "?m=q&qs=" + qsdata;
+        return this.queryUrl + "?m=q";
     }
 });
 
@@ -99,6 +99,54 @@ var udsAMTableView = Backbone.View.extend({
     records: null,
     amList: null,
     editorDlg: null,
+    events:{
+        "click th[data-orderfield]": "orderList",
+        "click a[data-command='page'][data-page]": "pageChanged",
+        "click button.btnSearch": "search"
+    },
+    orderList: function (evt) {
+        var c = $(evt.target);
+
+        if (c.data("orderfield") != this.records.get("orderby")) {
+            $('th[data-orderfield="' + this.records.get("orderby") + '"] i').remove();
+
+            this.records.set("order", "asc", { silence: true });
+            this.records.set("orderby", c.data("orderfield"));
+        }
+        else {
+            if (this.records.get("order") == "asc") {
+                this.records.set("order", "desc");
+            }
+        }
+    },
+    pageChanged: function(evt){
+        var c = $(evt.target);
+
+        this.records.set("page", c.data("page"));
+    },
+    search: function (evt) {
+        var fields = [];
+        var values = [];
+
+        var aindex = 0;
+        $.each($("[data-searchfield]"), function (index, ctrl) {
+            if ("INPUT" == $(ctrl)[0].tagName) {
+                if ($(ctrl).val()) {
+                    fields[aindex] = $(ctrl).data("searchfield");
+                    values[aindex] = $(ctrl).val();
+                    aindex += 1;
+                }
+            }
+            else if ("SELECT" == $(ctrl)[0].tagName) {
+                fields[aindex] = $(ctrl).data("searchfield");
+                values[aindex] = $(ctrl).val();
+                aindex += 1;
+            }
+        });
+
+        this.records.set("fields", fields);
+        this.records.set("values", values);
+    },
     initialize: function (options) {
         if (null == options || null == options.templateUri) {
             alert("初始化udsAMTableView必须指定templateUri");
@@ -114,10 +162,15 @@ var udsAMTableView = Backbone.View.extend({
         this.records = new records({
             records: this.amList,
             target: this.amList,
-            orderby: "",
-            order: "desc",
-            rows: 10
+            orderby: "status",
+            order: "asc",
+            rows: 1
         });
+
+        this.records.bind("change:order", this.render, this);
+        this.records.bind("change:orderby", this.render, this);
+        this.records.bind("change:page", this.render, this);
+        this.records.bind("change:values", this.render, this);
     },
     render: function () {
         var context = this;
@@ -131,12 +184,25 @@ var udsAMTableView = Backbone.View.extend({
 
             success: function (contents) {
                 context.template = _.template(contents);
-                $(context.el).html(context.template({
-                    //ams: context.model.get("records")
-                }));
 
                 context.records.fetch({
                     success: function (datas) {
+                        $(context.el).html(context.template({
+                            pageInfo: context.records.pageInfo()
+                        }));
+
+                        $.each($("th[data-orderfield]"), function (index, c) {
+                            if ($(c).data("orderfield") == context.records.get("orderby")) {
+                                if ("desc" == context.records.get("order")) {
+                                    $(c).append('<i class="icon-sort-down pull-right"></i>');
+                                }
+                                else {
+                                    $(c).append('<i class="icon-sort-up pull-right"></i>');
+                                }
+                            }
+                            $(c).attr("style", "cursor:pointer");
+                        });
+
                         _.each(datas.get("records"), function (data, index) {
                             var row = new udsAMRowView({
                                 model: data,
@@ -154,6 +220,7 @@ var udsAMTableView = Backbone.View.extend({
 var udsAMEditView = Backbone.View.extend({
     template: null,
     templateUri: '',
+    editUri: '',
     rowView: null,
     initialize: function (options) {
         if (null == arguments[0] || null == options.templateUri) {
@@ -221,9 +288,30 @@ var udsAMEditView = Backbone.View.extend({
     },
     save: function () {
         var context = this;
+        var saveTarget = new Object();
+
         $.each($("[data-field]"), function (index, c) {
-            context.model[$(c).data("field")] = $(c).val();
+            //context.model[$(c).data("field")] = $(c).val();
+            saveTarget[$(c).data("field")] = $(c).val();
         });
-        this.rowView.render();
+
+        //if (-1 == this.model.get("id")) {
+            saveTarget["id"] = -1;
+
+            $.ajax({
+                url: this.editUri,
+                type: "post",
+                dataType: "text",
+                cache: false,
+                global: false,
+                data: { m: "s", target: JSON.stringify(saveTarget) },
+                success: function (contents) {
+                    console.log(contents);
+                }
+            });
+        //}
+
+        //this.rowView.render();
+        console.log(saveTarget);
     }
 });
