@@ -82,18 +82,18 @@ namespace UDS.Entity
         }
 
         [DataMember]
-        private DateTime startUsingTime;
+        private DateTime? startUsingTime;
 
-        public DateTime StartUsingTime
+        public DateTime? StartUsingTime
         {
             get { return startUsingTime; }
             set { startUsingTime = value; }
         }
 
         [DataMember]
-        private DateTime buyingTime;
+        private DateTime? buyingTime;
 
-        public DateTime BuyingTime
+        public DateTime? BuyingTime
         {
             get { return buyingTime; }
             set { buyingTime = value; }
@@ -101,6 +101,12 @@ namespace UDS.Entity
 
         [DataMember]
         private int status;
+
+        public int Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
 
         [DataMember]
         private string usingMan;

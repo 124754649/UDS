@@ -164,7 +164,7 @@ var udsAMTableView = Backbone.View.extend({
             target: this.amList,
             orderby: "status",
             order: "asc",
-            rows: 1
+            rows: 5
         });
 
         this.records.bind("change:order", this.render, this);
@@ -291,11 +291,10 @@ var udsAMEditView = Backbone.View.extend({
         var saveTarget = new Object();
 
         $.each($("[data-field]"), function (index, c) {
-            //context.model[$(c).data("field")] = $(c).val();
             saveTarget[$(c).data("field")] = $(c).val();
         });
 
-        //if (-1 == this.model.get("id")) {
+        if (-1 == this.model.get("id")) {
             saveTarget["id"] = -1;
 
             $.ajax({
@@ -306,12 +305,41 @@ var udsAMEditView = Backbone.View.extend({
                 global: false,
                 data: { m: "s", target: JSON.stringify(saveTarget) },
                 success: function (contents) {
-                    console.log(contents);
+                    context.rowView.render();
+                    $(context.el).dialog("close");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                },
+                complete: function (jqXHR, textStatus) {
                 }
             });
-        //}
+        }
+        else {
+            saveTarget["id"] = this.model.get("id");
 
-        //this.rowView.render();
-        console.log(saveTarget);
+            $.ajax({
+                url: this.editUri,
+                type: "post",
+                dataType: "text",
+                cache: false,
+                global: false,
+                data: { m: "u", target: JSON.stringify(saveTarget) },
+                success: function (contents) {
+                    $.each($("[data-field]"), function (index, c) {
+                        context.model[$(c).data("field")] = $(c).val();
+                    });
+
+                    context.rowView.render();
+                    $(context.el).dialog("close");
+                },
+                error: function (jqXHR, textStatus, errorThrowm) {
+                   
+                },
+                complete: function (jqXHR, textStatus) {
+                    
+                }
+            });
+        }
     }
 });

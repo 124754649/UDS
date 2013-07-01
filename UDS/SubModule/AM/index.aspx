@@ -43,7 +43,7 @@
                         <div class="widget-header header-color-blue">
                             <h5><i class="icon-barcode icon-2x"></i>资产列表</h5>
                             <div class="widget-toolbar">
-                                <a href="editbulletin.aspx?isNew=" id="newlink"><i class="icon-edit"></i>添加资产</a>
+                                <a href="#" id="newlink"><i class="icon-edit"></i>添加资产</a>
                                 <!--<a href="javascript:deleteBulletin()"><i class="icon-remove"></i>删除</a>-->
                             </div>
                         </div>
@@ -68,14 +68,21 @@
     <script type="text/javascript" src="../../js/records.js"></script>
     <script type="text/javascript" src="../../js/udsAM.js"></script>
     <script type="text/javascript">
+        var amEditDlg;
+        var amtable;
+        $("#newlink").on("click", function () {
+            var newAMModel = new udsAMModel();
+            amEditDlg.showAM(newAMModel, amtable);
+        });
+
         $(document).ready(function () {
-            var amEditDlg = new udsAMEditView({
+            amEditDlg = new udsAMEditView({
                 templateUri: '<%= Page.ResolveUrl("~/App_ViewTemplate/am_editor.html") %>',
                 editUri: '<%= Page.ResolveUrl("~/SubModule/AM/action.aspx") %>',
                 el: $("#editAMDialog")
             });
 
-            var amtable = new udsAMTableView({
+            amtable = new udsAMTableView({
                 el: $("#amList"),
                 editorDlg: amEditDlg,
                 templateUri: '<%= Page.ResolveUrl("~/App_ViewTemplate/am_table.html") %>',
