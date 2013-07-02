@@ -47,23 +47,23 @@ var udsAMRowView = Backbone.View.extend({
             '<td><%= data.code %></td>',
             '<td><%= data.specification %></td>',
             '<td><%= data.number %></td>',
-            '<td><%= data.totalprice %></td>',
-            '<td><%= data.taxrate %></td>',
+            '<td><%= data.totalPrice %></td>',
+            '<td><%= data.taxRate %></td>',
             '<td><%= data.location %></td>',
-            '<td><%= data.startusingtime %></td>',
-            '<td><%= data.buyingtime %></td>',
+            '<td><%= data.startUsingTime %></td>',
+            '<td><%= data.buyingTime %></td>',
             '<% _.each(["使用", "停用", "待修", "报废"], function(s,index){ %>',
                 '<% if(index == data.status) { %>',
                     '<td><%= s %></td>',
                 '<% } %>',
             '<% }) %>',
-            '<td><%= data.usingman %></td>',
+            '<td><%= data.usingMan %></td>',
             '<td><%= data.remark %></td>',
             '<td>',
                 '<div class="btn-toolbar">',
                     '<div class="btn-group">',
                         '<button class="btn btn-mini editBtn"><i class="icon-edit"></i></button>',
-                        '<button class="btn btn-mini removeBtn"><i class="icon-remove"></i></button>',
+                        '<button class="btn btn-mini removeBtn" style="display:none"><i class="icon-remove"></i></button>',
                     '</div>',
                 '</div>',
             '</td>'
@@ -138,9 +138,11 @@ var udsAMTableView = Backbone.View.extend({
                 }
             }
             else if ("SELECT" == $(ctrl)[0].tagName) {
-                fields[aindex] = $(ctrl).data("searchfield");
-                values[aindex] = $(ctrl).val();
-                aindex += 1;
+                if (4 != $(ctrl).val()) {
+                    fields[aindex] = $(ctrl).data("searchfield");
+                    values[aindex] = $(ctrl).val();
+                    aindex += 1;
+                }
             }
         });
 
@@ -276,8 +278,11 @@ var udsAMEditView = Backbone.View.extend({
 
         $("input[data-type='datetime']").datepicker({
             changeMonth: true,
-            changeYear: true
+            changeYear: true,
+            dateFormat: "yy年mm月dd日"
         });
+
+        //$("input[data-type='datetime']").datepicker("option", "dateFormat", "yy年mm月dd日");
 
         $(this.el).dialog("open");
     },
@@ -294,7 +299,8 @@ var udsAMEditView = Backbone.View.extend({
             saveTarget[$(c).data("field")] = $(c).val();
         });
 
-        if (-1 == this.model.get("id")) {
+        if (($.isFunction(this.model.get) && -1==this.model.get("id")) ||
+            (!($.isFunction(this.model.get)) && -1 == this.model.id)) {
             saveTarget["id"] = -1;
 
             $.ajax({
@@ -316,7 +322,7 @@ var udsAMEditView = Backbone.View.extend({
             });
         }
         else {
-            saveTarget["id"] = this.model.get("id");
+            saveTarget["id"] = this.model.id;
 
             $.ajax({
                 url: this.editUri,
@@ -334,7 +340,7 @@ var udsAMEditView = Backbone.View.extend({
                     $(context.el).dialog("close");
                 },
                 error: function (jqXHR, textStatus, errorThrowm) {
-                   
+                    alert(jqXHR.responseText);
                 },
                 complete: function (jqXHR, textStatus) {
                     

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -55,6 +56,72 @@ namespace UDS.SubModule.bulletin
                         {
                             Response.StatusCode = 400;
                             Response.Write("错误的参数，无法记录是否已读");
+                        }
+                    }
+                    catch (Exception eX)
+                    {
+                        Response.StatusCode = 400;
+                        Response.Write(eX.Message);
+                    }
+                    finally
+                    {
+                        Response.End();
+                    }
+                    break;
+                case "2":
+                    string did = Request.Params["bid"];
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(did))
+                        {
+                            string delSql1 = "delete from uds_bulletinreadlist where bulletinid = {0}";
+                            string delSql2 = "delete from uds_bulletinattachment where bulletinid = {0}";
+                            string delSql3 = "delete from uds_bulletin where bulletinid = {0}";
+
+                            SqlTransaction trans = null;
+                            
+                            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString))
+                            {
+                                try
+                                {
+                                    SqlCommand comm = new SqlCommand();
+                                    comm.Connection = con;
+
+                                    con.Open();
+                                    trans = con.BeginTransaction();
+
+                                    comm.Transaction = trans;
+
+                                    comm.CommandText = string.Format(delSql1, did);
+                                    comm.ExecuteNonQuery();
+
+                                    comm.CommandText = string.Format(delSql2, did);
+                                    comm.ExecuteNonQuery();
+
+                                    comm.CommandText = string.Format(delSql3, did);
+                                    comm.ExecuteNonQuery();
+
+                                    trans.Commit();
+                                    con.Close();
+                                }
+                                catch (Exception eX)
+                                {
+                                    if (null != trans)
+                                        trans.Rollback();
+                                    Response.StatusCode = 400;
+                                    Response.Write(eX.Message);
+                                }
+                                finally
+                                {
+                                    if (ConnectionState.Open == con.State)
+                                        con.Close();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Response.StatusCode = 400;
+                            Response.Write("错误的参数，无法删除公告");
                         }
                     }
                     catch (Exception eX)

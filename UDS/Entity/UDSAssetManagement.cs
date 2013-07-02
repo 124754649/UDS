@@ -55,18 +55,18 @@ namespace UDS.Entity
         }
 
         [DataMember]
-        private double totalPrice;
+        private decimal totalPrice;
 
-        public double TotalPrice
+        public decimal TotalPrice
         {
             get { return totalPrice; }
             set { totalPrice = value; }
         }
 
         [DataMember]
-        private double taxRate;
+        private decimal taxRate;
 
-        public double TaxRate
+        public decimal TaxRate
         {
             get { return taxRate; }
             set { taxRate = value; }

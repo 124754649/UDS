@@ -5,7 +5,8 @@
     selectedItem: null,
     itemView: null,
     events:{
-        "click span#viewMore": "showMoreInfo"
+        "click button#viewMore": "showMoreInfo",
+        "click button.removeBtn": "deleteSelected"
     },
     initialize: function (options) {
         if (null == arguments[0])
@@ -46,7 +47,7 @@
         }
     },
     showMoreInfo: function (evt) {
-        var target = $(evt.target).parent();
+        var target = $(evt.target);
         
         if (null != this.selectedItem) {
             if (null != this.itemView) {
@@ -57,13 +58,21 @@
             }
         }
     },
-    deleteSelected: function () {
-        var checkedBoxs = $(":checkbox:checked");
+    deleteSelected: function (evt) {
+        var target = $(evt.target);
 
-        var ids = new Array();
+        var did = target.data("id");
 
-        checkedBoxs.each(function (index, c) {
-            ids[index] = $(c).data("id");
+        $.ajax({
+            url: "updatebulletin.aspx",
+            type: "POST",
+            dataType: "text",
+            cache: false,
+            global: false,
+            data: { m: 2, bid: did },
+            success: function () {
+
+            }
         });
     }
 });

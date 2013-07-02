@@ -163,8 +163,8 @@ namespace UDS.SubModule.AM
                                 ua.Code = reader.GetString(2);
                                 ua.Specification = reader.GetString(3);
                                 ua.Number = reader.GetInt32(4);
-                                ua.TotalPrice = reader.GetDouble(5);
-                                ua.TaxRate = reader.GetDouble(6);
+                                ua.TotalPrice = reader.GetDecimal(5);
+                                ua.TaxRate = reader.GetDecimal(6);
                                 ua.Location = reader.GetString(7);
                                 if (reader.IsDBNull(8))
                                     ua.StartUsingTime = null;
@@ -177,7 +177,8 @@ namespace UDS.SubModule.AM
                                     ua.BuyingTime = reader.GetDateTime(9);
 
                                 ua.Status = reader.GetInt32(10);
-                                ua.Remark = reader.GetString(11);
+                                ua.UsingMan = reader.IsDBNull(11) ? "" : reader.GetString(11);
+                                ua.Remark = reader.IsDBNull(12) ? "" : reader.GetString(12);
 
                                 retValue.Add(ua);
                             }
@@ -192,6 +193,7 @@ namespace UDS.SubModule.AM
                         StringWriter sw = new StringWriter();
                         using (JsonWriter jw = new JsonTextWriter(sw))
                         {
+                            jw.DateFormatString = "yyyy年MM月dd日";
                             jw.Formatting = Formatting.Indented;
 
                             jsonSer.Serialize(jw, pr);
@@ -264,7 +266,56 @@ namespace UDS.SubModule.AM
                     }
                     break;
                 case "u":
+                    SqlConnection updconn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    SqlTransaction updtrans = null;
+                    try
+                    {
+                        UDSAssetManagement asset = JsonConvert.DeserializeObject<UDSAssetManagement>(Request.Params["target"]);
 
+                        string sql = "update uds_assetmanagement" +
+                            " set name = '{0}', code = '{1}', specification = '{2}', number = {3}, " +
+                            "totalprice = {4}, taxrate = {5}, location = '{6}', startusingtime = {7}, buyingtime = {8}, " +
+                            "status = {9}, usingman = '{10}', remark = '{11}' " +
+                            "where id = {12}";
+
+                        sql = string.Format(sql, asset.Name, asset.Code, asset.Specification, asset.Number, asset.TotalPrice,
+                            asset.TaxRate, asset.Location,
+                            asset.StartUsingTime.HasValue ? "'" + asset.StartUsingTime.Value.ToString("yyyy-MM-dd") + "'" : "null",
+                            asset.BuyingTime.HasValue ? "'" + asset.BuyingTime.Value.ToString("yyyy-MM-dd") + "'" : "null", 
+                            asset.Status, 
+                            asset.UsingMan, 
+                            asset.Remark,
+                            asset.Id);
+
+                        SqlCommand comm = updconn.CreateCommand();
+                        comm.Connection = updconn;
+                        comm.CommandText = sql;
+
+                        updconn.Open();
+                        updtrans = updconn.BeginTransaction();
+                        comm.Transaction = updtrans;
+
+                        comm.ExecuteNonQuery();
+
+                        updtrans.Commit();
+
+                        updconn.Close();
+                    }
+                    catch (Exception eX)
+                    {
+                        if (null != updtrans)
+                            updtrans.Rollback();
+
+                        Response.StatusCode = 400;
+                        Response.Write(eX.Message);
+                    }
+                    finally
+                    {
+                        if (ConnectionState.Open == updconn.State)
+                            updconn.Close();
+
+                        Response.End();
+                    }
                     break;
             }
         }

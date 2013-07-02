@@ -19,7 +19,7 @@
         this.set("target", options.records);
     },
     url: function () {
-        var startIndex = (this.get("page") - 1) * this.get("rows");
+        var startIndex = (this.get("page") - 1) * this.get("rows") + 1;
         var urlRoot = "";
         if ($.isFunction(this.get("target").url))
             urlRoot = this.get("target").url();
