@@ -30,9 +30,7 @@
             Text="·µ»Ø" CausesValidation="False" OnClientClick=''></asp:Button>
     </form>
     <script language="javascript" type="text/javascript">
-        function navigate2() {
-            var url = '<%= Page.ResolveUrl(""); %>';
-        }
+        
     </script>
 </body>
 </html>

@@ -41,6 +41,7 @@ var udsAMCollection = Backbone.Collection.extend({
 
 var udsAMRowView = Backbone.View.extend({
     editorDlg: null,
+    parent: null,
     template:_.template([
         //'<tr data-id="<%= data.id %>">',
             '<td><%= data.name %></td>',
@@ -63,7 +64,7 @@ var udsAMRowView = Backbone.View.extend({
                 '<div class="btn-toolbar">',
                     '<div class="btn-group">',
                         '<button class="btn btn-mini editBtn"><i class="icon-edit"></i></button>',
-                        '<button class="btn btn-mini removeBtn" style="display:none"><i class="icon-remove"></i></button>',
+                        '<button class="btn btn-mini removeBtn"><i class="icon-remove"></i></button>',
                     '</div>',
                 '</div>',
             '</td>'
@@ -71,7 +72,8 @@ var udsAMRowView = Backbone.View.extend({
     ].join('')),
     tagName: "tr",
     events:{
-        'click button.editBtn': 'editAM'
+        'click button.editBtn': 'editAM',
+        'click button.removeBtn': 'removeAM'
     },
     initialize: function (options) {
         $.extend(this, options);
@@ -88,6 +90,32 @@ var udsAMRowView = Backbone.View.extend({
     editAM: function (evt) {
         if (null != this.editorDlg) {
             this.editorDlg.showAM(this.model, this);
+        }
+    },
+    removeAM: function (evt) {
+        var context = this;
+        if (null != this.editorDlg) {
+            if (confirm("要删除资产：" + this.model.name + "吗？")) {
+                $.ajax({
+                    url: this.editorDlg.editUri,
+                    type: "post",
+                    dataType: "text",
+                    cache: false,
+                    global: false,
+                    data: { m: "d", amid: this.model.id },
+                    success: function (contents) {
+                        context.parent.render();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    },
+                    complete: function (jqXHR, textStatus) {
+                    }
+                });
+            }
+        }
+        else {
+            alert("找不到编辑组件，无法删除");
         }
     }
 });
@@ -208,7 +236,8 @@ var udsAMTableView = Backbone.View.extend({
                         _.each(datas.get("records"), function (data, index) {
                             var row = new udsAMRowView({
                                 model: data,
-                                editorDlg: context.editorDlg
+                                editorDlg: context.editorDlg,
+                                parent: context
                             });
                             $("#assetlist").append(row.render().el);
                         });

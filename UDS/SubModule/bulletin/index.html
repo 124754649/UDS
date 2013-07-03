@@ -23,6 +23,13 @@
 		{
 			color: white;
 		}
+        table tbody tr td input,
+        table tbody tr td select,
+        table tbody tr td button,
+        table tbody tr td .btn-toolbar
+        {
+            margin: 0;
+        }
 	</style>
 </head>
 <body>
@@ -69,46 +76,42 @@
 
         $(document).ready(function () {
             var bulletins = new bulletinCollection(
-                {
-                    urlRoot: '../../SubModule/bulletin/bulletinAction.aspx',
-                    type: 1
-                });
+            {
+                urlRoot: '../../SubModule/bulletin/bulletinAction.aspx',
+                type: 1
+            });
 
             $("#newlink").attr("href", $("#newlink").attr("href") + (new Date()).getTime());
 
             var r = new records(
-                {
-                    records: bulletins,
-                    target: bulletins,
-                    orderby: "",
-                    order: "desc",
-                    rows: 10
-                });
-
-            r.fetch({
-                success: function () {
-                    var bi = new bulletinItemModel({
-                        urlRoot: 'bulletinAction.aspx'
-                    });
-
-                    bview = new bulletinListView(
-                    {
-                        templateUri: '../../App_ViewTemplate/bulletin_template.html',
-                        model: r,
-                        el: $("#bulletinList"),
-                        itemDialog: $("#bulletinItemDlg"),
-                        selectedItem: bi,
-                        itemView: new bulletinItemView({
-                            templateUri: '../../App_ViewTemplate/bulletin_item.html',
-                            updateUri: 'updatebulletin.aspx',
-                            downloadUri: 'download.aspx',
-                            model: bi
-                        })
-                    });
-
-                    bview.render();
-                }
+            {
+                records: bulletins,
+                target: bulletins,
+                orderby: "",
+                order: "desc",
+                rows: 10
             });
+
+            var bi = new bulletinItemModel({
+                urlRoot: 'bulletinAction.aspx'
+            });
+
+            bview = new bulletinListView(
+            {
+                templateUri: '../../App_ViewTemplate/bulletin_template.html',
+                model: r,
+                el: $("#bulletinList"),
+                itemDialog: $("#bulletinItemDlg"),
+                selectedItem: bi,
+                itemView: new bulletinItemView({
+                    templateUri: '../../App_ViewTemplate/bulletin_item.html',
+                    updateUri: 'updatebulletin.aspx',
+                    downloadUri: 'download.aspx',
+                    model: bi
+                })
+            });
+
+            bview.render();
         });
 
         function deleteBulletin(){

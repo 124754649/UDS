@@ -60,6 +60,7 @@ namespace UDS.SubModule.AM
             switch (method)
             {
                 case "q":
+#region 查询
                     try
                     {
                         string startIndex = Request.Params["startIndex"];
@@ -213,8 +214,10 @@ namespace UDS.SubModule.AM
                     {
                         Response.End();
                     }
+#endregion
                     break;
                 case "s":
+#region 保存
                     SqlConnection saveconn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
                     SqlTransaction trans = null;
                     try
@@ -264,8 +267,10 @@ namespace UDS.SubModule.AM
 
                         Response.End();
                     }
+#endregion
                     break;
                 case "u":
+#region 更新
                     SqlConnection updconn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
                     SqlTransaction updtrans = null;
                     try
@@ -316,6 +321,51 @@ namespace UDS.SubModule.AM
 
                         Response.End();
                     }
+#endregion
+                    break;
+                case "d":
+#region 删除
+                    string amid = Request.Params["amid"];
+
+                    SqlConnection delconn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ConnectionString);
+                    SqlTransaction deltrans = null;
+
+                    try
+                    {
+                        if (!string.IsNullOrWhiteSpace(amid))
+                        {
+                            string delSql = "delete from uds_assetmanagement where id = {0}";
+
+                            SqlCommand comm = delconn.CreateCommand();
+                            comm.Connection = delconn;
+                            comm.CommandText = string.Format(delSql, amid);
+
+                            delconn.Open();
+                            deltrans = delconn.BeginTransaction();
+                            comm.Transaction = deltrans;
+
+                            comm.ExecuteNonQuery();
+
+                            deltrans.Commit();
+                            delconn.Close();
+                        }
+                    }
+                    catch (Exception eX)
+                    {
+                        if (null != deltrans)
+                            deltrans.Rollback();
+
+                        Response.StatusCode = 400;
+                        Response.Write(eX.Message);
+                    }
+                    finally
+                    {
+                        if (ConnectionState.Open == delconn.State)
+                            delconn.Close();
+
+                        Response.End();
+                    }
+#endregion
                     break;
             }
         }
