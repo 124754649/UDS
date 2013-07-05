@@ -7,7 +7,8 @@
     events:{
         "click button#viewMore": "showMoreInfo",
         "click span#viewMore": "showMoreInfo",
-        "click button.removeBtn": "deleteSelected"
+        "click button.removeBtn": "deleteSelected",
+        "click a[data-command='page'][data-page]": "pageChanged",
     },
     initialize: function (options) {
         if (null == arguments[0])
@@ -16,6 +17,8 @@
             alert("初始化公告列表，必须指定模板Uri");
         else
             $.extend(this, options);
+
+        this.model.bind("change:page", this.render, this);
     },
     render: function () {
         if ('' == this.templateUri || null == this.templateUri) {
@@ -33,9 +36,14 @@
 
                 success: function (contents) {
                     context.template = _.template(contents);
-                    $(context.el).html(context.template({
-                        bulletins: context.model.get("records")
-                    }));
+                    context.model.fetch({
+                        success: function(data){
+                            $(context.el).html(context.template({
+                                bulletins: context.model.get("records"),
+                                pageInfo: context.model.pageInfo()
+                            }));
+                        }
+                    })
                 }
             });
 
@@ -47,8 +55,18 @@
             }
         }
     },
+    pageChanged: function (evt) {
+        var c = $(evt.target);
+
+        this.model.set("page", c.data("page"));
+    },
     showMoreInfo: function (evt) {
         var target = $(evt.target);
+
+        if (!target.data)
+            target = target.parent;
+        else if (!target.data("id"))
+            target = target.parent();
         
         if (null != this.selectedItem) {
             if (null != this.itemView) {
@@ -62,7 +80,16 @@
     deleteSelected: function (evt) {
         var target = $(evt.target);
 
+        var subjecttd = $('tr[data-id="' + target.data("id") + '"] td:eq(0)');
+
+        if (!confirm("要删除主题为：" + $.trim(subjecttd.text()) + "的公告吗？")) {
+            
+            return;
+        }
+
         var did = target.data("id");
+
+        var context = this;
 
         $.ajax({
             url: "updatebulletin.aspx",
@@ -72,7 +99,7 @@
             global: false,
             data: { m: 2, bid: did },
             success: function () {
-
+                context.render();
             }
         });
     }
