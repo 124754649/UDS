@@ -6,6 +6,7 @@
     itemView: null,
     events:{
         "click button#viewMore": "showMoreInfo",
+        "click span#viewMore": "showMoreInfo",
         "click button.removeBtn": "deleteSelected"
     },
     initialize: function (options) {
