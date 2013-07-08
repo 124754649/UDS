@@ -199,8 +199,8 @@ namespace UDS.SubModule.UnitiveDocument
 				this.txtClassName.Value = dataReader[0].ToString();
 				this.txtBrief.Value     = dataReader[7].ToString();
 				this.txtScale .Value    = dataReader[6].ToString();
-				this.txtStartDate.Text  = DateTime.Parse(dataReader[3].ToString()).ToString("yyyy-MM-dd");
-				this.txtEndDate.Text    = DateTime.Parse(dataReader[4].ToString()).ToString("yyyy-MM-dd");
+                this.txtStartDate.Text = dataReader.IsDBNull(3) ? "" : DateTime.Parse(dataReader[3].ToString()).ToString("yyyy-MM-dd");
+                this.txtEndDate.Text = dataReader.IsDBNull(4) ? "" : DateTime.Parse(dataReader[4].ToString()).ToString("yyyy-MM-dd");
 				this.Status.SelectedIndex = Int32.Parse(dataReader[5].ToString());
 				prj = null;
 				dataReader = null;

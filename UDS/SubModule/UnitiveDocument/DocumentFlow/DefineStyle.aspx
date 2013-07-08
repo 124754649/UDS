@@ -44,7 +44,7 @@
 								ValidationExpression="\d+"></asp:RegularExpressionValidator></TD>
 					</TR>
 					<TR>
-						<TD height="24">&nbsp;字锻意义：</TD>
+						<TD height="24">&nbsp;字段意义：</TD>
 						<TD style="WIDTH: 411px" height="24"><asp:textbox id="tbFieldDescription" runat="server" Width="148px" CssClass="InputCss"></asp:textbox>
 							<asp:RequiredFieldValidator id="RequiredFieldValidator1" runat="server" ErrorMessage="请输入字段意义" ControlToValidate="tbFieldDescription"></asp:RequiredFieldValidator></TD>
 						<TD style="WIDTH: 107px" noWrap height="24">&nbsp;高度：</TD>

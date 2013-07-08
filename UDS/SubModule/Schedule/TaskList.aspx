@@ -235,10 +235,7 @@
 		{ 
 			which.style.background = "#FFF8F7";
 			which.style.font.color = "#000000";
-		}
-		-->
-
-		   
+		}  
 		</SCRIPT>
 	</body>
 </HTML>

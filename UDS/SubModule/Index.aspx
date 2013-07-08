@@ -86,7 +86,7 @@
 			</div><!--/#sidebar-->
             <div id="main-content" class="clearfix" style="height:100%">
                 <div id="breadcrumbs">
-						<ul class="breadcrumb">
+						<ul class="breadcrumb" style="display:none">
 							<!--<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
 							<li class="active">Dashboard</li>-->
 						</ul><!--.breadcrumb-->
@@ -143,7 +143,7 @@
                     });
                 }
                 else {
-                    $("iframe#MainFrame").iframeAutoHeight({ debug:false, minHeight: 400, heightOffset: 40 });
+                    $("iframe#MainFrame").iframeAutoHeight({ debug:false, minHeight: 600, heightOffset: 40 });
                 }
 
                 //if (($.browser.msie && $.browser.version >= 9) || !$.browser.msie) {

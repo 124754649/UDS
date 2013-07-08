@@ -1,35 +1,32 @@
 <%@ Page language="c#" Codebehind="Index.aspx.cs" AutoEventWireup="false" Inherits="UDS.SubModule.SM.Index" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>ÏûÏ¢Ö÷Ò³</title>
-    <meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
-    <meta content="C#" name="CODE_LANGUAGE">
-    <meta content="JavaScript" name="vs_defaultClientScript">
-    <meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
     <link href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
+    <link href="../../Css/redmond/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" />
     <script language="javascript">
         function selectAll() {
-            var len = document.Index.elements.length;
-            var i;
-            for (i = 0; i < len; i++) {
-
-                if (document.Index.elements[i].type == "checkbox") {
-                    document.Index.elements[i].checked = true;
+            $(':checkbox').each(function () {
+                if (this.checked) {
+                    //this.checked = false;
                 }
-            }
+                else {
+                    this.checked = true;
+                }
+            });
 
         }
 
         function unSelectAll() {
-            var len = document.Index.elements.length;
-            var i;
-            for (i = 0; i < len; i++) {
-                if (document.Index.elements[i].type == "checkbox") {
-                    document.Index.elements[i].checked = false;
+            $(':checkbox').each(function () {
+                if (this.checked) {
+                    this.checked = false;
                 }
-
-            }
+                //else {
+                //    this.checked = true;
+                //}
+            });
         }
         function SendMsg(username, realname) {
             window.opener.parent.parent.MainFrame.location = '../SM/MsgSend.aspx?SendTo=' + username + '&SendToRealName=' + realname;
@@ -136,5 +133,7 @@
             </table>
         </font>
     </form>
+    <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-ui-1.10.3.custom.min.js"></script>
 </body>
 </html>
