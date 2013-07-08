@@ -1,16 +1,19 @@
 <%@ Page language="c#" Codebehind="ManageProject.aspx.cs" AutoEventWireup="false" Inherits="UDS.SubModule.UnitiveDocument.ManagerProject" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
-<HTML>
-	<HEAD>
-		<title>ManagerProject</title>
-		<meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
-		<meta content="C#" name="CODE_LANGUAGE">
-		<meta content="JavaScript" name="vs_defaultClientScript">
-		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-		<LINK href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
-		<script language="JavaScript" src="../../Css/meizzDate.js"></script>
-	</HEAD>
-	<body leftMargin="0" topMargin="0" MS_POSITIONING="GridLayout">
+<!DOCTYPE html >
+<html>
+<head>
+    <title>ManagerProject</title>
+    <link href="../../Css/BasicLayout.css" type="text/css" rel="stylesheet">
+    <link href="../../Css/redmond/jquery-ui-1.10.3.custom.min.css" type="text/css" rel="stylesheet" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+	<body>
 		<form id="ManagerProject" method="post" runat="server">
 			<table id="AutoNumber4" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="1"
 				cellSpacing="0" cellPadding="0" width="100%" border="0">
@@ -39,12 +42,12 @@
 				</tr>
 				<tr>
 					<td style="WIDTH: 67px" align="right" width="67" height="29">开始时间：</td>
-					<td width="78%" colSpan="4" height="19"><asp:textbox id="txtStartDate" onfocus="setday(this)" runat="server" CssClass="inputcss" readOnly
+					<td width="78%" colSpan="4" height="19"><asp:textbox ClientIDMode="Static" id="txtStartDate" runat="server"
 							Width="88px"></asp:textbox><asp:requiredfieldvalidator id="rfv2" runat="server" ErrorMessage="*" ControlToValidate="txtStartDate"></asp:requiredfieldvalidator></td>
 				</tr>
 				<tr>
 					<td style="WIDTH: 67px" align="right" width="67" height="29">结束时间：</td>
-					<td width="78%" colSpan="4" height="19"><asp:textbox id="txtEndDate" onfocus="setday(this)" runat="server" CssClass="inputcss" readOnly
+					<td width="78%" colSpan="4" height="19"><asp:textbox ClientIDMode="Static" id="txtEndDate" runat="server"
 							Width="88px"></asp:textbox><asp:requiredfieldvalidator id="rfv3" runat="server" ErrorMessage="*" ControlToValidate="txtEndDate"></asp:requiredfieldvalidator></td>
 				</tr>
 				<TR>
@@ -66,9 +69,32 @@
 				<tr>
 					<td style="WIDTH: 67px" align="right" width="67" height="21"></td>
 					<td width="78%" colSpan="4" height="30"><asp:button id="btnSubmit" runat="server" CssClass="ButtonCss" Text="提 交"></asp:button><asp:button id="btnRevise" runat="server" CssClass="ButtonCss" Text="修 改"></asp:button><FONT face="宋体">&nbsp;
-							<asp:button id="btnDelete" runat="server" CssClass="ButtonCss" Text="删除" Visible="False" CausesValidation="False"></asp:button></FONT><input class=ButtonCss onclick="javascript:self.location='Project.aspx?classID=<%=ClassID%>'" type=button value="返 回" name=cmdReturn></td>
+							<asp:button id="btnDelete" runat="server" CssClass="ButtonCss" Text="删除" Visible="False" CausesValidation="False"></asp:button></FONT><input class=ButtonCss onclick="javascript:self.location='Project.aspx?classID=<%=ClassID%>    '" type=button value="返 回" name=cmdReturn></td>
 				</tr>
 			</table>
 		</form>
+        <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="../../js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script type="text/javascript" src="../../js/jquery.ui.datepicker-zh-CN.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#txtStartDate").datepicker(
+                {
+                    onClose: function(selectedDate){
+                        $("#txtEndDate").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+
+                $("#txtEndDate").datepicker(
+                {
+                    onClose: function(selectedDate){
+                        $("#txtStartDate").datepicker("option", "maxDate", selectedDate);
+                    }
+                });
+
+                //$("#txtStartDate").datepicker("option", "dateFormat", "yy/mm/dd");
+                //$("#txtEndDate").datepicker("option", "dateFormat", "yy/mm/dd");
+            });
+        </script>
 	</body>
-</HTML>
+</html>

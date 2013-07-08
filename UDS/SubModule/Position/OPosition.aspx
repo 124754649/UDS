@@ -1,4 +1,3 @@
-<%@ Register TagPrefix="iewc" Namespace="Microsoft.Web.UI.WebControls" Assembly="Microsoft.Web.UI.WebControls" %>
 <%@ Page language="c#" Codebehind="OPosition.aspx.cs" AutoEventWireup="false" Inherits="UDS.SubModule.Position.OPosition" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
