@@ -105,6 +105,15 @@ namespace UDS.SubModule.UnitiveDocument
                             url = Page.ResolveUrl("~/SubModule/AM/index.aspx");
                             break;
 						default:
+                            if (int.Parse(classtype) < 0)
+                            {
+                                url = Page.ResolveUrl("~/SubModule/UnitiveDocument/DocumentFlow/NewDocument.aspx?FlowID=" + 
+                                    Math.Abs(int.Parse(classtype)).ToString());
+                            }
+                            else
+                            {
+
+                            }
 							break;
 					}
 					break;
