@@ -201,6 +201,22 @@
 					</div>
 				</div>
 			</div>
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="widget-box">
+						<div class="widget-header header-color-blue">
+							<h5><i class="icon-file-alt"></i>ΩÒ»’«ÎºŸ</h5>
+						</div>
+                        <div class="widget-body">
+							<div class="widget-body-inner" style="display: block">
+								<div class="widget-main no-padding" id="afllist">
+									
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</form>
     <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
@@ -211,6 +227,7 @@
     <script type="text/javascript" src="../../js/jquery.fileDownload.js"></script>
     <script type="text/javascript" src="../../js/records.js"></script>
     <script type="text/javascript" src="../../js/udsBulletin.js"></script>
+    <script type="text/javascript" src="../../js/commonControl.js"></script>
 	<script language="javascript">
 		function gotoMail(mailid) {
 			var url = '<%= ResolveUrl("Mail/ReadMail.aspx?FolderType=1&MailId=") %>' + mailid;
@@ -252,6 +269,14 @@
             });
 
 	        bview.render();
+
+	        var aflTable = new commonView({
+	            dataUrl: '<%= Page.ResolveClientUrl("~/SubModule/AFK/index.aspx?m=afl") %>',
+	            templateUrl: '<%= Page.ResolveClientUrl("~/App_ViewTemplate/afl_table.html") %>',
+                el: $("#afllist")
+	        });
+
+	        aflTable.render();
 	    });
 	</script>
 </body>

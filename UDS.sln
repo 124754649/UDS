@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "数据库脚本", "数据�
 		数据库脚本\UDS_Bulletin.sql = 数据库脚本\UDS_Bulletin.sql
 		数据库脚本\UDS_BulletinAttachment.sql = 数据库脚本\UDS_BulletinAttachment.sql
 		数据库脚本\UDS_BulletingReadList.sql = 数据库脚本\UDS_BulletingReadList.sql
+		数据库脚本\vw_askforleave_base.sql = 数据库脚本\vw_askforleave_base.sql
+		数据库脚本\vw_askforleave_list.sql = 数据库脚本\vw_askforleave_list.sql
 	EndProjectSection
 EndProject
 Global
