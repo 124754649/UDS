@@ -1,0 +1,22 @@
+﻿<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>时长</th>
+            <th>时间范围</th>
+            <th>缘由</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% _.each(data, function(d, index){ %>
+        <tr>
+            <td><%= d.name %></td>
+            <td><%= d.duration %></td>
+            <td><%= d.startingHour %>:<%= d.startingMinute %> - <%= d.expiringHour %>:<%= d.expiringMinute %></td>
+            <td><%= d.reason %></td>
+            <td><%= d.remark %></td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>

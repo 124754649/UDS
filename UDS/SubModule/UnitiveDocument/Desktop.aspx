@@ -216,6 +216,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="span8">
+                    <div class="widget-box">
+						<div class="widget-header header-color-blue">
+							<h5><i class="icon-file-alt"></i>»À‘±∂ØÃ¨</h5>
+						</div>
+                        <div class="widget-body">
+							<div class="widget-body-inner" style="display: block">
+								<div class="widget-main no-padding" id="afklist">
+									
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 		</div>
 	</form>
@@ -277,6 +291,14 @@
 	        });
 
 	        aflTable.render();
+
+	        var afkTable = new commonView({
+	            dataUrl: '<%= Page.ResolveClientUrl("~/SubModule/AFK/index.aspx?m=afk") %>',
+	            templateUrl: '<%= Page.ResolveClientUrl("~/App_ViewTemplate/afk_table.html") %>',
+	            el: $("#afklist")
+	        });
+
+	        afkTable.render();
 	    });
 	</script>
 </body>
