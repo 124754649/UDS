@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using UDS.Components;
+using HigLabo.Net.Pop3;
 
 
 namespace UDS.SubModule.UnitiveDocument.Mail.External
@@ -199,34 +200,44 @@ namespace UDS.SubModule.UnitiveDocument.Mail.External
 
 		private void TestPopConn(string PopServer,string Uname,string Pwd,string Port,int OrderID)
 		{
-			int Count;
-			jmail.Message Msg=new jmail.Message();
-			jmail.POP3 jpop = new jmail.POP3();
+			long Count;
+			//jmail.Message Msg=new jmail.Message();
+			//jmail.POP3 jpop = new jmail.POP3();
+            Pop3Client cl = new Pop3Client(PopServer);
+            cl.UserName = Uname;
+            cl.Password = Pwd;
+            cl.Ssl = false;
+            cl.Port = int.Parse(Port);
+
 			try
 			{
 			
-				jpop.Connect(Uname,Pwd,PopServer,Int32.Parse(Port));
-				
-				Count = jpop.Count;
-				switch (OrderID) 
-				{
-					case 1:
-						this.lblResultRep1.Visible = true;
-						this.lblResultRep1.Text = "测试成功,共有 "+Count.ToString()+" 封邮件";
-						break;
-					case 2:
-						this.lblResultRep2 .Visible = true;
-						this.lblResultRep2.Text = "测试成功,共有 "+Count.ToString()+" 封邮件";
-						break;
-					case 3:
-						this.lblResultRep3 .Visible = true;
-						this.lblResultRep3.Text = "测试成功,共有 "+Count.ToString()+" 封邮件";
-						break;
-					default:
-						break;
-				}
-				
-				jpop.Disconnect();
+				//jpop.Connect(Uname,Pwd,PopServer,Int32.Parse(Port));
+                if (cl.Authenticate())
+                {
+                    //Count = jpop.Count;
+                    Count = cl.GetTotalMessageCount();
+                    switch (OrderID)
+                    {
+                        case 1:
+                            this.lblResultRep1.Visible = true;
+                            this.lblResultRep1.Text = "测试成功,共有 " + Count.ToString() + " 封邮件";
+                            break;
+                        case 2:
+                            this.lblResultRep2.Visible = true;
+                            this.lblResultRep2.Text = "测试成功,共有 " + Count.ToString() + " 封邮件";
+                            break;
+                        case 3:
+                            this.lblResultRep3.Visible = true;
+                            this.lblResultRep3.Text = "测试成功,共有 " + Count.ToString() + " 封邮件";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    //jpop.Disconnect();
+                    cl.Close();
+                }
 			
 			}
 			catch(Exception e)

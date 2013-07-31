@@ -42,33 +42,33 @@ namespace UDS.Entity
             set { reason = value; }
         }
         [DataMember]
-        private int startingHour;
+        private string startingHour;
 
-        public int StartingHour
+        public string StartingHour
         {
             get { return startingHour; }
             set { startingHour = value; }
         }
         [DataMember]
-        private int startingMinute;
+        private string startingMinute;
 
-        public int StartingMinute
+        public string StartingMinute
         {
             get { return startingMinute; }
             set { startingMinute = value; }
         }
         [DataMember]
-        private int expiringHour;
+        private string expiringHour;
 
-        public int ExpiringHour
+        public string ExpiringHour
         {
             get { return expiringHour; }
             set { expiringHour = value; }
         }
         [DataMember]
-        private int expiringMinute;
+        private string expiringMinute;
 
-        public int ExpiringMinute
+        public string ExpiringMinute
         {
             get { return expiringMinute; }
             set { expiringMinute = value; }

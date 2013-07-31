@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDS", "UDS\UDS.csproj", "{E8BB8FB5-2575-4F29-8185-F35168DA25ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDS.Data", "UDS.Data\UDS.Data.csproj", "{1786ED26-F2A5-45CB-A3FD-14B3685ACC7F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35B9FC2D-CB72-4F3A-A20E-8707160D4911}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "数据库脚本", "数据库脚本", "{B950E3E7-1D2A-4C6F-BEAD-5E0C5CF0412A}"
@@ -32,12 +30,6 @@ Global
 		{E8BB8FB5-2575-4F29-8185-F35168DA25ED}.Debug-C|Any CPU.Build.0 = Debug-C|Any CPU
 		{E8BB8FB5-2575-4F29-8185-F35168DA25ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8BB8FB5-2575-4F29-8185-F35168DA25ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1786ED26-F2A5-45CB-A3FD-14B3685ACC7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1786ED26-F2A5-45CB-A3FD-14B3685ACC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1786ED26-F2A5-45CB-A3FD-14B3685ACC7F}.Debug-C|Any CPU.ActiveCfg = Debug-C|Any CPU
-		{1786ED26-F2A5-45CB-A3FD-14B3685ACC7F}.Debug-C|Any CPU.Build.0 = Debug-C|Any CPU
-		{1786ED26-F2A5-45CB-A3FD-14B3685ACC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1786ED26-F2A5-45CB-A3FD-14B3685ACC7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

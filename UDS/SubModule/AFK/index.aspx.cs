@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UDS.Entity;
 
 namespace UDS.SubModule.AFK
@@ -47,20 +48,11 @@ namespace UDS.SubModule.AFK
                             reader.Close();
                             conn.Close();
 
-                            var jsonSer = new Newtonsoft.Json.JsonSerializer();
-                            StringWriter sw = new StringWriter();
-                            using (JsonWriter jw = new JsonTextWriter(sw))
-                            {
-                                jw.DateFormatString = "yyyy年MM月dd日";
-                                jw.Formatting = Formatting.Indented;
-
-                                jsonSer.Serialize(jw, retValues);
-                            }
-
                             Response.ContentType = "application/json";
 
-                            Response.Write(sw.ToString());
-                            sw.Close();
+                            Response.Write(JsonConvert.SerializeObject(retValues, 
+                                Formatting.Indented, 
+                                new IsoDateTimeConverter() { DateTimeFormat = "yyyy年MM月dd日" }));
                         }
                         catch (Exception eX)
                         {
@@ -98,30 +90,21 @@ namespace UDS.SubModule.AFK
                                 r.Duration = reader.GetString(1);
                                 r.Remark = reader.GetString(2);
                                 r.Reason = reader.GetString(3);
-                                r.StartingHour = reader.GetInt32(4);
-                                r.StartingMinute = reader.GetInt32(5);
-                                r.ExpiringHour = reader.GetInt32(6);
-                                r.ExpiringMinute = reader.GetInt32(7);
+                                r.StartingHour = reader.GetString(4);
+                                r.StartingMinute = reader.GetString(5);
+                                r.ExpiringHour = reader.GetString(6);
+                                r.ExpiringMinute = reader.GetString(7);
 
                                 retValues.Add(r);
                             }
                             reader.Close();
                             conn.Close();
 
-                            var jsonSer = new Newtonsoft.Json.JsonSerializer();
-                            StringWriter sw = new StringWriter();
-                            using (JsonWriter jw = new JsonTextWriter(sw))
-                            {
-                                jw.DateFormatString = "yyyy年MM月dd日";
-                                jw.Formatting = Formatting.Indented;
-
-                                jsonSer.Serialize(jw, retValues);
-                            }
-
                             Response.ContentType = "application/json";
 
-                            Response.Write(sw.ToString());
-                            sw.Close();
+                            Response.Write(JsonConvert.SerializeObject(retValues, 
+                                Formatting.Indented, 
+                                new IsoDateTimeConverter() { DateTimeFormat = "yyyy年MM月dd日" }));
                         }
                         catch (Exception eX)
                         {

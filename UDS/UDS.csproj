@@ -39,13 +39,50 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HigLabo.Data">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Mail">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Mail.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.BoxNet">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.BoxNet.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.Dropbox">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.Dropbox.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.Facebook">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.Ftp">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.Ftp.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.Rss">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.Rss.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.SugarSync">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.SugarSync.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.Twitter">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.Net.WindowsLive">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.Net.WindowsLive.dll</HintPath>
+    </Reference>
+    <Reference Include="HigLabo.WindowsAzure.RestService">
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\HigLabo.WindowsAzure.RestService.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.jmail">
       <HintPath>..\lib\Interop.jmail.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=b9a188c8922137c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\HigLabo.2.3.4.0\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
@@ -2404,6 +2441,7 @@
     <Content Include="ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="ckeditor\plugins\wsc\README.md" />
     <Content Include="ckeditor\skins\kama\readme.md" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />

@@ -6,7 +6,8 @@
     <meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
     <meta content="C#" name="CODE_LANGUAGE">
     <meta content="JavaScript" name="vs_defaultClientScript">
-    <script language="javascript">
+    <script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+    <script language="javascript" type="text/javascript">
 
         var ball1 = new Image();
         var ball2 = new Image();
@@ -40,13 +41,16 @@
         }
 
         function selectAll() {
-            var len = document.MailList.elements.length;
-            var i;
-            for (i = 0; i < len; i++) {
-                if (document.MailList.elements[i].type == "checkbox") {
-                    document.MailList.elements[i].checked = true;
-                }
-            }
+            //var len = document.MailList.elements.length;
+            //var i;
+            //for (i = 0; i < len; i++) {
+            //    if (document.MailList.elements[i].type == "checkbox") {
+            //        document.MailList.elements[i].checked = true;
+            //    }
+            //}
+            $('input[type="checkbox"]').each(function (index, c) {
+                c.checked = true;
+            });
         }
 
         function unSelectAll() {

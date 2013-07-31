@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using Newtonsoft.Json.Converters;
 
 namespace UDS.SubModule.AM
 {
@@ -190,20 +191,11 @@ namespace UDS.SubModule.AM
                             conn.Close();
                         }
 
-                        var jsonSer = new Newtonsoft.Json.JsonSerializer();
-                        StringWriter sw = new StringWriter();
-                        using (JsonWriter jw = new JsonTextWriter(sw))
-                        {
-                            jw.DateFormatString = "yyyy年MM月dd日";
-                            jw.Formatting = Formatting.Indented;
-
-                            jsonSer.Serialize(jw, pr);
-                        }
-
                         Response.ContentType = "application/json";
 
-                        Response.Write(sw.ToString());
-                        sw.Close();
+                        Response.Write(JsonConvert.SerializeObject(pr, 
+                                Formatting.Indented, 
+                                new IsoDateTimeConverter() { DateTimeFormat = "yyyy年MM月dd日" }));
                     }
                     catch (Exception eX)
                     {

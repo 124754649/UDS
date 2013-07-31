@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Collections ;
 using System.Configuration;
+using HigLabo.Net.Pop3;
+using HigLabo.Net.Mail;
 
 namespace UDS.Components
 {
@@ -521,7 +523,7 @@ namespace UDS.Components
 		/// 外部邮件主体保存
 		/// </summary>
 		/// <param name="mailbody">Mail类</param>
-		public void SaveExtMail(jmail.Message JMsg,string Username,string Email,string MessageID) 
+		public void SaveExtMail(MailMessage JMsg,string Username,string Email) 
 		{		
 			
 			// create data object and params
@@ -549,16 +551,17 @@ namespace UDS.Components
 								   };
 			*/
 			SqlParameter[] prams = {
-									   data.MakeInParam("@MailID",    SqlDbType.NVarChar , 100, MessageID),
+									   data.MakeInParam("@MailID",    SqlDbType.NVarChar , 100, JMsg.MessageID),
 									   data.MakeInParam("@Username",  SqlDbType.NVarChar, 300, Username),
 									   data.MakeInParam("@Email",     SqlDbType.NVarChar, 100,Email),
 									   data.MakeInParam("@ReadFlag",  SqlDbType.Bit,1, 0),
 									   data.MakeInParam("@FolderID",  SqlDbType.Int, 20, 1),
-									   data.MakeInParam("@HeadersText",  SqlDbType.NVarChar, 1000, JMsg.Headers .ToString()),
+									   data.MakeInParam("@HeadersText",  SqlDbType.NVarChar, 1000, JMsg.HeaderData.ToString()),
 									   data.MakeInParam("@Subject",   SqlDbType.NVarChar, 100, JMsg.Subject.ToString()),
-									   data.MakeInParam("@TextContent",  SqlDbType.NVarChar , 3000, JMsg.Text.ToString()),
-									   data.MakeInParam("@HtmlContent",  SqlDbType.NVarChar, 3000, JMsg.HTMLBody.ToString()),
-									   data.MakeInParam("@FromName",  SqlDbType.NVarChar, 300, JMsg.FromName.ToString()),
+									   data.MakeInParam("@TextContent",  SqlDbType.NVarChar , 3000, JMsg.BodyText.ToString()),
+                                       
+									   data.MakeInParam("@HtmlContent",  SqlDbType.NVarChar, 3000, null == JMsg.BodyContent?"":JMsg.BodyContent.BodyText.ToString()),
+									   data.MakeInParam("@FromName",  SqlDbType.NVarChar, 300, JMsg.From.ToString()),
 									   data.MakeInParam("@FromEmail", SqlDbType.NVarChar, 200, ""),
 									   data.MakeInParam("@CcTo",      SqlDbType.NVarChar, 200,""),
 									   data.MakeInParam("@BccTo",     SqlDbType.NVarChar, 200, ""),
@@ -586,8 +589,9 @@ namespace UDS.Components
 
 		public void ReceiveMails(string Username,int OrderID)
 		{
-			jmail.Message Msg=new jmail.Message();
-			jmail.POP3 jpop = new jmail.POP3();
+			//jmail.Message Msg=new jmail.Message();
+			//jmail.POP3 jpop = new jmail.POP3();
+
 			if(OrderID!=0)
 			{
 				SqlDataReader dataReader = this.ExtGetSetting(Username,OrderID);
@@ -595,14 +599,34 @@ namespace UDS.Components
 				{
 					if(dataReader["PopServer"].ToString()!=""&&dataReader["PopUsername"].ToString()!="")
 					{
-						jpop.Connect(dataReader["PopUsername"].ToString(),dataReader["PopPassword"].ToString(),dataReader["PopServer"].ToString(),Int32.Parse(dataReader["PopPort"].ToString()));
-						for(int i=1;i<=jpop.Count;i++)
-						{
-							Msg = jpop.Messages[i];
-							this.SaveExtMail(Msg,Username,dataReader["Email"].ToString(),jpop.GetMessageUID(i));
-							
-						}
-						jpop.Disconnect();
+						//jpop.Connect(dataReader["PopUsername"].ToString(),dataReader["PopPassword"].ToString(),dataReader["PopServer"].ToString(),Int32.Parse(dataReader["PopPort"].ToString()));
+
+                        Pop3Client cl = new Pop3Client(dataReader["PopServer"].ToString());
+                        cl.UserName = dataReader["PopUsername"].ToString();
+                        cl.Password = dataReader["PopPassword"].ToString();
+                        cl.Port = Int32.Parse(dataReader["PopPort"].ToString());
+
+                        try
+                        {
+                            if (cl.Authenticate())
+                            {
+                                long mailCount = cl.GetTotalMessageCount();
+
+                                for (int i = 1; i <= mailCount; i++)
+                                {
+                                    this.SaveExtMail(cl.GetMessage(i), Username, dataReader["Email"].ToString());
+
+                                }
+                            }
+                        }
+                        catch (Exception eX)
+                        {
+                            throw eX;
+                        }
+                        finally
+                        {
+                            cl.Close();
+                        }
 					}
 				}
 			}

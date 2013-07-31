@@ -359,13 +359,13 @@ namespace UDS.SubModule.UnitiveDocument.Mail
 					string id	= dgMailList.DataKeys[i].ToString();				
 					if (sqlFlag)
 					{
-						sql+=" MailID= "+id;
+						sql+=" MailID= '"+id + "'";
 						sqlFlag=false;
 					}
 					else
 					{
 						sql+=" or";
-						sql+=" MailID= "+id;
+						sql+=" MailID= '"+id + "'";
 					}
 				}
 			}
@@ -383,8 +383,12 @@ namespace UDS.SubModule.UnitiveDocument.Mail
 					{
 						mail.MailDelete(sql,1);//³¹µ×É¾³ý
 					}
-					else
+					else if(Session["FolderType"].ToString() == "4")
 					{
+                        mail.MailDelete(sql, 40);
+                    }
+                    else
+                    {
 						mail.MailDelete(sql,0);//¶ªµ½·Ï¼þÏä
 					}
 				
