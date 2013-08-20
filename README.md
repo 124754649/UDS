@@ -19,7 +19,7 @@ UDS
 
 3、部分页面布局采用twitter bootstrap 2.3
 
-4、部分控件改用Jquery UI 1.9
+4、部分控件改用Jquery UI 1.10.3
 
 5、采用了backbonejs
 
